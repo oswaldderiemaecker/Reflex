@@ -1,0 +1,71 @@
+<div class="page-header">
+    <h2>Reflex 360º <small></small></h2>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav">
+                <li><a href="#/admin/country">Países</a></li>
+                <li><a href="#/admin/company">Empresas</a></li>
+                <li><a href="#/admin/business_unit">Unidad de Negocios</a></li>
+            </ul>
+        </div>
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+                <div class="panel-heading"><h4>Nueva Unidad de Negocio</h4></div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="company_id">Empresa:</label>
+                    <select id="company_id" class="form-control" ng-options="item.id as item.name for item in companies" ng-model="newBusinessUnit.company_id">
+                        <option value="">Seleccionar Empresa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="code">Codigo:</label>
+                    <input type="text" class="form-control" id="code" ng-model="newBusinessUnit.code">
+                </div>
+                <div class="form-group">
+                    <label for="code">Nombre:</label>
+                    <input type="text" class="form-control" id="name" ng-model="newBusinessUnit.name">
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción:</label>
+
+                    <textarea class="form-control" rows="3" id="description" ng-model="newBusinessUnit.description"></textarea>
+                </div>
+
+                <button class="btn btn-primary" type="button" ng-click="addBusinessUnit()">Grabar</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Empresa</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="businessUnit in businessUnits">
+                    <td>{{businessUnit.id}}</td>
+                    <td>{{businessUnit.code}}</td>
+                    <td><b>{{businessUnit.name}}</b></td>
+                    <td><b>{{businessUnit.company.name}}</b></td>
+                    <td><button class="btn btn-danger glyphicon glyphicon-trash" type="button" ng-click="removeBusinessUnit(businessUnit)"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
