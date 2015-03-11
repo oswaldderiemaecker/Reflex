@@ -108,3 +108,40 @@ app.controller('BusinessUnitController', function($scope, $http) {
     }
 });
 
+app.controller('SubBusinessUnitController', function($scope, $http) {
+
+    $scope.subBusinessUnits  = [];
+    $scope.newSubBusinessUnit = {};
+
+    $scope.businessUnits = [];
+
+    $http.get('/api/business_units').
+        success(function(data, status, headers, config) {
+            $scope.businessUnits = data;
+        });
+
+    $http.get('/api/sub_business_units').
+        success(function(data, status, headers, config) {
+            $scope.subBusinessUnits = data;
+        });
+
+    $scope.removeSubBusinessUnit = function(subBusinessUnit) {
+        $http.delete('/api/sub_business_units/' + subBusinessUnit.id).
+            success(function(data, status, headers, config) {
+                for (var index = 0; index < $scope.subBusinessUnits.length; ++index) {
+                    if ($scope.subBusinessUnits[index].id == subBusinessUnit.id) {
+                        $scope.subBusinessUnits.splice(index, 1);
+                    }
+                }
+            });
+    };
+
+    $scope.addSubBusinessUnit = function() {
+        $http.post('/api/sub_business_units', $scope.newSubBusinessUnit).
+            success(function(data, status, headers, config) {
+
+                $scope.subBusinessUnits.push(data);
+                $scope.newSubBusinessUnit = {};
+            });
+    }
+});

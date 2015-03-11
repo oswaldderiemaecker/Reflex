@@ -18,29 +18,29 @@
 <div class="row">
     <div class="col-md-3">
         <div class="panel panel-default">
-                <div class="panel-heading"><h4>Nueva Unidad de Negocio</h4></div>
+                <div class="panel-heading"><h4>Nueva Sub Unidad de Negocios</h4></div>
             <div class="panel-body">
                 <div class="form-group">
-                    <label for="company_id">Empresa:</label>
-                    <select id="company_id" class="form-control" ng-options="item.id as item.name for item in companies" ng-model="newBusinessUnit.company_id">
-                        <option value="">Seleccionar Empresa</option>
+                    <label for="business_unit_id">Unidad de Negocio:</label>
+                    <select id="business_unit_id" class="form-control" ng-options="item.id as item.name+' - '+item.company.code for item in businessUnits" ng-model="newSubBusinessUnit.business_unit_id">
+                        <option value="">Seleccionar Unidad</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="code">Codigo:</label>
-                    <input type="text" class="form-control" id="code" ng-model="newBusinessUnit.code">
+                    <input type="text" class="form-control" id="code" ng-model="newSubBusinessUnit.code">
                 </div>
                 <div class="form-group">
                     <label for="code">Nombre:</label>
-                    <input type="text" class="form-control" id="name" ng-model="newBusinessUnit.name">
+                    <input type="text" class="form-control" id="name" ng-model="newSubBusinessUnit.name">
                 </div>
                 <div class="form-group">
                     <label for="description">Descripción:</label>
 
-                    <textarea class="form-control" rows="3" id="description" ng-model="newBusinessUnit.description"></textarea>
+                    <textarea class="form-control" rows="3" id="description" ng-model="newSubBusinessUnit.description"></textarea>
                 </div>
 
-                <button class="btn btn-primary" type="button" ng-click="addBusinessUnit()">Grabar</button>
+                <button class="btn btn-primary" type="button" ng-click="addSubBusinessUnit()">Grabar</button>
 
             </div>
         </div>
@@ -53,17 +53,17 @@
                     <th>Id</th>
                     <th>Codigo</th>
                     <th>Nombre</th>
-                    <th>Empresa</th>
+                    <th>Unidad Negocio</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="businessUnit in businessUnits">
-                    <td>{{businessUnit.id}}</td>
-                    <td>{{businessUnit.code}}</td>
-                    <td><b>{{businessUnit.name}}</b></td>
-                    <td><b>{{businessUnit.company.name}}</b></td>
-                    <td><button class="btn btn-danger glyphicon glyphicon-trash" type="button" ng-click="removeBusinessUnit(businessUnit)"></td>
+                <tr ng-repeat="subBusinessUnit in subBusinessUnits">
+                    <td>{{subBusinessUnit.id}}</td>
+                    <td>{{subBusinessUnit.code}}</td>
+                    <td><b>{{subBusinessUnit.name}}</b></td>
+                    <td><b>{{subBusinessUnit.business_unit.name}} - {{subBusinessUnit.business_unit.company.code}}</b></td>
+                    <td><button class="btn btn-danger glyphicon glyphicon-trash" type="button" ng-click="removeSubBusinessUnit(subBusinessUnit)"></td>
                 </tr>
             </tbody>
         </table>
