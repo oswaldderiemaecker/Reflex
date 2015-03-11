@@ -98,7 +98,7 @@ class SubBusinessUnitController extends Controller {
      */
     public function destroy($id)
     {
-        $this->$subBusinessUnit->findOrFail($id)->delete();
+        $this->subBusinessUnit->findOrFail($id)->delete();
     }
 
 }
