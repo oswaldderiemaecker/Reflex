@@ -139,11 +139,11 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'App\Providers\AppServiceProvider',
-		'App\Providers\BusServiceProvider',
-		'App\Providers\ConfigServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+		'Reflex\Providers\AppServiceProvider',
+		'Reflex\Providers\BusServiceProvider',
+		'Reflex\Providers\ConfigServiceProvider',
+		'Reflex\Providers\EventServiceProvider',
+		'Reflex\Providers\RouteServiceProvider',
 
 	],
 
@@ -192,6 +192,7 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+        'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 
 	],
 

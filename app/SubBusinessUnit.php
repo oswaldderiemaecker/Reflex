@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace Reflex;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,6 +20,6 @@ class SubBusinessUnit extends Model {
 
     public function business_unit()
     {
-        return $this->belongsTo('App\BusinessUnit');
+        return $this->belongsTo('Reflex\BusinessUnit');
     }
 }

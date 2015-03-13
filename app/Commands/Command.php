@@ -1,4 +1,4 @@
-<?php namespace App\Commands;
+<?php namespace Reflex\Commands;
 
 abstract class Command {
 

@@ -22,7 +22,10 @@ app.config(['$routeProvider',
     when('/admin/sub_business_unit', {
         templateUrl: 'js/view/sub_business_unit.html',
         controller: 'SubBusinessUnitController'
-    }).otherwise({
+    }).when('/admin/zone', {
+            templateUrl: 'js/view/zone.html',
+            controller: 'ZoneController'
+        }).otherwise({
             redirectTo: '/admin/country'
         });
     }]);

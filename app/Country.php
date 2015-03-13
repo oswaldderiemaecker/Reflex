@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace Reflex;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

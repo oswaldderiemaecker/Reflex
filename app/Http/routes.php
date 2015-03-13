@@ -27,5 +27,8 @@ Route::group(array('prefix' => 'api'), function(){
     Route::resource('companies', 'CompanyController');
     Route::resource('business_units', 'BusinessUnitController');
     Route::resource('sub_business_units', 'SubBusinessUnitController');
+    Route::resource('zones', 'ZoneController');
+    Route::resource('users', 'UserController');
+    Route::resource('regions', 'RegionController');
 
 });

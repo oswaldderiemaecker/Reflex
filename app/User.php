@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace Reflex;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +22,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password'];
+	protected $fillable = ['role_id', 'company_id',
+'business_unit_id', 'sub_business_unit_id', 'supervisor_id',
+'code', 'firstname', 'lastname', 'closeup_name', 'email',
+'username', 'photo', 'facebook_token', 'google_token'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -31,4 +34,28 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    public function role()
+    {
+        return $this->belongsTo('Reflex\Role');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo('Reflex\Company');
+    }
+
+    public function business_unit()
+    {
+        return $this->belongsTo('Reflex\BusinessUnit');
+    }
+
+    public function sub_business_unit()
+    {
+        return $this->belongsTo('Reflex\SubBusinessUnit');
+    }
+
+    public function supervisor()
+    {
+        return $this->belongsTo('Reflex\User','id','supervisor_id');
+    }
 }

@@ -145,3 +145,54 @@ app.controller('SubBusinessUnitController', function($scope, $http) {
             });
     }
 });
+
+
+app.controller('ZoneController', function($scope, $http) {
+
+    $scope.zones   = [];
+    $scope.newZone = {};
+
+    $scope.businessUnits = [];
+    $scope.companies = [];
+    $scope.regions = [];
+
+    $http.get('/api/business_units').
+        success(function(data, status, headers, config) {
+            $scope.businessUnits = data;
+        });
+
+    $http.get('/api/companies').
+        success(function(data, status, headers, config) {
+            $scope.companies = data;
+        });
+
+    $http.get('/api/regions').
+        success(function(data, status, headers, config) {
+            $scope.regions = data;
+        });
+
+    $http.get('/api/zones').
+        success(function(data, status, headers, config) {
+            $scope.zones = data;
+        });
+
+    $scope.removeZone = function(zone) {
+        $http.delete('/api/zones/' + zone.id).
+            success(function(data, status, headers, config) {
+                for (var index = 0; index < $scope.zones.length; ++index) {
+                    if ($scope.zones[index].id == zone.id) {
+                        $scope.zones.splice(index, 1);
+                    }
+                }
+            });
+    };
+
+    $scope.addZone = function() {
+        $http.post('/api/zones', $scope.newZone).
+            success(function(data, status, headers, config) {
+
+                $scope.zones.push(data);
+                $scope.newZone = {};
+            });
+    }
+});

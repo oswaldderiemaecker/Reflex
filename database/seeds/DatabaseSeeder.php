@@ -14,7 +14,42 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		// $this->call('UserTableSeeder');
+        $this->call('RolesTableSeeder');
+
+        $this->command->info('Roles Table Seeded!');
+
+        $this->call('CountriesTableSeeder');
+
+        $this->command->info('Countries Table Seeded!');
+
+        $this->call('CompaniesTableSeeder');
+
+        $this->command->info('Companies Table Seeded!');
+
+        $this->call('PlacesTableSeeder');
+
+        $this->command->info('Places Table Seeded!');
+
+        $this->call('ReasonsTableSeeder');
+
+        $this->command->info('Reasons Table Seeded!');
+
+        $this->call('CategoriesTableSeeder');
+
+        $this->command->info('Categories Table Seeded!');
+
+        $this->call('BusinessUnitsTableSeeder');
+
+        $this->command->info('Business Units Table Seeded!');
+
+        $this->call('SubBusinessUnitsTableSeeder');
+
+        $this->command->info('Sub Business Units Table Seeded!');
+
+        $this->call('UsersTableSeeder');
+
+        $this->command->info('Users Table Seeded!');
+
 	}
 
 }

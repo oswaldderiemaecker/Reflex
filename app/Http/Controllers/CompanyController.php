@@ -1,7 +1,7 @@
-<?php namespace App\Http\Controllers;
+<?php namespace Reflex\Http\Controllers;
 
-use App\Company;
-use App\Http\Requests;
+use Reflex\Company;
+use Reflex\Http\Requests;
 
 use Illuminate\Routing\ResponseFactory;
 

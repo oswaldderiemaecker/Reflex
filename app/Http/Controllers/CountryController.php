@@ -1,7 +1,7 @@
-<?php namespace App\Http\Controllers;
+<?php namespace Reflex\Http\Controllers;
 
-use App\Country;
-use App\Http\Requests;
+use Reflex\Country;
+use Reflex\Http\Requests;
 use Illuminate\Routing\ResponseFactory;
 
 class CountryController extends Controller {

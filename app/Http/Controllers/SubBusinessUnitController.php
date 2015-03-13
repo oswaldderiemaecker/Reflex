@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace Reflex\Http\Controllers;
 
-use App\Http\Requests;
+use Reflex\Http\Requests;
 
-use App\SubBusinessUnit;
+use Reflex\SubBusinessUnit;
 use Illuminate\Routing\ResponseFactory;
 
 class SubBusinessUnitController extends Controller {
@@ -86,7 +86,7 @@ class SubBusinessUnitController extends Controller {
      */
     public function update(Request $request, $id)
     {
-        $subBusinessUnit = $this->$subBusinessUnit->findOrFail($id);
+        $subBusinessUnit = $this->subBusinessUnit->findOrFail($id);
         $subBusinessUnit->update($request->all());
     }
 

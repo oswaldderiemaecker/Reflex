@@ -47,11 +47,11 @@ class CreateZonesTable extends Migration {
 		{
 			$table->increments('id');
             $table->integer('company_id')->unsigned();
-            $table->integer('region_id')->unsigned();
+            $table->integer('region_id', false, true)->nullable();
             $table->integer('business_unit_id', false, true)->nullable();
             $table->string('code',10);
             $table->string('name',100);
-            $table->string('hidden_name',100);
+            $table->string('hidden_name',100)->nullable();
             $table->string('description')->nullable();
             $table->integer('qty_doctors')->nullable();
             $table->integer('qty_contacts_am')->nullable();
@@ -86,15 +86,7 @@ class CreateZonesTable extends Migration {
             $table->foreign('region_id')->references('id')->on('regions');
         });
 
-        Schema::create('roles', function(Blueprint $table)
-        {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->string('code',10)->unique();
-            $table->string('name',100);
-            $table->string('description')->nullable();
-            $table->timestamps();
-        });
+
 
         Schema::create('zone_locations', function(Blueprint $table)
         {
@@ -129,7 +121,6 @@ class CreateZonesTable extends Migration {
 	{
         Schema::drop('zone_users');
         Schema::drop('zone_locations');
-        Schema::drop('roles');
         Schema::drop('locations');
         Schema::drop('zones');
         Schema::drop('regions');

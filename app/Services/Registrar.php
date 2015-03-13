@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace Reflex\Services;
 
-use App\User;
+use Reflex\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

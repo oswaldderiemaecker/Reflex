@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace Reflex;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,7 +20,7 @@ class Company extends Model {
 
     public function country()
     {
-        return $this->belongsTo('App\Country');
+        return $this->belongsTo('Reflex\Country');
     }
 
 

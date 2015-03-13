@@ -33,5 +33,11 @@ return [
 		'model'  => 'User',
 		'secret' => '',
 	],
+    'google' => [
+        'client_id' => '741360746130-j22f3npp278bma1i54845m10gbblk9nb.apps.googleusercontent.com',
+        'client_secret' => 'YA01Aa-lomnwHd35-1D4RlNy',
+        'redirect' => 'http://localhost:8000/oauth2callback'
+        //'redirect' => 'https://fathomless-atoll-9455.herokuapp.com/oauth2callback',
+    ],
 
 ];

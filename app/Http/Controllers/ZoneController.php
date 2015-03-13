@@ -1,11 +1,21 @@
-<?php namespace App\Http\Controllers;
+<?php namespace Reflex\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use GuzzleHttp\Message\Request;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Reflex\Http\Requests;
 
-use Illuminate\Http\Request;
+use Reflex\Zone;
 
 class ZoneController extends Controller {
+
+    protected $zone;
+    protected $responseFactory;
+
+    public function __construct(Zone $zone, ResponseFactory $responseFactory)
+    {
+        $this->zone = $zone;
+        $this->responseFactory = $responseFactory;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -14,7 +24,8 @@ class ZoneController extends Controller {
 	 */
 	public function index()
 	{
-		//
+        $zones = $this->zone->newQuery()->with('company','region','business_unit');
+        return $zones->get()->toJson();
 	}
 
 	/**
@@ -24,17 +35,21 @@ class ZoneController extends Controller {
 	 */
 	public function create()
 	{
-		//
+
+
 	}
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
+     * @param  Requests\ZoneRequest $request
 	 * @return Response
 	 */
-	public function store()
+	public function store(Requests\ZoneRequest $request)
 	{
-		//
+        $zone = Zone::create($request->all());
+
+        $zone = $this->zone->newQuery()->with('company','region','business_unit')->where('id','=',$zone->id)->first();
+        return $this->responseFactory->json($zone);
 	}
 
 	/**
@@ -45,7 +60,8 @@ class ZoneController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+        $zone = $this->zone->findOrFail($id);
+        return $this->responseFactory->json($zone);
 	}
 
 	/**
@@ -62,12 +78,14 @@ class ZoneController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
+     * @param  Request  $request
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		//
+        $zone = $this->zone->findOrFail($id);
+        $zone->update($request->all());
 	}
 
 	/**
@@ -78,7 +96,7 @@ class ZoneController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+        $this->zone->findOrFail($id)->delete();
 	}
 
 }
