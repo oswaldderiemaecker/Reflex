@@ -106,7 +106,7 @@ class CreateVisitsTable extends Migration {
             $table->foreign('target_id')->references('id')->on('targets');
             $table->foreign('specialty_id')->references('id')->on('specialties');
             $table->foreign('doctor_id')->references('id')->on('doctors');
-
+//CreateSubBusinessUnitsTable
         });
 
         Schema::create('note_types', function(Blueprint $table)
@@ -156,13 +156,7 @@ class CreateVisitsTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::dropIfExists('notes');
-        Schema::dropIfExists('note_types');
-		Schema::dropIfExists('visits');
-        Schema::dropIfExists('reasons');
-        Schema::dropIfExists('visit_status');
-        Schema::dropIfExists('visit_types');
-        Schema::dropIfExists('routes');
+
 	}
 
 }

@@ -114,12 +114,56 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('users');
+
+        Schema::dropIfExists('notes');
+        Schema::dropIfExists('note_types');
+        Schema::dropIfExists('visits');
+        Schema::dropIfExists('reasons');
+        Schema::dropIfExists('visit_status');
+        Schema::dropIfExists('visit_types');
+        Schema::dropIfExists('routes');
+
+        Schema::dropIfExists('targets');
+        Schema::dropIfExists('schedules');
+        Schema::dropIfExists('doctors');
+        Schema::dropIfExists('categories');
+        Schema::dropIfExists('places');
+        Schema::dropIfExists('universities');
+        Schema::dropIfExists('specialties');
+        Schema::dropIfExists('hobbies');
+
+
+        Schema::dropIfExists('zone_users');
+        Schema::dropIfExists('zone_regions');
+        Schema::dropIfExists('zone_locations');
+        Schema::dropIfExists('user_zones');
+        Schema::dropIfExists('user_zone');
+        Schema::dropIfExists('region_zone');
+        Schema::dropIfExists('location_zone');
+
+        Schema::dropIfExists('zones');
+
+        Schema::dropIfExists('locations');
+
+        Schema::dropIfExists('users');
         Schema::dropIfExists('roles');
+
+
         Schema::dropIfExists('sub_business_units');
         Schema::dropIfExists('business_units');
-        Schema::dropIfExists('countries');
+
+
+
         Schema::dropIfExists('companies');
+        Schema::dropIfExists('countries');
+
+
+
+
+
+        Schema::dropIfExists('regions');
+        Schema::dropIfExists('campaigns');
+
 
 	}
 
