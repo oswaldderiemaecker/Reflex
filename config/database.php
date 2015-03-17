@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'pgsql',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -63,7 +63,7 @@ return [
 			'prefix'    => '',
 			'strict'    => false,
 		],
-/*
+
         'pgsql' => [
             'driver'   => 'pgsql',
             'host'     => parse_url(getenv("DATABASE_URL"))["host"],
@@ -74,7 +74,7 @@ return [
             'prefix'   => '',
             'schema'   => 'public',
         ],
-*/
+
 		'sqlsrv' => [
 			'driver'   => 'sqlsrv',
 			'host'     => env('DB_HOST', 'localhost'),

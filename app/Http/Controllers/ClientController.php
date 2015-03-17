@@ -130,7 +130,7 @@ class ClientController extends Controller {
         // $grid->add('id','ID', false);
         $grid->add('zone.name','Zona', false);
         $grid->add('code','Codigo',true);
-        $grid->add('{{ $firstname." ".$lastname }}','Cliente',true);
+        $grid->add('{{ $firstname." ".$lastname }}','Cliente',false);
        // $grid->add('institution','Institución',true);
         $grid->add('address','Dirección',true);
         $grid->add('location.name','Distrito',false);
@@ -186,12 +186,12 @@ class ClientController extends Controller {
         $edit->add('zone_id','Zona','select')->options($zones_combo)->rule('required');
         $edit->add('category_id','Categoria','select')->options(Category::lists('name', 'id'));
         $edit->add('place_id','Tarea','select')->options(Place::lists('name', 'id'));
-        $edit->add('hobby_id','Hobby','autocomplete')->options(Hobby::lists('name', 'id'));
-        $edit->add('specialty_base_id','Esp. Base','autocomplete')->options(Specialty::lists('name', 'id'));
-        $edit->add('specialty_target_id','Esp. Target','autocomplete')->options(Specialty::lists('name', 'id'));
-        $edit->add('university_id','Universidad','autocomplete')->options(University::lists('name', 'id'));
-        $edit->add('location_id','Localidad','autocomplete')->options(Location::lists('name', 'id'));
-        $edit->add('code','Codigo', 'text')->rule('max:15');
+        $edit->add('hobby_id','Hobby','select')->options(Hobby::lists('name', 'id'));
+        $edit->add('specialty_base_id','Esp. Base','select')->options(Specialty::lists('name', 'id'));
+        $edit->add('specialty_target_id','Esp. Target','select')->options(Specialty::lists('name', 'id'));
+        $edit->add('university_id','Universidad','select')->options(University::lists('name', 'id'));
+        $edit->add('location_id','Localidad','autocomplete')->options(Location::lists('name', 'id'))->rule('required');
+        $edit->add('code','Codigo', 'text')->rule('required|max:15');
         //$edit->add('name','Nombres Completo', 'text')->rule('required|max:5');
         $edit->add('firstname','Nombres', 'text')->rule('required|max:50');
         $edit->add('lastname','Apellido', 'text')->rule('required|max:50');
@@ -208,9 +208,13 @@ class ClientController extends Controller {
         $edit->add('phone','Teléfono', 'text')->rule('max:15');
         $edit->add('mobile','Celular', 'text')->rule('max:15');
 
-        $edit->add('qty_patiences','Cant. Pacientes Promedio', 'text')->rule('digits_between:1,3');
-        $edit->add('price_inquiry','Precio Consulta', 'text')->rule('digits_between:1,10');
-        $edit->add('social_level_patients','Estado Civil', 'select')->options(array('C' => 'C','B' => 'B','A' => 'A'));
+        $edit->add('qty_patiences','Cant. Pacientes Semanal Promedio', 'select')
+            ->rule('digits_between:1,3')
+            ->options(array('30' => '30 - 50','50' => '50-100','100' => '100-200','200' => '200-mas'));
+        $edit->add('price_inquiry','Precio Consulta', 'select')
+            ->rule('digits_between:1,10')
+            ->options(array('10' => '10 - 20','20' => '20-30','30' => '30-40','40' => '40-50','50' => '50-mas'));
+        $edit->add('social_level_patients','Nivel Socio-Economico Pacientes', 'select')->options(array('C' => 'C','B' => 'B','A' => 'A'));
 
         $edit->add('attends_child','Atiende Niños', 'select')->options(array(1 => 'SI',0 => 'NO'));
         $edit->add('attends_teen','Atiende Jovenes', 'select')->options(array(1 => 'SI',0 => 'NO'));

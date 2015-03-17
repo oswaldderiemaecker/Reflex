@@ -89,17 +89,17 @@ class CreateDoctorsTable extends Migration {
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('client_type_id')->unsigned();
-            $table->integer('company_id')->unsigned();
-            $table->integer('zone_id')->unsigned();
-            $table->integer('category_id')->unsigned()->nullable();
-            $table->integer('place_id')->unsigned()->nullable();
-            $table->integer('hobby_id')->unsigned()->nullable();
-            $table->integer('specialty_base_id')->unsigned()->nullable();
-            $table->integer('specialty_target_id')->unsigned();
-            $table->integer('university_id')->unsigned()->nullable();
-            $table->integer('location_id')->unsigned()->nullable();
-            $table->integer('parent_id')->unsigned()->nullable();
+            $table->integer('client_type_id', false, true);
+            $table->integer('company_id', false, true);
+            $table->integer('zone_id', false, true);
+            $table->integer('category_id', false, true)->nullable();
+            $table->integer('place_id', false, true)->nullable();
+            $table->integer('hobby_id', false, true)->nullable();
+            $table->integer('specialty_base_id', false, true)->nullable();
+            $table->integer('specialty_target_id', false, true)->nullable();
+            $table->integer('university_id', false, true)->nullable();
+            $table->integer('location_id', false, true)->nullable();
+            $table->integer('parent_id', false, true)->nullable();
             $table->string('cmp',50)->nullable();
             $table->string('code',50)->nullable(); //refers to DNI in peru and cedula in chile or RUC
             $table->string('name',200)->nullable(); //Only For Pharmacy or Institutions
@@ -117,8 +117,8 @@ class CreateDoctorsTable extends Migration {
             $table->string('reference',500)->nullable();
             $table->string('phone','100')->nullable();
             $table->string('mobile','100')->nullable();
-            $table->integer('qty_patiences')->default(0);
-            $table->decimal('price_inquiry',12,2)->default(0.0);
+            $table->integer('qty_patiences')->default(0)->nullable();
+            $table->decimal('price_inquiry',12,2)->default(0.0)->nullable();
             $table->string('social_level_patients',1)->default('C'); //A ->ALTO B->MEDIO C->BAJO
             $table->boolean('attends_child')->default(false);
             $table->boolean('attends_teen')->default(false);
@@ -153,8 +153,8 @@ class CreateDoctorsTable extends Migration {
         Schema::create('schedules', function(Blueprint $table)
         {
             $table->string('uuid',36)->primary();
-            $table->integer('zone_id')->unsigned()->nullable();
-            $table->integer('client_id')->unsigned()->nullable();
+            $table->integer('zone_id', false, true)->nullable();
+            $table->integer('client_id', false, true)->nullable();
             $table->string('day',1)->nullable();
             $table->time('start_time')->nullable();
             $table->time('finish_time')->nullable();

@@ -82,6 +82,10 @@ class DatabaseSeeder extends Seeder {
 
         $this->command->info('Specialties Table Seeded!');
 
+        $this->call('CampaignsTableSeeder');
+
+        $this->command->info('Campaigns Table Seeded!');
+
 	}
 
 }

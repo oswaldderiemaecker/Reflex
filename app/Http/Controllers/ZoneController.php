@@ -124,10 +124,11 @@ class ZoneController extends Controller {
         $grid->attributes(array("class"=>"table table-striped"));
 
        // $grid->add('id','ID', false);
-        $grid->add('company.name','Empresa',true);
-        $grid->add('business_unit.name','U. de Negocio',true);
+
         $grid->add('code','Cod.',true);
         $grid->add('name','Nombre',true);
+        $grid->add('business_unit.name','U. de Negocio',false);
+        $grid->add('company.name','Empresa',false);
         $grid->add('{{ implode(", ", $locations->lists("name")) }}','Localidades');
         $grid->add('{{ implode(", ", $regions->lists("name")) }}','Regiones');
         $grid->add('{{ $users->count() }}','Usuarios');
@@ -136,7 +137,7 @@ class ZoneController extends Controller {
         $grid->link('zonas/edit',"Nueva Zona", "TR");
         //$grid->orderBy('name','desc');
 
-        $grid->buildCSV('exportar_zona', 'Y-m-d.His');
+        $grid->buildCSV();
         $grid->paginate(25);
 
         $grid->row(function ($row) {
@@ -186,7 +187,7 @@ class ZoneController extends Controller {
         $edit->add('description','Descripción', 'textarea');
         $edit->add('qty_doctors','Cant Medicos', 'text')->rule('required|max:3');
         $edit->add('qty_contacts_am','Contactos AM', 'text')->rule('required|digits_between:1,3');
-        $edit->add('qty_contacts_pm','Contactos AM', 'text')->rule('required|digits_between:1,3');
+        $edit->add('qty_contacts_pm','Contactos PM', 'text')->rule('required|digits_between:1,3');
         $edit->add('qty_contacts_vip','Contactos VIP', 'text')->rule('required|digits_between:1,3');
         $edit->add('qty_available_days','Dias Habiles', 'text')->rule('required|digits_between:1,3');
         $edit->add('zone_type','Tipo', 'select')->options(array('S' => 'Capital','N' => 'Provincia'));
