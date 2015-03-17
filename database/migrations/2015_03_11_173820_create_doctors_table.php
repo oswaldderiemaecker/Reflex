@@ -182,14 +182,14 @@ class CreateDoctorsTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::dropIfExist('targets');
-        Schema::dropIfExist('schedules');
-        Schema::dropIfExist('doctors');
-        Schema::dropIfExist('categories');
-        Schema::dropIfExist('places');
-        Schema::dropIfExist('universities');
-        Schema::dropIfExist('specialties');
-        Schema::dropIfExist('hobbies');
+        Schema::dropIfExists('targets');
+        Schema::dropIfExists('schedules');
+        Schema::dropIfExists('doctors');
+        Schema::dropIfExists('categories');
+        Schema::dropIfExists('places');
+        Schema::dropIfExists('universities');
+        Schema::dropIfExists('specialties');
+        Schema::dropIfExists('hobbies');
 	}
 
 }
