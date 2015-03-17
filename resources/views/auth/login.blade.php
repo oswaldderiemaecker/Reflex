@@ -1,6 +1,7 @@
-@extends('app')
+@extends('clean')
 
 @section('content')
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">

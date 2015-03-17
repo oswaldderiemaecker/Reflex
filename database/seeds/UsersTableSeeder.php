@@ -14,7 +14,7 @@ class UsersTableSeeder extends \Illuminate\Database\Seeder {
         $business_unit_id = \Reflex\BusinessUnit::where('code','=', 'NES')->first()->id;
         $sub_business_unit_id = \Reflex\SubBusinessUnit::where('code','=', 'NEA')->first()->id;
         $company_id = \Reflex\Company::where('code','=', 'FJ')->first()->id;
-        $role_id = \Reflex\Role::where('code','=', 'LU')->first()->id;
+        $role_id = \Reflex\Role::where('code','=', 'SU')->first()->id;
 
         \Reflex\User::create(array(
             'role_id' => $role_id,
@@ -30,7 +30,7 @@ class UsersTableSeeder extends \Illuminate\Database\Seeder {
         ));
 
         $supervisor_id = \Reflex\User::where('username','=', 'davidjoan')->first()->id;
-        $role_id = \Reflex\Role::where('code','=', 'CO')->first()->id;
+        $role_id = \Reflex\Role::where('code','=', 'SU')->first()->id;
 
 
 

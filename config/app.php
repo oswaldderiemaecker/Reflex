@@ -52,7 +52,7 @@ return [
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'es',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
 	|
 	*/
 
-	'fallback_locale' => 'en',
+	'fallback_locale' => 'es',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY', 'SomeRandomString'),
+	'key' => env('APP_KEY', '6PsnuHlVIXN91cwFs22RljlAVozaxdfo'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -135,6 +135,8 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
+        'Zofe\Rapyd\RapydServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -193,6 +195,7 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 
 	],
 

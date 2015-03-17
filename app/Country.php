@@ -19,4 +19,9 @@ class Country extends Model {
      */
     protected $fillable = ['code','name', 'currency', 'language','description'];
 
+    public function companies()
+    {
+        return $this->hasMany('Reflex\Company','country_id');
+    }
+
 }

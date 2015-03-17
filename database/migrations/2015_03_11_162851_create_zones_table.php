@@ -12,10 +12,9 @@ class CreateZonesTable extends Migration {
 	 */
 	public function up()
 	{
-
-
         Schema::create('campaigns', function(Blueprint $table)
         {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->string('code',10);
@@ -45,9 +44,9 @@ class CreateZonesTable extends Migration {
 
 		Schema::create('zones', function(Blueprint $table)
 		{
+            $table->engine = 'InnoDB';
 			$table->increments('id');
             $table->integer('company_id')->unsigned();
-            $table->integer('region_id', false, true)->nullable();
             $table->integer('business_unit_id', false, true)->nullable();
             $table->string('code',10);
             $table->string('name',100);
@@ -59,12 +58,11 @@ class CreateZonesTable extends Migration {
             $table->integer('qty_contacts_vip')->nullable();
             $table->integer('qty_available_days')->nullable();
             $table->string('zone_type',10)->nullable();
-            $table->boolean('vacancy')->default(true);
+            $table->boolean('vacancy')->default(false);
             $table->boolean('active')->default(true);
 			$table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('region_id')->references('id')->on('regions');
             $table->foreign('business_unit_id')->references('id')->on('business_units');
 		});
 
@@ -87,28 +85,40 @@ class CreateZonesTable extends Migration {
         });
 
 
-
-        Schema::create('zone_locations', function(Blueprint $table)
+        Schema::create('region_zone', function(Blueprint $table)
         {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
+           // $table->engine = 'InnoDB';
+           // $table->increments('id');
             $table->integer('zone_id')->unsigned();
-            $table->integer('location_id')->unsigned();
+            $table->integer('region_id')->unsigned();
+            //$table->timestamps();
 
-            $table->foreign('location_id')->references('id')->on('locations');
-            $table->foreign('zone_id')->references('id')->on('zones');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
+            $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
         });
 
-        Schema::create('zone_users', function(Blueprint $table)
+        Schema::create('location_zone', function(Blueprint $table)
         {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
+           // $table->engine = 'InnoDB';
+          //  $table->increments('id');
+            $table->integer('zone_id')->unsigned();
+            $table->integer('location_id')->unsigned();
+           // $table->timestamps();
+
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
+        });
+
+        Schema::create('user_zone', function(Blueprint $table)
+        {
+           // $table->engine = 'InnoDB';
+          //  $table->increments('id');
             $table->integer('zone_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->timestamps();
+          //  $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('zone_id')->references('id')->on('zones');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
         });
     }
 
@@ -119,8 +129,9 @@ class CreateZonesTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('zone_users');
-        Schema::drop('zone_locations');
+        Schema::drop('user_zone');
+        Schema::drop('region_zone');
+        Schema::drop('location_zone');
         Schema::drop('locations');
         Schema::drop('zones');
         Schema::drop('regions');

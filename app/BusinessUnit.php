@@ -18,8 +18,21 @@ class BusinessUnit extends Model {
      */
     protected $fillable = ['code','name', 'company_id','description'];
 
+    /**
+     * @return string
+     */
+    public function full_name()
+    {
+        return $this->name.' - '.$this->company->name;
+    }
+
     public function company()
     {
         return $this->belongsTo('Reflex\Company');
+    }
+
+    public function getCombo($company_id)
+    {
+
     }
 }

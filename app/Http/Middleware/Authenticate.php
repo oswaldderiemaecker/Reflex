@@ -2,6 +2,7 @@
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class Authenticate {
 
@@ -42,7 +43,17 @@ class Authenticate {
 			{
 				return redirect()->guest('auth/login');
 			}
-		}
+		}else{
+
+        //    Session::put('company_id', $this->auth->user()->company_id);
+      //      Session::put('company_name', $this->auth->user()->company_id);
+         //   Session::put('role_id', $this->auth->user()->role_id);
+        //    Session::put('role_name', $this->auth->user()->role->name);
+          //  Session::put('business_unit_id', $this->auth->user()->business_unit_id);
+         //   Session::put('business_unit_name', $this->auth->user()->business_unit->name);
+           // print_r($this->auth->user()->company->name);
+          //  die();
+        }
 
 		return $next($request);
 	}

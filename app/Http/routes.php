@@ -14,15 +14,14 @@
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
+Route::get('sub_unidades', 'HomeController@sub_business_unit');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
 
-
 Route::group(array('prefix' => 'api'), function(){
-
     Route::resource('countries', 'CountryController');
     Route::resource('companies', 'CompanyController');
     Route::resource('business_units', 'BusinessUnitController');
@@ -30,5 +29,5 @@ Route::group(array('prefix' => 'api'), function(){
     Route::resource('zones', 'ZoneController');
     Route::resource('users', 'UserController');
     Route::resource('regions', 'RegionController');
-
+    Route::resource('locations', 'LocationController');
 });
