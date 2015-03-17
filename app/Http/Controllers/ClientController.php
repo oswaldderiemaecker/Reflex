@@ -109,7 +109,8 @@ class ClientController extends Controller {
     {
 
         $filter = DataFilter::source($this->client->newQuery()->with('client_type','zone','category','place','specialty_base','specialty_target','location'));
-        $filter->add('code','Codigo', 'text');
+        $filter->add('client_type.name','Tipo', 'select')->options(ClientType::lists('name', 'id'));
+      //  $filter->add('code','Codigo', 'text');
         $filter->add('firstname','Nombres','text');
         $filter->add('lastname','Apellidos','text');
        // $filter->add('institution','Institución','text');
@@ -128,6 +129,7 @@ class ClientController extends Controller {
 
       //  $grid->add('{{ "<img src=\'uploads/doctor/$photo\'/>" }}','Foto',false);
         // $grid->add('id','ID', false);
+        $grid->add('client_type.code','Tipo', false);
         $grid->add('zone.name','Zona', false);
         $grid->add('code','Codigo',true);
         $grid->add('{{ $firstname." ".$lastname }}','Cliente',false);

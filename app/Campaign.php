@@ -9,6 +9,10 @@ class Campaign extends Model {
     protected $fillable = ['company_id', 'code', 'name', 'description', 'start_date', 'close_date', 'finish_date',
         'qty_days', 'active'];
 
+    public function company()
+    {
+        return $this->belongsTo('Reflex\Company');
+    }
 
 
 }

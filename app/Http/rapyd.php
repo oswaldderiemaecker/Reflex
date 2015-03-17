@@ -26,5 +26,7 @@ Route::controller('unidad_de_negocios','\Reflex\Http\Controllers\BusinessUnitCon
 Route::controller('sub_unidad_de_negocios','\Reflex\Http\Controllers\SubBusinessUnitController');
 Route::controller('zonas','\Reflex\Http\Controllers\ZoneController');
 Route::controller('clientes','\Reflex\Http\Controllers\ClientController');
+Route::controller('ciclos','\Reflex\Http\Controllers\CampaignController');
+Route::controller('usuarios','\Reflex\Http\Controllers\UserController');
 
 

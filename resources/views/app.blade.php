@@ -150,12 +150,14 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li><a href="{{ url('/') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
-                <li><a href="{{ url('/paises') }}">Paises</a></li>
-                <li><a href="{{ url('/empresas') }}">Empresas</a></li>
-                <li><a href="{{ url('/unidad_de_negocios') }}">Unidades de Negocios</a></li>
-                <li><a href="{{ url('/sub_unidad_de_negocios') }}">Sub Unidades de Negocios</a></li>
-                <li><a href="{{ url('/zonas') }}">Zonas</a></li>
-                <li><a href="{{ url('/clientes') }}">Clientes</a></li>
+                <li><a href="{{ url('/paises') }}"><i class="fa fa-fw fa-shopping-cart"></i> Paises</a></li>
+                <li><a href="{{ url('/empresas') }}"><i class="fa fa-fw fa-building-o"></i> Empresas</a></li>
+                <li><a href="{{ url('/unidad_de_negocios') }}"><i class="fa fa-fw fa-list"></i> Unidades de Negocios</a></li>
+                <li><a href="{{ url('/sub_unidad_de_negocios') }}"><i class="fa fa-fw fa-indent"></i> Sub Unidades de Negocios</a></li>
+                <li><a href="{{ url('/zonas') }}"><i class="fa fa-fw fa-map-marker"></i> Zonas</a></li>
+                <li><a href="{{ url('/clientes') }}"><i class="fa fa-fw fa-user-md"></i> Clientes</a></li>
+                <li><a href="{{ url('/ciclos') }}"><i class="fa fa-fw fa-bullhorn"></i> Ciclos</a></li>
+                <li><a href="{{ url('/usuarios') }}"><i class="fa fa-fw fa-users"></i> Usuarios</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
