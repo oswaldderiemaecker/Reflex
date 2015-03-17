@@ -129,13 +129,14 @@ class CreateZonesTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('user_zone');
-        Schema::drop('region_zone');
-        Schema::drop('location_zone');
-        Schema::drop('locations');
-        Schema::drop('zones');
-        Schema::drop('regions');
-        Schema::drop('campaigns');
+        Schema::dropIfExist('user_zones');
+        Schema::dropIfExist('user_zone');
+        Schema::dropIfExist('region_zone');
+        Schema::dropIfExist('location_zone');
+        Schema::dropIfExist('locations');
+        Schema::dropIfExist('zones');
+        Schema::dropIfExist('regions');
+        Schema::dropIfExist('campaigns');
 	}
 
 }

@@ -156,13 +156,13 @@ class CreateVisitsTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('notes');
-        Schema::drop('note_types');
-		Schema::drop('visits');
-        Schema::drop('reasons');
-        Schema::drop('visit_status');
-        Schema::drop('visit_types');
-        Schema::drop('routes');
+        Schema::dropIfExist('notes');
+        Schema::dropIfExist('note_types');
+		Schema::dropIfExist('visits');
+        Schema::dropIfExist('reasons');
+        Schema::dropIfExist('visit_status');
+        Schema::dropIfExist('visit_types');
+        Schema::dropIfExist('routes');
 	}
 
 }

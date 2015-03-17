@@ -114,12 +114,12 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('users');
-        Schema::drop('roles');
-        Schema::drop('sub_business_units');
-        Schema::drop('business_units');
-        Schema::drop('countries');
-        Schema::drop('companies');
+		Schema::dropIfExist('users');
+        Schema::dropIfExist('roles');
+        Schema::dropIfExist('sub_business_units');
+        Schema::dropIfExist('business_units');
+        Schema::dropIfExist('countries');
+        Schema::dropIfExist('companies');
 
 	}
 
