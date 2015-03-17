@@ -66,6 +66,22 @@ class DatabaseSeeder extends Seeder {
 
         $this->command->info('Visit Status Table Seeded!');
 
+        $this->call('ClientTypesTableSeeder');
+
+        $this->command->info('Client Types Table Seeded!');
+
+        $this->call('HobbiesTableSeeder');
+
+        $this->command->info('Hobbies Table Seeded!');
+
+        $this->call('UniversitiesTableSeeder');
+
+        $this->command->info('Universities Table Seeded!');
+
+        $this->call('SpecialtiesTableSeeder');
+
+        $this->command->info('Specialties Table Seeded!');
+
 	}
 
 }

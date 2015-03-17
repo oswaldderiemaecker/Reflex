@@ -126,6 +126,8 @@ class CreateUsersTable extends Migration {
         Schema::dropIfExists('targets');
         Schema::dropIfExists('schedules');
         Schema::dropIfExists('doctors');
+        Schema::dropIfExists('clients');
+        Schema::dropIfExists('client_types');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('places');
         Schema::dropIfExists('universities');

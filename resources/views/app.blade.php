@@ -149,15 +149,13 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li>
-                    <a href="{{ url('/') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                </li>
-                <li><a href="{{ url('/') }}">Inicio</a></li>
+                <li><a href="{{ url('/') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
                 <li><a href="{{ url('/paises') }}">Paises</a></li>
                 <li><a href="{{ url('/empresas') }}">Empresas</a></li>
                 <li><a href="{{ url('/unidad_de_negocios') }}">Unidades de Negocios</a></li>
                 <li><a href="{{ url('/sub_unidad_de_negocios') }}">Sub Unidades de Negocios</a></li>
                 <li><a href="{{ url('/zonas') }}">Zonas</a></li>
+                <li><a href="{{ url('/clientes') }}">Clientes</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

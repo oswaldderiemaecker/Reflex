@@ -6,20 +6,19 @@
  * Time: 15:19
  */
 
-class RegionsTableSeeder extends \Illuminate\Database\Seeder {
+class HobbiesTableSeeder extends \Illuminate\Database\Seeder {
 
     public function run(){
 
-        DB::table('regions')->delete();
+        DB::table('hobbies')->delete();
 
-        Excel::load('/database/seeds/data/regions.csv', function($reader) {
+        Excel::load('/database/seeds/data/hobbies.csv', function($reader) {
 
             $results = $reader->get();
 
             foreach($results as $result)
             {
-                \Reflex\Region::create(array(
-                    'country_id' => $result->country_id,
+                \Reflex\Hobby::create(array(
                     'code' => $result->code,
                     'name' => $result->name
                     ));

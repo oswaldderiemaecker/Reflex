@@ -12,7 +12,7 @@ class LocationsTableSeeder extends \Illuminate\Database\Seeder {
 
         DB::table('locations')->delete();
 
-        Excel::load('/database/seeds/locations.csv', function($reader) {
+        Excel::load('/database/seeds/data/locations.csv', function($reader) {
 
             $results = $reader->get();
 

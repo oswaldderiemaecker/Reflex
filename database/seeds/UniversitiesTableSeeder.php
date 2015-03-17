@@ -6,20 +6,19 @@
  * Time: 15:19
  */
 
-class RegionsTableSeeder extends \Illuminate\Database\Seeder {
+class UniversitiesTableSeeder extends \Illuminate\Database\Seeder {
 
     public function run(){
 
-        DB::table('regions')->delete();
+        DB::table('universities')->delete();
 
-        Excel::load('/database/seeds/data/regions.csv', function($reader) {
+        Excel::load('/database/seeds/data/universities.csv', function($reader) {
 
             $results = $reader->get();
 
             foreach($results as $result)
             {
-                \Reflex\Region::create(array(
-                    'country_id' => $result->country_id,
+                    \Reflex\University::create(array('country_id' => $result->country_id,
                     'code' => $result->code,
                     'name' => $result->name
                     ));

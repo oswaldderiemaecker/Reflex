@@ -74,32 +74,47 @@ class CreateDoctorsTable extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('doctors', function(Blueprint $table)
+        Schema::create('client_types', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('code',10)->nullable();
+            $table->string('name',100)->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('active')->default(true);
+            $table->timestamps();
+        });
+
+        Schema::create('clients', function(Blueprint $table)
+        {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->integer('client_type_id')->unsigned();
             $table->integer('company_id')->unsigned();
             $table->integer('zone_id')->unsigned();
-            $table->integer('category_id')->unsigned();
-            $table->integer('place_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('place_id')->unsigned()->nullable();
             $table->integer('hobby_id')->unsigned()->nullable();
             $table->integer('specialty_base_id')->unsigned()->nullable();
             $table->integer('specialty_target_id')->unsigned();
             $table->integer('university_id')->unsigned()->nullable();
-            $table->integer('location_id')->unsigned();
+            $table->integer('location_id')->unsigned()->nullable();
+            $table->integer('parent_id')->unsigned()->nullable();
             $table->string('cmp',50)->nullable();
-            $table->string('code',50)->nullable(); //refers to DNI in peru and cedula in chile
-            $table->string('firstname',100);
-            $table->string('lastname', 100);
-            $table->string('closeup_name', 500)->nullable();
+            $table->string('code',50)->nullable(); //refers to DNI in peru and cedula in chile or RUC
+            $table->string('name',200)->nullable(); //Only For Pharmacy or Institutions
+            $table->string('firstname',100)->nullable();
+            $table->string('lastname', 100)->nullable();
+            $table->string('closeup_name', 200)->nullable();
             $table->string('photo',255)->nullable();
             $table->string('email',100)->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('gender',1)->nullable();
-            $table->integer('qty_visits')->default(1)->nullable();
+            $table->integer('qty_visits')->default(1)->nullable(); // Per Cycle
             $table->string('marital_status',1)->nullable();
             $table->string('institution',500)->nullable();
             $table->string('address',500);
+            $table->string('reference',500)->nullable();
             $table->string('phone','100')->nullable();
             $table->string('mobile','100')->nullable();
             $table->integer('qty_patiences')->default(0);
@@ -131,6 +146,7 @@ class CreateDoctorsTable extends Migration {
             $table->foreign('specialty_target_id')->references('id')->on('specialties');
             $table->foreign('university_id')->references('id')->on('universities');
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('parent_id')->references('id')->on('clients');
 
         });
 
@@ -138,7 +154,7 @@ class CreateDoctorsTable extends Migration {
         {
             $table->string('uuid',36)->primary();
             $table->integer('zone_id')->unsigned()->nullable();
-            $table->integer('doctor_id')->unsigned()->nullable();
+            $table->integer('client_id')->unsigned()->nullable();
             $table->string('day',1)->nullable();
             $table->time('start_time')->nullable();
             $table->time('finish_time')->nullable();
@@ -147,7 +163,7 @@ class CreateDoctorsTable extends Migration {
             $table->softDeletes();
 
             $table->foreign('zone_id')->references('id')->on('zones');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('client_id')->references('id')->on('clients');
         });
 
         Schema::create('targets', function(Blueprint $table)
@@ -157,7 +173,7 @@ class CreateDoctorsTable extends Migration {
             $table->integer('campaign_id')->unsigned();
             $table->integer('zone_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('doctor_id')->unsigned();
+            $table->integer('client_id')->unsigned();
             $table->integer('qty_visits')->default(0);
             $table->integer('visits_reg')->default(0);
             $table->integer('routes_reg')->default(0);
@@ -170,7 +186,7 @@ class CreateDoctorsTable extends Migration {
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->foreign('zone_id')->references('id')->on('zones');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('client_id')->references('id')->on('clients');
         });
 
 	}

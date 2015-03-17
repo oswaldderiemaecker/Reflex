@@ -12,7 +12,7 @@ use Zofe\Rapyd\DataEdit\DataEdit;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
 use Auth;
-
+use Log;
 class ZoneController extends Controller {
 
     protected $zone;
@@ -180,7 +180,6 @@ class ZoneController extends Controller {
         $edit->add('locations.district', 'Localidades','tags',true);
         $edit->add('users.closeup_name','Usuarios','tags',false);
 
-
         $edit->add('code','Codigo', 'text')->rule('required|max:5');
         $edit->add('name','Nombre', 'text')->rule('required|max:25');
         $edit->add('hidden_name','Nombre Proximo', 'text');
@@ -194,19 +193,14 @@ class ZoneController extends Controller {
         $edit->add('vacancy','Vacante', 'checkbox');
         $edit->add('active','Vigente', 'checkbox');//->options(array(1 => 'SI',0 => 'NO'));
 
-       // $edit->submit('Grabar');
-
-
         $edit->saved(function () use ($edit) {
           //  $form->model->password = md5(Input::get('password'));
           //  $edit->model->save();
             //print_r($edit->model);die();
+            Log::info('New Zone Created or Updated, Zona: '.$edit->model->name);
             $edit->message("El registro se guardo correctamente.");
             $edit->link("/zonas","Regresar");
         });
-
-
-
 
         return view('zone.modify', compact('edit'));
     }

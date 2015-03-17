@@ -25,5 +25,6 @@ Route::controller('empresas','\Reflex\Http\Controllers\CompanyController');
 Route::controller('unidad_de_negocios','\Reflex\Http\Controllers\BusinessUnitController');
 Route::controller('sub_unidad_de_negocios','\Reflex\Http\Controllers\SubBusinessUnitController');
 Route::controller('zonas','\Reflex\Http\Controllers\ZoneController');
+Route::controller('clientes','\Reflex\Http\Controllers\ClientController');
 
 

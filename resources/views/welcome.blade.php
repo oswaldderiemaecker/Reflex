@@ -74,7 +74,7 @@
 
     <h2>Licencia</h2>
 
-    <p>Reflex cuenta con licencia....</p>
+    <p>Reflex cuenta con licencia MIT</p>
 
 
     <!--

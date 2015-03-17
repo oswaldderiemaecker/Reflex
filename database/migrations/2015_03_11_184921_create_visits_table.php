@@ -18,7 +18,7 @@ class CreateVisitsTable extends Migration {
             $table->integer('zone_id')->unsigned();
             $table->integer('campaign_id')->unsigned();
             $table->integer('target_id')->unsigned();
-            $table->integer('doctor_id')->unsigned();
+            $table->integer('client_id')->unsigned();
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();
             $table->text('description')->nullable();
@@ -32,7 +32,7 @@ class CreateVisitsTable extends Migration {
             $table->foreign('zone_id')->references('id')->on('zones');
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->foreign('target_id')->references('id')->on('targets');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('client_id')->references('id')->on('clients');
         });
 
         Schema::create('visit_status', function(Blueprint $table)
@@ -76,7 +76,7 @@ class CreateVisitsTable extends Migration {
             $table->integer('campaign_id')->unsigned();
             $table->integer('target_id')->unsigned();
             $table->integer('specialty_id',false,true)->nullable();
-            $table->integer('doctor_id')->unsigned();
+            $table->integer('client_id')->unsigned();
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();
             $table->string('supervisor',50)->nullable(); //array('Vacio', 'Supervisor','Product Manager','Gerente de División'));
@@ -105,7 +105,7 @@ class CreateVisitsTable extends Migration {
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->foreign('target_id')->references('id')->on('targets');
             $table->foreign('specialty_id')->references('id')->on('specialties');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('client_id')->references('id')->on('clients');
 //CreateSubBusinessUnitsTable
         });
 
@@ -126,7 +126,7 @@ class CreateVisitsTable extends Migration {
             $table->integer('zone_id')->unsigned();
             $table->integer('campaign_id')->unsigned();
             $table->integer('target_id',false,true)->nullable();
-            $table->integer('doctor_id',false,true)->nullable();
+            $table->integer('client_id',false,true)->nullable();
             $table->date('date')->nullable();
             $table->time('time')->nullable();
             $table->string('title',200)->nullable();
@@ -142,7 +142,7 @@ class CreateVisitsTable extends Migration {
             $table->foreign('zone_id')->references('id')->on('zones');
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->foreign('target_id')->references('id')->on('targets');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('client_id')->references('id')->on('clients');
 
         });
 

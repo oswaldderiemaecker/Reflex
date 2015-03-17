@@ -24,7 +24,6 @@ class HomeController extends Controller {
 	/**
 	 * Create a new controller instance.
 	 *
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -45,13 +44,11 @@ class HomeController extends Controller {
 	}
 
     /**
-     * @param var $business_unit_id
+     * @param Request $request
      * @return Response
      */
     public function sub_business_unit(Request $request)
     {
-       // print_r($request->all());
-      //  die();
         $business_unit_id = $request->get('business_unit_id');
         $businessUnit = BusinessUnit::find($business_unit_id);
         $subBusinessUnits = SubBusinessUnit::where('business_unit_id', '=', $business_unit_id)->get();
