@@ -171,7 +171,7 @@ class UserController extends Controller {
         $edit->add('email','Correo Electrónico', 'text')->rule('required|max:50');
         $edit->add('username','Usuario', 'text')->rule('required|max:50');
         $edit->add('password','Contraseña', 'password');
-        $edit->add('photo','Foto', 'image')->move('uploads/user/')->fit(240, 160)->preview(120,80);
+       // $edit->add('photo','Foto', 'image')->move('uploads/user/')->fit(240, 160)->preview(120,80);
 
         // $edit->add('active','Vigente', 'select')->options(array(1 => 'SI',0 => 'NO'));
 

@@ -197,7 +197,7 @@ class ClientController extends Controller {
         //$edit->add('name','Nombres Completo', 'text')->rule('required|max:5');
         $edit->add('firstname','Nombres', 'text')->rule('required|max:50');
         $edit->add('lastname','Apellido', 'text')->rule('required|max:50');
-        $edit->add('photo','Foto', 'image')->move('uploads/doctor/')->fit(240, 160)->preview(120,80);
+      //  $edit->add('photo','Foto', 'image')->move('uploads/doctor/')->fit(240, 160)->preview(120,80);
         $edit->add('email','Correo', 'text')->rule('max:50');
         $edit->add('date_of_birth','Fecha Nac.','date')->format('d/m/Y', 'es');
 
