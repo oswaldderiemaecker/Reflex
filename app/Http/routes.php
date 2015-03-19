@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Reflex Application Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register all of the routes for an application.
@@ -16,11 +16,22 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('perfil', 'HomeController@profile');
 Route::get('sub_unidades', 'HomeController@sub_business_unit');
+Route::get('category_report', 'HomeController@category_report');
+Route::get('place_report', 'HomeController@place_report');
+Route::get('client_type_report', 'HomeController@client_type_report');
+Route::get('client_specialty', 'HomeController@client_specialty');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Route::get('/inicio_de_ciclo', function(){
+
+    Queue::push(new \Reflex\Commands\OpenCycle('open'));
+    return Redirect::to('home');
+});
 
 Route::group(array('prefix' => 'api'), function(){
     Route::resource('countries', 'CountryController');

@@ -3,7 +3,9 @@
 
 
 use Auth;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Reflex\BusinessUnit;
 use Reflex\Company;
 use Reflex\Role;
@@ -24,13 +26,16 @@ class HomeController extends Controller {
 	|
 	*/
 
+    private $responseFactory;
+
 	/**
 	 * Create a new controller instance.
-	 *
+	 @param ResponseFactory $responseFactory
 	 */
-	public function __construct()
+	public function __construct(ResponseFactory $responseFactory)
 	{
 		$this->middleware('auth');
+        $this->responseFactory = $responseFactory;
 	}
 
 	/**
@@ -44,6 +49,8 @@ class HomeController extends Controller {
 
         $businessUnits = BusinessUnit::with('company','sub_business_units')->where('company_id', '=', $user->company_id)->get();
         $company = Company::find($user->company_id);
+
+
 		return view('home', array('user' => $user,'company' => $company, 'businessUnits' => $businessUnits));
 	}
 
@@ -59,6 +66,42 @@ class HomeController extends Controller {
         return view('sub_business_unit', array('businessUnit' => $businessUnit, 'subBusinessUnits' => $subBusinessUnits));
     }
 
+    public function category_report()
+    {
+        $cat[] = array('label' => 'Vip','value' => DB::table('clients')->where('category_id','=',1)->count());
+        $cat[] = array('label' => 'A','value' => DB::table('clients')->where('category_id','=',2)->count());
+        $cat[] = array('label' => 'B','value' => DB::table('clients')->where('category_id','=',3)->count());
+
+        returN $this->responseFactory->json($cat);
+    }
+
+    public function place_report()
+    {
+        $cat[] = array('label' => 'AM','value' => DB::table('clients')->where('place_id','=',1)->count());
+        $cat[] = array('label' => 'PM','value' => DB::table('clients')->where('place_id','=',2)->count());
+
+        returN $this->responseFactory->json($cat);
+    }
+
+    public function client_type_report()
+    {
+        $cat[] = array('label' => 'Doctores','value' => DB::table('clients')->where('client_type_id','=',1)->count());
+        $cat[] = array('label' => 'Farmacia','value' => DB::table('clients')->where('client_type_id','=',2)->count());
+        $cat[] = array('label' => 'Clínica','value' => DB::table('clients')->where('client_type_id','=',3)->count());
+        $cat[] = array('label' => 'Hospital','value' => DB::table('clients')->where('client_type_id','=',4)->count());
+
+        returN $this->responseFactory->json($cat);
+    }
+
+    public function client_specialty()
+    {
+
+        $data = DB::table('clients')->select(DB::raw('specialties.name as label, count(1) as value'))
+            ->join('specialties', 'clients.specialty_base_id', '=', 'specialties.id')
+            ->groupBy('specialties.name')->get();
+
+        returN $this->responseFactory->json($data);
+    }
 
 
 }

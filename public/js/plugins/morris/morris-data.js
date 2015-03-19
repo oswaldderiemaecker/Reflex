@@ -1,8 +1,9 @@
 // Morris.js Charts sample data for SB Admin template
 
-$(function() {
+$(document).ready(function() {
 
     // Area Chart
+    /*
     Morris.Area({
         element: 'morris-area-chart',
         data: [{
@@ -62,25 +63,42 @@ $(function() {
         pointSize: 2,
         hideHover: 'auto',
         resize: true
-    });
+    });*/
 
     // Donut Chart
-    Morris.Donut({
-        element: 'morris-donut-chart',
-        data: [{
-            label: "Download Sales",
-            value: 12
-        }, {
-            label: "In-Store Sales",
-            value: 30
-        }, {
-            label: "Mail-Order Sales",
-            value: 20
-        }],
-        resize: true
+
+    var jsonData = $.getJSON("/category_report", function(json) {
+        console.log(json); // show the info in console
+
+        Morris.Donut({
+            element: 'morris-donut-client-category',
+            data: json,
+            resize: true
+        });
+    });
+
+    var jsonData = $.getJSON("/place_report", function(json) {
+        console.log(json); // show the info in console
+
+        Morris.Donut({
+            element: 'morris-donut-client-place',
+            data: json,
+            resize: true
+        });
+    });
+
+    var jsonData = $.getJSON("/client_type_report", function(json) {
+        console.log(json); // show the info in console
+
+        Morris.Donut({
+            element: 'morris-donut-client-type',
+            data: json,
+            resize: true
+        });
     });
 
     // Line Chart
+    /*
     Morris.Line({
         // ID of the element in which to draw the chart.
         element: 'morris-line-chart',
@@ -191,37 +209,29 @@ $(function() {
         smooth: false,
         resize: true
     });
+    */
 
-    // Bar Chart
-    Morris.Bar({
-        element: 'morris-bar-chart',
-        data: [{
-            device: 'iPhone',
-            geekbench: 136
-        }, {
-            device: 'iPhone 3G',
-            geekbench: 137
-        }, {
-            device: 'iPhone 3GS',
-            geekbench: 275
-        }, {
-            device: 'iPhone 4',
-            geekbench: 380
-        }, {
-            device: 'iPhone 4S',
-            geekbench: 655
-        }, {
-            device: 'iPhone 5',
-            geekbench: 1571
-        }],
-        xkey: 'device',
-        ykeys: ['geekbench'],
-        labels: ['Geekbench'],
-        barRatio: 0.4,
-        xLabelAngle: 35,
-        hideHover: 'auto',
-        resize: true
+
+    var jsonData = $.getJSON("/client_specialty", function(json) {
+        console.log(json); // show the info in console
+
+        // Bar Chart
+        Morris.Bar({
+            element: 'morris-bar-chart',
+            data: json,
+            xkey: 'label',
+            ykeys: ['value'],
+            labels: ['# Doctores'],
+            barRatio: 0.4,
+            xLabelAngle: 35,
+            hideHover: 'auto',
+            resize: true
+        });
+
     });
+
+
+
 
 
 });

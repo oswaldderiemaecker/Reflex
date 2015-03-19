@@ -93,9 +93,9 @@ class DatabaseSeeder extends Seeder {
 
         $this->command->info('Zones Table Seeded!');
 
-        $this->call('ClientsTableSeeder');
+       // $this->call('ClientsTableSeeder');
 
-        $this->command->info('Clients Table Seeded!');
+       // $this->command->info('Clients Table Seeded!');
 
 	}
 

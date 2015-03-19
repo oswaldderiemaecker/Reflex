@@ -6,7 +6,6 @@ use Reflex\Http\Requests;
 use Illuminate\Routing\ResponseFactory;
 use Zofe\Rapyd\DataEdit\DataEdit;
 use Zofe\Rapyd\DataFilter\DataFilter;
-use Zofe\Rapyd\DataForm\DataForm;
 use Zofe\Rapyd\DataGrid\DataGrid;
 
 class CountryController extends Controller {
@@ -130,7 +129,7 @@ class CountryController extends Controller {
         $grid->add('language','Lenguaje',true);
        // $grid->add('active','Activo',true);
 
-        $grid->edit('/paises/edit', 'Editar','modify|delete');
+        $grid->edit('/paises/edit', 'Editar','modify');
         $grid->link('/paises/edit',"Nueva Pais", "TR");
         $grid->orderBy('id','desc');
 

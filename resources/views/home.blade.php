@@ -53,7 +53,65 @@
         </div>
         @endforeach
 
-
     </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Doctores por Categoría</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="morris-donut-client-category"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Doctores por Turno</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="morris-donut-client-place"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Tipo Clientes</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="morris-donut-client-type"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Doctores por Especialidad</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="morris-bar-chart"></div>
+                    <div class="text-right">
+                        <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <h1>Procesos</h1>
+    </div>
+    <p>
+        <a href="{{ url('/inicio_de_ciclo') }}" class="btn btn-lg btn-success" onclick="return confirm('Estar Seguro?')">
+            Inicio de Ciclo</a>
+
+        <button type="button" class="btn btn-lg btn-danger" onclick="alert('Proximamente!')")>Cierre de Ciclo</button>
+    </p>
 
 @endsection

@@ -168,7 +168,7 @@ class CampaignController extends Controller {
             ->options(array('20' => '20' ,'21' => '21','22' => '22'));
 
 
-       // $edit->add('active','Vigente', 'select')->options(array(1 => 'SI',0 => 'NO'));
+       $edit->add('active','Vigente', 'select')->options(array(1 => 'SI',0 => 'NO'));
 
         $edit->saved(function () use ($edit) {
             //  $form->model->password = md5(Input::get('password'));

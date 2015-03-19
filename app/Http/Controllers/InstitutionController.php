@@ -17,8 +17,7 @@ use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
 use Auth;
 use Log;
-class ClientController extends Controller {
-
+class InstitutionController extends Controller {
 
     protected $client;
     protected $responseFactory;
@@ -28,7 +27,6 @@ class ClientController extends Controller {
         $this->client = $client;
         $this->responseFactory = $responseFactory;
     }
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -103,66 +101,51 @@ class ClientController extends Controller {
 		//
 	}
 
+
     public function getIndex()
     {
-        ini_set('memory_limit','10024M');
+        ini_set('memory_limit','1024M');
 
-        $filter = DataFilter::source($this->client->newQuery()->with('client_type','zone','category','place','specialty_base','specialty_target','location')->where('client_type_id', '=',1)->take(1000));
-        $filter->add('client_type.name','Tipo', 'select')->options(ClientType::lists('name', 'id'));
+        $filter = DataFilter::source($this->client->newQuery()->with('client_type','zone','category','place','specialty_base','specialty_target','location')->whereIn('client_type_id', array(3,4))->take(1000));
         $filter->add('zone.name','Zona', 'autocomplete')->options(Zone::lists('name', 'id'));
-        $filter->add('firstname','Nombres','text');
-        $filter->add('lastname','Apellidos','text');
-       // $filter->add('institution','Institución','text');
+        $filter->add('code','Codigo','text');
+        $filter->add('name','Nombre','text');
         $filter->add('address','Dirección','text');
-      //  $filter->add('gender','Genero', 'select')->options(array('M' => 'Masculino','F' => 'Femenino'));
         $filter->submit('Buscar');
         $filter->reset('Limpiar');
         $filter->build();
 
-        //$grid = DataGrid::source($this->country);
-
-
-
         $grid = DataGrid::source($filter);
         $grid->attributes(array("class"=>"table table-striped"));
 
-      //  $grid->add('{{ "<img src=\'uploads/doctor/$photo\'/>" }}','Foto',false);
-        // $grid->add('id','ID', false);
-        $grid->add('client_type.code','Tipo', false);
         $grid->add('zone.name','Zona', false);
         $grid->add('code','Codigo',true);
-        $grid->add('{{ $firstname." ".$lastname }}','Cliente',false);
-       // $grid->add('institution','Institución',true);
+        $grid->add('client_type.name','Tipo',false);
+        $grid->add('name','Institución',false);
         $grid->add('address','Dirección',true);
         $grid->add('location.name','Distrito',false);
-        $grid->add('category.code','Cat',false);
-        $grid->add('place.code','Tar',false);
-        $grid->add('specialty_base.code','E. Base',false);
-        $grid->add('specialty_target.code','E. Targ',false);
 
-        //$grid->add('gender','Genero',true);
-        $grid->edit('/clientes/edit', 'Editar','modify|delete');
-        $grid->link('/clientes/edit',"Nuevo Cliente", "TR");
-        //$grid->orderBy('name','desc');
+        $grid->edit('/instituciones/edit', 'Editar','modify|delete');
+        $grid->link('/instituciones/edit',"Nueva Institución", "TR");
+        $grid->orderBy('name','asc');
 
-        $grid->buildCSV('exportar_clientes', 'Y-m-d.His');
+        $grid->buildCSV('exportar_instituciones', 'Y-m-d.His');
         $grid->paginate(35);
 
         $grid->row(function ($row) {
-            $row->cell('code')->style("background-color:#CCFF66");
+            $row->cell('name')->style("background-color:#CCFF66");
 
         });
 
-        return  view('client.grid', compact('filter','grid'));
+        return  view('institution.grid', compact('filter','grid'));
     }
-
 
     public function anyEdit()
     {
         $edit = DataEdit::source($this->client);
 
-        $edit->label('Editar Cliente');
-        $edit->link("/clientes","Lista Clientes", "TR")->back();
+        $edit->label('Editar Institución');
+        $edit->link("/instituciones","Lista Instituciones", "TR")->back();
 
         $zone = new Zone();
         $zones = $zone->newQuery()->where('company_id','=',Auth::user()->company_id)->get();
@@ -182,57 +165,35 @@ class ClientController extends Controller {
             $company_combo[$companie->id] = $companie->name;
         }
 
-        $edit->add('client_type_id','Tipo','select')->options(ClientType::lists('name', 'id'));
+        $edit->add('client_type_id','Tipo','select')->options(array('3' => 'Clínica','4' => 'Hospital'));
         $edit->add('company_id','Empresa','select')->options($company_combo)->rule('required');
         $edit->add('zone_id','Zona','select')->options($zones_combo)->rule('required');
         $edit->add('category_id','Categoria','select')->options(Category::lists('name', 'id'));
         $edit->add('place_id','Tarea','select')->options(Place::lists('name', 'id'));
-        $edit->add('hobby_id','Hobby','select')->options(Hobby::lists('name', 'id'));
-        $edit->add('specialty_base_id','Esp. Base','select')->options(Specialty::lists('name', 'id'));
-        $edit->add('specialty_target_id','Esp. Target','select')->options(Specialty::lists('name', 'id'));
-        $edit->add('university_id','Universidad','select')->options(University::lists('name', 'id'));
         $edit->add('location_id','Localidad','autocomplete')->options(Location::lists('name', 'id'))->rule('required');
         $edit->add('code','Codigo', 'text')->rule('required|max:15');
-        //$edit->add('name','Nombres Completo', 'text')->rule('required|max:5');
-        $edit->add('firstname','Nombres', 'text')->rule('required|max:50');
-        $edit->add('lastname','Apellido', 'text')->rule('required|max:50');
-        $edit->add('photo','Foto', 'image')->move('uploads/doctor/')->fit(240, 160)->preview(120,80);
+        $edit->add('name','Nombres', 'text')->rule('required|max:50');
+        //$edit->add('photo','Foto', 'image')->move('uploads/doctor/')->fit(240, 160)->preview(120,80);
         $edit->add('email','Correo', 'text')->rule('max:50');
-        $edit->add('date_of_birth','Fecha Nac.','date')->format('d/m/Y', 'es');
 
-        $edit->add('gender','Genero', 'select')->options(array('M' => 'Masculino','F' => 'Femenino'));
         $edit->add('qty_visits','Cant. Visitas', 'select')->options(array(1 => '1',2 => '2',3 => '3', 4 => '4'));
-        $edit->add('marital_status','Estado Civil', 'select')->options(array('S' => 'Soltero(a)','C' => 'Casado(a)'));
-        $edit->add('institution','Institución', 'text')->rule('max:100');
         $edit->add('address','Dirección', 'text')->rule('required|max:200');
         $edit->add('reference','Referencia', 'text')->rule('max:150');
         $edit->add('phone','Teléfono', 'text')->rule('max:15');
         $edit->add('mobile','Celular', 'text')->rule('max:15');
 
-        $edit->add('qty_patiences','Cant. Pacientes Semanal Promedio', 'select')
-            ->rule('digits_between:1,3')
-            ->options(array('30' => '30 - 50','50' => '50-100','100' => '100-200','200' => '200-mas'));
-        $edit->add('price_inquiry','Precio Consulta', 'select')
-            ->rule('digits_between:1,10')
-            ->options(array('10' => '10 - 20','20' => '20-30','30' => '30-40','40' => '40-50','50' => '50-mas'));
-        $edit->add('social_level_patients','Nivel Socio-Economico Pacientes', 'select')->options(array('C' => 'C','B' => 'B','A' => 'A'));
-
-        $edit->add('attends_child','Atiende Niños', 'select')->options(array(1 => 'SI',0 => 'NO'));
-        $edit->add('attends_teen','Atiende Jovenes', 'select')->options(array(1 => 'SI',0 => 'NO'));
-        $edit->add('attends_adult','Atiende Adultos', 'select')->options(array(1 => 'SI',0 => 'NO'));
-        $edit->add('attends_old','Atiende Ancianos', 'select')->options(array(1 => 'SI',0 => 'NO'));
-        $edit->add('is_alive','Vivo', 'select')->options(array(1 => 'SI',0 => 'NO'));
         $edit->add('active','Vigente', 'select')->options(array(1 => 'SI',0 => 'NO'));
 
         $edit->saved(function () use ($edit) {
             //  $form->model->password = md5(Input::get('password'));
             //  $edit->model->save();
             //print_r($edit->model);die();
-            Log::info('New Client Created or Updated, Zona: '.$edit->model->code);
+            Log::info('New Institution Created or Updated, Zona: '.$edit->model->name);
             $edit->message("El registro se guardo correctamente.");
-            $edit->link("/clientes","Regresar");
+            $edit->link("/instituciones","Regresar");
         });
 
-        return view('client.modify', compact('edit'));
+        return view('institution.modify', compact('edit'));
     }
+
 }

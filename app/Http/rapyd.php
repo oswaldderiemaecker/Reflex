@@ -30,5 +30,8 @@ Route::controller('ciclos','\Reflex\Http\Controllers\CampaignController');
 Route::controller('usuarios','\Reflex\Http\Controllers\UserController');
 Route::controller('targets','\Reflex\Http\Controllers\TargetController');
 
+Route::controller('farmacias','\Reflex\Http\Controllers\PharmacyController');
+Route::controller('instituciones','\Reflex\Http\Controllers\InstitutionController');
+
 
 

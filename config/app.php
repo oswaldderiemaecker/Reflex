@@ -195,7 +195,8 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
-        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
+        'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
+        'Uuid'      => 'Webpatser\Uuid\Uuid',
 
 	],
 

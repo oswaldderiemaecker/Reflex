@@ -17,7 +17,7 @@ class CompaniesTableSeeder extends \Illuminate\Database\Seeder {
             'code' => 'FJ',
             'name' => 'FARMA JASMINE'));
 
-        \Reflex\Company::create(array(
+     /*   \Reflex\Company::create(array(
             'country_id' =>  \Reflex\Country::where('code','=', 'CL')->first()->id,
             'code' => 'FD',
             'name' => 'FARMA DAV'));
@@ -32,7 +32,7 @@ class CompaniesTableSeeder extends \Illuminate\Database\Seeder {
         \Reflex\Company::create(array(
             'country_id' =>  \Reflex\Country::where('code','=', 'PE')->first()->id,
             'code' => 'MF',
-            'name' => 'MARY FARMA'));
+            'name' => 'MARY FARMA'));*/
 
     }
 

@@ -163,6 +163,8 @@
                 <li><a href="{{ url('/zonas') }}"><i class="fa fa-fw fa-map-marker"></i> Zonas</a></li>
                 <li><a href="{{ url('/clientes') }}"><i class="fa fa-fw fa-user-md"></i> Clientes</a></li>
                 <li><a href="{{ url('/ciclos') }}"><i class="fa fa-fw fa-bullhorn"></i> Ciclos</a></li>
+                <li><a href="{{ url('/instituciones') }}"><i class="fa fa-fw fa-hospital-o"></i> Instituciones</a></li>
+                <li><a href="{{ url('/farmacias') }}"><i class="fa fa-fw fa-building-o"></i> Farmacias</a></li>
                 <li><a href="{{ url('/targets') }}"><i class="fa fa-fw fa-medkit"></i> Target</a></li>
                 <li><a href="{{ url('/usuarios') }}"><i class="fa fa-fw fa-users"></i> Usuarios</a></li>
             </ul>
@@ -191,6 +193,11 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="/js/bootstrap.min.js"></script>
 
+<!-- Morris Charts JavaScript -->
+
+<script src="/js/plugins/morris/raphael.min.js"></script>
+<script src="/js/plugins/morris/morris.min.js"></script>
+<script src="/js/plugins/morris/morris-data.js"></script>
 
 {!! Rapyd::scripts() !!}
 
