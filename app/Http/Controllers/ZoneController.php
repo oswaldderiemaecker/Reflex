@@ -13,6 +13,7 @@ use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
 use Auth;
 use Log;
+
 class ZoneController extends Controller {
 
     protected $zone;
@@ -109,33 +110,43 @@ class ZoneController extends Controller {
     public function getIndex()
     {
 
+        $businessUnit = new BusinessUnit();
+        $business_units = $businessUnit->newQuery()->where('company_id','=',Auth::user()->company_id)->get();
+
+        $business_units_combo = array('' => 'Selecciona Unidad de Negocio');
+
+        foreach($business_units as $business_unite)
+        {
+            $business_units_combo[$business_unite->id] = $business_unite->name;
+        }
+
+
+
         $filter = DataFilter::source($this->zone->newQuery()->with('company','business_unit','regions','locations','users'));
+
+       // $filter->add('company.name','Empresa', 'text');
+        $filter->add('business_unit.id','Unidad de Negocio', 'select')->options($business_units_combo);
         $filter->add('code','Codigo', 'text');
         $filter->add('name','Nombre','text');
-        $filter->add('zone_type','Tipo', 'select')->options(array('S' => 'Capital','N' => 'Provincia'));
+       // $filter->add('zone_type','Tipo', 'select')->options(array('S' => 'Capital','N' => 'Provincia'));
         $filter->submit('Buscar');
         $filter->reset('Limpiar');
         $filter->build();
 
-        //$grid = DataGrid::source($this->country);
-
-
         $grid = DataGrid::source($filter);
         $grid->attributes(array("class"=>"table table-striped"));
 
-       // $grid->add('id','ID', false);
-
         $grid->add('code','Cod.',true);
         $grid->add('name','Nombre',true);
+        //$grid->add('company.name','Empresa',false);
         $grid->add('business_unit.name','U. de Negocio',false);
-        $grid->add('company.name','Empresa',false);
         $grid->add('{{ implode(", ", $locations->lists("name")) }}','Localidades');
         $grid->add('{{ implode(", ", $regions->lists("name")) }}','Regiones');
         $grid->add('{{ $users->count() }}','Usuarios');
 
-        $grid->edit('zonas/edit', 'Editar','modify|delete');
-        $grid->link('zonas/edit',"Nueva Zona", "TR");
-        //$grid->orderBy('name','desc');
+        $grid->edit('/zonas/edit', 'Editar','modify|delete');
+        $grid->link('/zonas/edit',"Nueva Zona", "TR");
+        $grid->orderBy('name','desc');
 
         $grid->buildCSV();
         $grid->paginate(25);
@@ -163,7 +174,6 @@ class ZoneController extends Controller {
         $company = new Company();
         $companies = $company->newQuery()->where('id','=',Auth::user()->company_id)->get();
         $business_units_combo = array('' => 'Seleccionar');
-        $company_combo = array('' => 'Seleccionar');
         foreach($business_units as $business_unit)
         {
             $business_units_combo[$business_unit->id] = $business_unit->name;
@@ -177,19 +187,20 @@ class ZoneController extends Controller {
         $edit->add('company.name','Empresa','select')->options($company_combo)->rule('required');
         $edit->add('business_unit.name','Unidad de Negocios','select')->options($business_units_combo)->rule('required');
 
-        $edit->add('regions','Regiones','checkboxgroup')->options(Region::lists('name', 'id'));
+      //  $edit->add('regions','Regiones','select')->options(Region::lists('name', 'id'));
+        $edit->add('regions.name','Regiones','tags',true);//->options(Region::lists('name', 'id'));
         $edit->add('locations.district', 'Localidades','tags',true);
         $edit->add('users.closeup_name','Usuarios','tags',false);
 
         $edit->add('code','Codigo', 'text')->rule('required|max:5');
         $edit->add('name','Nombre', 'text')->rule('required|max:25');
-        $edit->add('hidden_name','Nombre Proximo', 'text');
+      //  $edit->add('hidden_name','Nombre Proximo', 'text');
         $edit->add('description','Descripción', 'textarea');
-        $edit->add('qty_doctors','Cant Medicos', 'text')->rule('required|max:3');
-        $edit->add('qty_contacts_am','Contactos AM', 'text')->rule('required|digits_between:1,3');
-        $edit->add('qty_contacts_pm','Contactos PM', 'text')->rule('required|digits_between:1,3');
-        $edit->add('qty_contacts_vip','Contactos VIP', 'text')->rule('required|digits_between:1,3');
-        $edit->add('qty_available_days','Dias Habiles', 'text')->rule('required|digits_between:1,3');
+        $edit->add('qty_doctors','Cant Medicos', 'text')->rule('required|max:3')->insertValue(1);
+        $edit->add('qty_contacts_am','Contactos AM', 'text')->rule('required|digits_between:1,3')->insertValue(1);
+        $edit->add('qty_contacts_pm','Contactos PM', 'text')->rule('required|digits_between:1,3')->insertValue(1);
+        $edit->add('qty_contacts_vip','Contactos VIP', 'text')->rule('required|digits_between:1,3')->insertValue(1);
+        $edit->add('qty_available_days','Dias Habiles', 'text')->rule('required|digits_between:1,3')->insertValue(1);
         $edit->add('zone_type','Tipo', 'select')->options(array('S' => 'Capital','N' => 'Provincia'));
         $edit->add('vacancy','Vacante', 'checkbox');
         $edit->add('active','Vigente', 'checkbox');//->options(array(1 => 'SI',0 => 'NO'));

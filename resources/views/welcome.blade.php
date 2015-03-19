@@ -4,11 +4,10 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="last-modified" content="Friday, 06 2015 12:11:23 GMT"/>
-    <title>Postgres.app – the easiest way to get started with PostgreSQL on the Mac</title>
+    <title>Reflex 360 – es una solución de negocio especialmente diseñada para la administración de fuerzas de venta en la industria farmacéutica.</title>
     <meta name="author" content="Jakob Egger and Mattt Thompson"/>
-    <meta name="description" content="Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down."/>
+    <meta name="description" content="Reflex 360 - es una solución de negocio especialmente diseñada para la administración de fuerzas de venta en la industria farmacéutica."/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="license" href="http://www.opensource.org/licenses/postgresql" title="PostgreSQL License"/>
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css"/>
@@ -62,7 +61,6 @@
 
     <p>Indiquenos que tipo de trabajo usted realiza y haga una prueba de Réflex 360°, la solución XXXXXXXXXXXX</p>
 
-
     <ul>
         <li>Administrador</li>
         <li>Gerente de Producto</li>
@@ -76,7 +74,6 @@
 
     <p>Reflex cuenta con licencia MIT</p>
 
-
     <!--
         <p>Postgres.app, PostgreSQL, and its extensions are released under the <a href="http://www.postgresql.org/about/licence/">PostgreSQL License</a>.</p>
 
@@ -89,9 +86,6 @@
     <p>Reflex 360º fue construido por <a href="https://github.com/davidjoan">David Tataje</a>.</p>
 
     <p>Reflex 360º fue ideado por  <a href="https://github.com/craigkerstiens">Daniel Saavedra</a>.</p>
-
-
-
 
     <div class='share'>
 

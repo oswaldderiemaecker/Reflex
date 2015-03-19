@@ -14,13 +14,15 @@ class CompaniesTableSeeder extends \Illuminate\Database\Seeder {
 
         \Reflex\Company::create(array(
             'country_id' =>  \Reflex\Country::where('code','=', 'PE')->first()->id,
-            'code' => 'FD',
-            'name' => 'FARMA DAV'));
+            'code' => 'FJ',
+            'name' => 'FARMA JASMINE'));
 
         \Reflex\Company::create(array(
             'country_id' =>  \Reflex\Country::where('code','=', 'CL')->first()->id,
-            'code' => 'FJ',
-            'name' => 'FARMA JASMINE'));
+            'code' => 'FD',
+            'name' => 'FARMA DAV'));
+
+
 
         \Reflex\Company::create(array(
             'country_id' =>  \Reflex\Country::where('code','=', 'PE')->first()->id,

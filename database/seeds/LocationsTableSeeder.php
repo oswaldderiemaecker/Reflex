@@ -10,6 +10,8 @@ class LocationsTableSeeder extends \Illuminate\Database\Seeder {
 
     public function run(){
 
+
+        DB::disableQueryLog();
         DB::table('locations')->delete();
 
         Excel::load('/database/seeds/data/locations.csv', function($reader) {

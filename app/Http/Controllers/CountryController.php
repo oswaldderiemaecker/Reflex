@@ -130,8 +130,8 @@ class CountryController extends Controller {
         $grid->add('language','Lenguaje',true);
        // $grid->add('active','Activo',true);
 
-        $grid->edit('paises/edit', 'Editar','modify|delete');
-        $grid->link('paises/edit',"Nueva Pais", "TR");
+        $grid->edit('/paises/edit', 'Editar','modify|delete');
+        $grid->link('/paises/edit',"Nueva Pais", "TR");
         $grid->orderBy('id','desc');
 
         $grid->buildCSV('exportar_paises', 'Y-m-d.His');

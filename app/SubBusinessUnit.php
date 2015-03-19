@@ -36,4 +36,9 @@ class SubBusinessUnit extends Model {
             });
 
     }
+
+    public function users()
+    {
+        return $this->hasMany('Reflex\User', 'sub_business_unit_id','id');
+    }
 }

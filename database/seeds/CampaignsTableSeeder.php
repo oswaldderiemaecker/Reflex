@@ -16,9 +16,9 @@ class CampaignsTableSeeder extends \Illuminate\Database\Seeder {
             'company_id' =>  1,
             'code' => '201503',
             'name' => 'Ciclo Marzo',
-            'start_date' => '2015-03-01',
-            'close_date' => '2015-03-20',
-            'finish_date' => '2015-03-30',
+            'start_date' => date('2015-03-01'),
+            'close_date' => date('2015-03-20'),
+            'finish_date' => date('2015-03-29'),
             'qty_days' => '21',
             'active' => '1'
             ));
@@ -27,9 +27,9 @@ class CampaignsTableSeeder extends \Illuminate\Database\Seeder {
             'company_id' =>  1,
             'code' => '201504',
             'name' => 'Ciclo Abril',
-            'start_date' => '2015-04-01',
-            'close_date' => '2015-04-20',
-            'finish_date' => '2015-04-30',
+            'start_date' => date('2015-04-01'),
+            'close_date' => date('2015-04-20'),
+            'finish_date' => date('2015-04-29'),
             'qty_days' => '21'
         ));
 
@@ -38,7 +38,7 @@ class CampaignsTableSeeder extends \Illuminate\Database\Seeder {
             'code' => '201505',
             'name' => 'Ciclo Mayo',
             'start_date' => '2015-05-01',
-            'close_date' => '2015-15-20',
+            'close_date' => '2015-05-20',
             'finish_date' => '2015-05-30',
             'qty_days' => '21'
         ));

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Panel de Control <small>control y supervisión</small>
+                Panel de Control <small>{{ $company->name.' - '.$company->country->name  }}</small>
             </h1>
             <ol class="breadcrumb">
                 <li class="active">
@@ -33,10 +33,10 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-bar-chart-o fa-5x"></i>
+                            <i class="fa fa-shopping-cart fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">26</div>
+                            <div class="huge">{{ count($businessUnit->sub_business_units) }}</div>
                             <div>{{ $businessUnit->name }}</div>
                         </div>
                     </div>

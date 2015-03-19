@@ -1,6 +1,7 @@
 <?php namespace Reflex\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Reflex\BusinessUnit;
 use Reflex\Company;
 use Reflex\Http\Requests;
@@ -118,9 +119,17 @@ class BusinessUnitController extends Controller {
 
     public function getIndex()
     {
+        $company = new Company();
+        $companies = $company->newQuery()->where('id','=',Auth::user()->company_id)->get();
+        $company_combo = array('' => 'Seleccionar');
+
+        foreach($companies as $companie)
+        {
+            $company_combo[$companie->id] = $companie->name;
+        }
 
         $filter = DataFilter::source($this->businessUnit->newQuery()->with('company'));
-        $filter->add('company.name','Empresas', 'select')->options(Company::lists('name', 'id'));
+        $filter->add('company.name','Empresas', 'select')->options($company_combo);
         $filter->add('code','Codigo', 'text');
         $filter->add('name','Nombre','text');
         $filter->submit('Buscar');
@@ -139,8 +148,8 @@ class BusinessUnitController extends Controller {
         $grid->add('name','Nombre',true);
         // $grid->add('active','Activo',true);
 
-        $grid->edit('unidad_de_negocios/edit', 'Editar','modify|delete');
-        $grid->link('unidad_de_negocios/edit',"Nueva Unidad de Negocios", "TR");
+        $grid->edit('/unidad_de_negocios/edit', 'Editar','modify|delete');
+        $grid->link('/unidad_de_negocios/edit',"Nueva Unidad de Negocios", "TR");
         $grid->orderBy('name','asc');
 
         $grid->buildCSV('exportar_empresas', 'Y-m-d.His');
@@ -163,9 +172,17 @@ class BusinessUnitController extends Controller {
     {
         $edit = DataEdit::source($this->businessUnit);
 
+        $company = new Company();
+        $companies = $company->newQuery()->where('id','=',Auth::user()->company_id)->get();
+
+        foreach($companies as $companie)
+        {
+            $company_combo[$companie->id] = $companie->name;
+        }
+
         $edit->label('Editar Unidad de Negocios');
         $edit->link("/unidad_de_negocios","Lista Unidades de Negocios", "TR")->back();
-        $edit->add('company.name','Empresa', 'select')->options(Company::lists('name', 'id'));
+        $edit->add('company.name','Empresa', 'select')->options($company_combo);
         $edit->add('code','Codigo', 'text')->rule('required|max:5');
         $edit->add('name','Nombre', 'text')->rule('required|max:25');
 

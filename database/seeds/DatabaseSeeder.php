@@ -12,6 +12,9 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
+
+        ini_set('memory_limit','10024M');
+
 		Model::unguard();
 
         $this->call('RolesTableSeeder');
@@ -85,6 +88,14 @@ class DatabaseSeeder extends Seeder {
         $this->call('CampaignsTableSeeder');
 
         $this->command->info('Campaigns Table Seeded!');
+
+        $this->call('ZonesTableSeeder');
+
+        $this->command->info('Zones Table Seeded!');
+
+        $this->call('ClientsTableSeeder');
+
+        $this->command->info('Clients Table Seeded!');
 
 	}
 

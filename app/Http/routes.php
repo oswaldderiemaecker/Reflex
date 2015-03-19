@@ -14,6 +14,7 @@
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
+Route::get('perfil', 'HomeController@profile');
 Route::get('sub_unidades', 'HomeController@sub_business_unit');
 
 Route::controllers([

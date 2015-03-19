@@ -10,7 +10,10 @@ class RegionsTableSeeder extends \Illuminate\Database\Seeder {
 
     public function run(){
 
+
+        DB::disableQueryLog();
         DB::table('regions')->delete();
+
 
         Excel::load('/database/seeds/data/regions.csv', function($reader) {
 

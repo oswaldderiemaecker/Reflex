@@ -5,6 +5,7 @@
  * Date: 12/03/15
  * Time: 18:11
  */
+use Faker\Factory as Faker;
 
 class UsersTableSeeder extends \Illuminate\Database\Seeder {
 
@@ -33,8 +34,6 @@ class UsersTableSeeder extends \Illuminate\Database\Seeder {
         $role_id = \Reflex\Role::where('code','=', 'SU')->first()->id;
 
 
-
-
         \Reflex\User::create(array(
             'role_id' => $role_id,
             'company_id' => $company_id,
@@ -48,6 +47,34 @@ class UsersTableSeeder extends \Illuminate\Database\Seeder {
             'username' => 'daniel',
             'password' => Hash::make('1234')
         ));
+
+        $faker = Faker::create();
+
+        $role_id = \Reflex\Role::where('code','=', 'CO')->first()->id;
+
+        foreach (range(1, 400) as $index)
+        {
+            $firstname = $faker->firstName;
+            $lastname = $faker->lastName;
+
+            $sub_business_unit_id = rand(1,20);
+
+            $sub_business_unit = \Reflex\SubBusinessUnit::find($sub_business_unit_id);
+
+            \Reflex\User::create([
+                'role_id'    => 8,
+                'company_id' => 1,
+                'business_unit_id' => $sub_business_unit->business_unit_id,
+                'sub_business_unit_id' => $sub_business_unit_id,
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'closeup_name' => $firstname.' '.$lastname,
+                'email' => $faker->email,
+                'username' => $faker->unique()->userName,
+                'password' => Hash::make('1234')
+            ]);
+        }
+
 
 
 

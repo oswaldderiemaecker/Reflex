@@ -131,8 +131,8 @@ class CompanyController extends Controller {
         $grid->add('name','Nombre',true);
         // $grid->add('active','Activo',true);
 
-        $grid->edit('empresas/edit', 'Editar','modify|delete');
-        $grid->link('empresas/edit',"Nueva Empresa", "TR");
+        $grid->edit('/empresas/edit', 'Editar','modify|delete');
+        $grid->link('/empresas/edit',"Nueva Empresa", "TR");
         $grid->orderBy('id','desc');
 
         $grid->buildCSV('exportar_empresas', 'Y-m-d.His');

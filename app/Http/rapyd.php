@@ -28,5 +28,7 @@ Route::controller('zonas','\Reflex\Http\Controllers\ZoneController');
 Route::controller('clientes','\Reflex\Http\Controllers\ClientController');
 Route::controller('ciclos','\Reflex\Http\Controllers\CampaignController');
 Route::controller('usuarios','\Reflex\Http\Controllers\UserController');
+Route::controller('targets','\Reflex\Http\Controllers\TargetController');
+
 
 

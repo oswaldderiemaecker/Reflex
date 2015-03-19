@@ -1,7 +1,6 @@
 <?php namespace Reflex\Http\Controllers;
 
 use Reflex\BusinessUnit;
-use Reflex\Company;
 use Reflex\Http\Requests;
 
 use Reflex\SubBusinessUnit;
@@ -9,6 +8,8 @@ use Illuminate\Routing\ResponseFactory;
 use Zofe\Rapyd\DataEdit\DataEdit;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
+use Auth;
+use Log;
 
 class SubBusinessUnitController extends Controller {
     protected $subBusinessUnit;
@@ -129,8 +130,8 @@ class SubBusinessUnitController extends Controller {
         $grid->add('name','Nombre',true);
         // $grid->add('active','Activo',true);
 
-        $grid->edit('sub_unidad_de_negocios/edit', 'Editar','modify|delete');
-        $grid->link('sub_unidad_de_negocios/edit',"Nueva Sub Unidad", "TR");
+        $grid->edit('/sub_unidad_de_negocios/edit', 'Editar','modify|delete');
+        $grid->link('/sub_unidad_de_negocios/edit',"Nueva Sub Unidad", "TR");
         $grid->orderBy('name','asc');
 
         $grid->buildCSV('exportar_sub_unidad_de_negocios', 'Y-m-d.His');
@@ -154,9 +155,20 @@ class SubBusinessUnitController extends Controller {
     {
         $edit = DataEdit::source($this->subBusinessUnit);
 
-        $edit->label('Editar Unidad de Negocios');
-        $edit->link("/sub_unidad_de_negocios","Lista Unidades de Negocios", "TR")->back();
-        $edit->add('business_unit.name','Empresa', 'select')->options(BusinessUnit::with('company')->lists('name','id'));
+
+        $businessUnit = new BusinessUnit();
+        $business_units = $businessUnit->newQuery()->with('company')->where('company_id','=',Auth::user()->company_id)->get();
+
+        $business_units_combo = array('' => 'Seleccionar');
+
+        foreach($business_units as $business_unit)
+        {
+            $business_units_combo[$business_unit->id] = $business_unit->company->name.' - '.$business_unit->name;
+        }
+
+        $edit->label('Editar Sub Unidad de Negocios');
+        $edit->link("/sub_unidad_de_negocios","Lista Sub Unidades de Negocios", "TR")->back();
+        $edit->add('business_unit_id','Unidad de Negocio', 'select')->options($business_units_combo);
         $edit->add('code','Codigo', 'text')->rule('required|max:5');
         $edit->add('name','Nombre', 'text')->rule('required|max:25');
 

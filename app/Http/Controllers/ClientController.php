@@ -107,10 +107,11 @@ class ClientController extends Controller {
 
     public function getIndex()
     {
+        ini_set('memory_limit','10024M');
 
-        $filter = DataFilter::source($this->client->newQuery()->with('client_type','zone','category','place','specialty_base','specialty_target','location'));
+        $filter = DataFilter::source($this->client->newQuery()->with('client_type','zone','category','place','specialty_base','specialty_target','location')->take(1000));
         $filter->add('client_type.name','Tipo', 'select')->options(ClientType::lists('name', 'id'));
-        $filter->add('zone.name','Zona', 'text');
+        $filter->add('zone.name','Zona', 'autocomplete')->options(Zone::lists('name', 'id'));
         $filter->add('firstname','Nombres','text');
         $filter->add('lastname','Apellidos','text');
        // $filter->add('institution','Institución','text');
@@ -142,8 +143,8 @@ class ClientController extends Controller {
         $grid->add('specialty_target.code','E. Targ',false);
 
         //$grid->add('gender','Genero',true);
-        $grid->edit('clientes/edit', 'Editar','modify|delete');
-        $grid->link('clientes/edit',"Nuevo Cliente", "TR");
+        $grid->edit('/clientes/edit', 'Editar','modify|delete');
+        $grid->link('/clientes/edit',"Nuevo Cliente", "TR");
         //$grid->orderBy('name','desc');
 
         $grid->buildCSV('exportar_clientes', 'Y-m-d.His');
@@ -197,7 +198,7 @@ class ClientController extends Controller {
         //$edit->add('name','Nombres Completo', 'text')->rule('required|max:5');
         $edit->add('firstname','Nombres', 'text')->rule('required|max:50');
         $edit->add('lastname','Apellido', 'text')->rule('required|max:50');
-      //  $edit->add('photo','Foto', 'image')->move('uploads/doctor/')->fit(240, 160)->preview(120,80);
+        $edit->add('photo','Foto', 'image')->move('uploads/doctor/')->fit(240, 160)->preview(120,80);
         $edit->add('email','Correo', 'text')->rule('max:50');
         $edit->add('date_of_birth','Fecha Nac.','date')->format('d/m/Y', 'es');
 

@@ -31,8 +31,8 @@ class BusinessUnit extends Model {
         return $this->belongsTo('Reflex\Company');
     }
 
-    public function getCombo($company_id)
+    public function sub_business_units()
     {
-
+        return $this->hasMany('Reflex\SubBusinessUnit', 'business_unit_id','id');
     }
 }

@@ -10,29 +10,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	use Authenticatable, CanResetPassword;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
+
 	protected $table = 'users';
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = ['role_id', 'company_id',
-'business_unit_id', 'sub_business_unit_id', 'supervisor_id',
-'code', 'firstname', 'lastname', 'closeup_name', 'email',
-'username', 'photo', 'facebook_token', 'google_token'];
+	protected $fillable = ['role_id', 'company_id', 'business_unit_id', 'sub_business_unit_id', 'supervisor_id',
+        'code', 'firstname', 'lastname', 'closeup_name', 'email', 'username','password', 'photo', 'facebook_token',
+        'google_token'];
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = ['password', 'remember_token'];
+
+	//protected $hidden = ['password', 'remember_token'];
 
     public function role()
     {

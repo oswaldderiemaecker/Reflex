@@ -10,6 +10,8 @@ class SpecialtiesTableSeeder extends \Illuminate\Database\Seeder {
 
     public function run(){
 
+        DB::disableQueryLog();
+
         DB::table('specialties')->delete();
 
         Excel::load('/database/seeds/data/specialties.csv', function($reader) {

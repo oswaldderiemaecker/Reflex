@@ -10,6 +10,9 @@ class UniversitiesTableSeeder extends \Illuminate\Database\Seeder {
 
     public function run(){
 
+
+        DB::disableQueryLog();
+
         DB::table('universities')->delete();
 
         Excel::load('/database/seeds/data/universities.csv', function($reader) {

@@ -8,6 +8,7 @@ use Reflex\SubBusinessUnit;
 use Reflex\User;
 use Zofe\Rapyd\DataEdit\DataEdit;
 use Zofe\Rapyd\DataFilter\DataFilter;
+use Zofe\Rapyd\DataForm\DataForm;
 use Zofe\Rapyd\DataGrid\DataGrid;
 use Auth;
 use Log;
@@ -125,8 +126,8 @@ class UserController extends Controller {
         $grid->add('email','Correo',false);
         $grid->add('username','Correo',false);
 
-        $grid->edit('usuarios/edit', 'Editar','modify|delete');
-        $grid->link('usuarios/edit',"Nuevo Usuario", "TR");
+        $grid->edit('/usuarios/edit', 'Editar','modify|delete');
+        $grid->link('/usuarios/edit',"Nuevo Usuario", "TR");
         $grid->orderBy('code','desc');
 
         $grid->buildCSV('exportar_usuarios', 'Y-m-d.His');
@@ -138,19 +139,15 @@ class UserController extends Controller {
 
         });
 
-        //$grid->build();
-
         return  view('user.grid', compact('filter','grid'));
     }
-
 
     public function anyEdit()
     {
         $edit = DataEdit::source($this->user);
-
+        $password = $edit->model->password;
         $edit->label('Editar Usuario');
         $edit->link("/usuarios","Lista Usuarios", "TR")->back();
-
 
         $company = new Company();
         $companies = $company->newQuery()->where('id','=',Auth::user()->company_id)->get();
@@ -171,20 +168,68 @@ class UserController extends Controller {
         $edit->add('email','Correo Electrónico', 'text')->rule('required|max:50');
         $edit->add('username','Usuario', 'text')->rule('required|max:50');
         $edit->add('password','Contraseña', 'password');
-       // $edit->add('photo','Foto', 'image')->move('uploads/user/')->fit(240, 160)->preview(120,80);
+        $edit->add('photo','Foto', 'image')->move('uploads/user/')->fit(240, 160)->preview(120,80);
 
         // $edit->add('active','Vigente', 'select')->options(array(1 => 'SI',0 => 'NO'));
 
-        $edit->saved(function () use ($edit) {
-            $edit->model->password = Hash::make(Input::get('password'));
-            $edit->model->save();
+        $edit->saved(function () use ($edit,$password) {
+
+            if(Input::get('password') != '')
+            {
+                $edit->model->password = Hash::make(Input::get('password'));
+                $edit->model->save();
+            }else{
+                $edit->model->password = $password;
+                $edit->model->save();
+
+            }
 
             Log::info('New Campaign Created or Updated, Ciclo: '.$edit->model->code);
             $edit->message("El registro se guardo correctamente.");
-            $edit->link("/ciclos","Regresar");
+            $edit->link("/usuarios","Regresar");
         });
 
         return view('user.modify', compact('edit'));
+    }
+
+    public function anyForm()
+    {
+        $edit_user = Auth::user();
+        $password = $edit_user->password;
+
+        $form = DataForm::source($edit_user);
+
+        $form->label('Perfil');
+
+        $form->add('code','Código', 'text')->rule('required|max:6');
+        $form->add('firstname','Nombres', 'text')->rule('required|max:50');
+        $form->add('lastname','Apellidos', 'text')->rule('required|max:50');
+        $form->add('closeup_name','Nombre en Closeup', 'text')->rule('required|max:50');
+        $form->add('email','Correo Electrónico', 'text')->rule('required|max:50');
+        $form->add('username','Usuario', 'text')->rule('required|max:50');
+        $form->add('password','Contraseña', 'password');
+        $form->add('photo','Foto', 'image')->move('uploads/user/')->fit(240, 160)->preview(120,80);
+
+        // $edit->add('active','Vigente', 'select')->options(array(1 => 'SI',0 => 'NO'));
+
+        $form->submit('Actualizar');
+
+        $form->saved(function () use ($form,$password) {
+            if(Input::get('password') != '')
+            {
+                $form->model->password = Hash::make(Input::get('password'));
+                $form->model->save();
+            }else{
+                $form->model->password = $password;
+                $form->model->save();
+
+            }
+            $form->message("El registro se guardo correctamente.");
+            $form->link("/home","Regresar");
+                });
+
+        return view('user.form', compact('form'));
+
     }
 
 }

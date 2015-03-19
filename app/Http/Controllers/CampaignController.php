@@ -117,8 +117,8 @@ class CampaignController extends Controller {
         $grid->add('finish_date','Cierre de Ciclo',true);
         $grid->add('{{ ($active == 1)?"SI":"NO"}}','Vigente',false);
 
-        $grid->edit('ciclos/edit', 'Editar','modify|delete');
-        $grid->link('ciclos/edit',"Nuevo Ciclo", "TR");
+        $grid->edit('/ciclos/edit', 'Editar','modify|delete');
+        $grid->link('/ciclos/edit',"Nuevo Ciclo", "TR");
         $grid->orderBy('name','desc');
 
         $grid->buildCSV('exportar_ciclos', 'Y-m-d.His');

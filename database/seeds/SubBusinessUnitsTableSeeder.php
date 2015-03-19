@@ -29,6 +29,11 @@ class SubBusinessUnitsTableSeeder extends \Illuminate\Database\Seeder {
             'code' => 'NEC',
             'name' => 'NEURO C'));
 
+        \Reflex\SubBusinessUnit::create(array(
+            'business_unit_id' =>  $id,
+            'code' => 'NED',
+            'name' => 'NEURO D'));
+
         $id = \Reflex\BusinessUnit::where('code','=', 'NEM')->first()->id;
 
         \Reflex\SubBusinessUnit::create(array(
@@ -46,6 +51,10 @@ class SubBusinessUnitsTableSeeder extends \Illuminate\Database\Seeder {
             'code' => 'NMC',
             'name' => 'NEUMO C'));
 
+        \Reflex\SubBusinessUnit::create(array(
+            'business_unit_id' =>  $id,
+            'code' => 'NMD',
+            'name' => 'NEUMO D'));
 
         $id = \Reflex\BusinessUnit::where('code','=', 'CAF')->first()->id;
 
@@ -64,6 +73,10 @@ class SubBusinessUnitsTableSeeder extends \Illuminate\Database\Seeder {
             'code' => 'CAC',
             'name' => 'CARDIO C'));
 
+        \Reflex\SubBusinessUnit::create(array(
+            'business_unit_id' =>  $id,
+            'code' => 'CAD',
+            'name' => 'CARDIO D'));
         $id = \Reflex\BusinessUnit::where('code','=', 'DEF')->first()->id;
 
         \Reflex\SubBusinessUnit::create(array(
@@ -81,6 +94,10 @@ class SubBusinessUnitsTableSeeder extends \Illuminate\Database\Seeder {
             'code' => 'DEC',
             'name' => 'DERMA C'));
 
+        \Reflex\SubBusinessUnit::create(array(
+            'business_unit_id' =>  $id,
+            'code' => 'DED',
+            'name' => 'DERMA D'));
         $id = \Reflex\BusinessUnit::where('code','=', 'GIF')->first()->id;
 
         \Reflex\SubBusinessUnit::create(array(
@@ -97,6 +114,12 @@ class SubBusinessUnitsTableSeeder extends \Illuminate\Database\Seeder {
             'business_unit_id' =>  $id,
             'code' => 'GIC',
             'name' => 'GINO C'));
+
+
+        \Reflex\SubBusinessUnit::create(array(
+            'business_unit_id' =>  $id,
+            'code' => 'GID',
+            'name' => 'GINO D'));
     }
 
 

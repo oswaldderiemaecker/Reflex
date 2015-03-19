@@ -42,6 +42,7 @@
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
+            <!--
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                 <ul class="dropdown-menu message-dropdown">
@@ -125,23 +126,25 @@
                     </li>
                 </ul>
             </li>
+            -->
             <li class="dropdown">
 
 
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Auth::user()->email }} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        <a href="{{ url('/usuarios/form') }}"><i class="fa fa-fw fa-user"></i> Perfil</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        <a href="#"><i class="fa fa-fw fa-building-o"></i> {{ Auth::user()->company->name }}</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        <a href="#"><i class="fa fa-fw fa-flag"></i> {{ Auth::user()->company->country->name }}</a>
                     </li>
+
                     <li class="divider"></li>
                     <li>
-                        <a href="{{ url('/auth/logout') }}"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        <a href="{{ url('/auth/logout') }}"><i class="fa fa-fw fa-power-off"></i> Cerrar Sesión</a>
                     </li>
                 </ul>
             </li>
@@ -149,14 +152,18 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
+
                 <li><a href="{{ url('/') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
-                <li><a href="{{ url('/paises') }}"><i class="fa fa-fw fa-shopping-cart"></i> Paises</a></li>
+
+                <li><a href="{{ url('/paises') }}"><i class="fa fa-fw fa-flag"></i> Paises</a></li>
                 <li><a href="{{ url('/empresas') }}"><i class="fa fa-fw fa-building-o"></i> Empresas</a></li>
+
                 <li><a href="{{ url('/unidad_de_negocios') }}"><i class="fa fa-fw fa-list"></i> Unidades de Negocios</a></li>
                 <li><a href="{{ url('/sub_unidad_de_negocios') }}"><i class="fa fa-fw fa-indent"></i> Sub Unidades de Negocios</a></li>
                 <li><a href="{{ url('/zonas') }}"><i class="fa fa-fw fa-map-marker"></i> Zonas</a></li>
                 <li><a href="{{ url('/clientes') }}"><i class="fa fa-fw fa-user-md"></i> Clientes</a></li>
                 <li><a href="{{ url('/ciclos') }}"><i class="fa fa-fw fa-bullhorn"></i> Ciclos</a></li>
+                <li><a href="{{ url('/targets') }}"><i class="fa fa-fw fa-medkit"></i> Target</a></li>
                 <li><a href="{{ url('/usuarios') }}"><i class="fa fa-fw fa-users"></i> Usuarios</a></li>
             </ul>
         </div>
