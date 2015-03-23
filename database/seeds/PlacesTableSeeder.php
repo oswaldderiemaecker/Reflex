@@ -13,9 +13,9 @@ class PlacesTableSeeder extends \Illuminate\Database\Seeder {
         DB::table('places')->delete();
 
 
-        $id = \Reflex\Company::where('code','=', 'FJ')->first()->id;
-        \Reflex\Place::create(array('company_id' => $id,'code' => 'CO','name' => 'Consulta'));
-        \Reflex\Place::create(array('company_id' => $id,'code' => 'AM','name' => 'Hospital'));
+        $id = \Reflex\Models\Company::where('code','=', 'FJ')->first()->id;
+        \Reflex\Models\Place::create(array('company_id' => $id,'code' => 'CO','name' => 'Consulta'));
+        \Reflex\Models\Place::create(array('company_id' => $id,'code' => 'AM','name' => 'Hospital'));
 
     }
 

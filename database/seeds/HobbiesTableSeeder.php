@@ -18,7 +18,7 @@ class HobbiesTableSeeder extends \Illuminate\Database\Seeder {
 
             foreach($results as $result)
             {
-                \Reflex\Hobby::create(array(
+                \Reflex\Models\Hobby::create(array(
                     'code' => $result->code,
                     'name' => $result->name
                     ));

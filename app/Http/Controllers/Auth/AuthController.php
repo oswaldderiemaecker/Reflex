@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller {
 
+    protected $redirectPath = 'backend/home';
+
 	/*
 	|--------------------------------------------------------------------------
 	| Registration & Login Controller
@@ -31,8 +33,26 @@ class AuthController extends Controller {
 	{
 		$this->auth = $auth;
 		$this->registrar = $registrar;
+        //print_r;die();
+
+       // if($this->auth->user()->role_id == 8)
+        //{
+        //    $this->redirectPath = 'frontend/home';
+       // }
 
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
+
+
+    public function redirectPath()
+    {
+        if ($this->auth->user()->role_id == 8)
+        {
+            return 'frontend/home';
+        }
+
+        return $this->redirectPath;
+    }
+
 
 }

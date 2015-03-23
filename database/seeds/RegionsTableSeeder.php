@@ -21,7 +21,7 @@ class RegionsTableSeeder extends \Illuminate\Database\Seeder {
 
             foreach($results as $result)
             {
-                \Reflex\Region::create(array(
+                \Reflex\Models\Region::create(array(
                     'country_id' => $result->country_id,
                     'code' => $result->code,
                     'name' => $result->name

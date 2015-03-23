@@ -22,7 +22,7 @@ class ClientsTableSeeder extends \Illuminate\Database\Seeder {
             // for every file inside the batch
             $rows->each(function($result) {
 
-                \Reflex\Client::create(array(
+                \Reflex\Models\Client::create(array(
                     'client_type_id' => $result->client_type_id,
                     'company_id' => $result->company_id,
                     'zone_id' => $result->zone_id,

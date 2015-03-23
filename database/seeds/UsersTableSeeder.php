@@ -12,10 +12,10 @@ class UsersTableSeeder extends \Illuminate\Database\Seeder {
     public function run(){
 
         DB::table('users')->delete();
-        $business_unit_id = \Reflex\BusinessUnit::where('code','=', 'NES')->first()->id;
-        $sub_business_unit_id = \Reflex\SubBusinessUnit::where('code','=', 'NEA')->first()->id;
-        $company_id = \Reflex\Company::where('code','=', 'FJ')->first()->id;
-        $role_id = \Reflex\Role::where('code','=', 'SU')->first()->id;
+        $business_unit_id = \Reflex\Models\BusinessUnit::where('code','=', 'NES')->first()->id;
+        $sub_business_unit_id = \Reflex\Models\SubBusinessUnit::where('code','=', 'NEA')->first()->id;
+        $company_id = \Reflex\Models\Company::where('code','=', 'FJ')->first()->id;
+        $role_id = \Reflex\Models\Role::where('code','=', 'SU')->first()->id;
 
         \Reflex\User::create(array(
             'role_id' => $role_id,
@@ -31,7 +31,7 @@ class UsersTableSeeder extends \Illuminate\Database\Seeder {
         ));
 
         $supervisor_id = \Reflex\User::where('username','=', 'davidjoan')->first()->id;
-        $role_id = \Reflex\Role::where('code','=', 'SU')->first()->id;
+        $role_id = \Reflex\Models\Role::where('code','=', 'SU')->first()->id;
 
 
         \Reflex\User::create(array(
@@ -50,7 +50,7 @@ class UsersTableSeeder extends \Illuminate\Database\Seeder {
 
         $faker = Faker::create();
 
-        $role_id = \Reflex\Role::where('code','=', 'CO')->first()->id;
+        $role_id = \Reflex\Models\Role::where('code','=', 'CO')->first()->id;
 
         foreach (range(1, 400) as $index)
         {
@@ -59,7 +59,7 @@ class UsersTableSeeder extends \Illuminate\Database\Seeder {
 
             $sub_business_unit_id = rand(1,20);
 
-            $sub_business_unit = \Reflex\SubBusinessUnit::find($sub_business_unit_id);
+            $sub_business_unit = \Reflex\Models\SubBusinessUnit::find($sub_business_unit_id);
 
             \Reflex\User::create([
                 'role_id'    => 8,

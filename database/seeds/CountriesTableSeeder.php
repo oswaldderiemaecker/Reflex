@@ -1,6 +1,6 @@
 <?php
 
-use Reflex\Country;
+use Reflex\Models\Country;
 class CountriesTableSeeder extends \Illuminate\Database\Seeder {
 
     public function run(){

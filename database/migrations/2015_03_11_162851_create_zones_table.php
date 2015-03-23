@@ -48,6 +48,7 @@ class CreateZonesTable extends Migration {
 			$table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->integer('business_unit_id', false, true)->nullable();
+            $table->integer('sub_business_unit_id', false, true)->nullable();
             $table->string('code',10);
             $table->string('name',100);
             $table->string('hidden_name',100)->nullable();
@@ -64,6 +65,7 @@ class CreateZonesTable extends Migration {
 
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('business_unit_id')->references('id')->on('business_units');
+            $table->foreign('sub_business_unit_id')->references('id')->on('sub_business_units');
 		});
 
         Schema::create('locations', function(Blueprint $table)
@@ -87,11 +89,9 @@ class CreateZonesTable extends Migration {
 
         Schema::create('region_zone', function(Blueprint $table)
         {
-           // $table->engine = 'InnoDB';
-           // $table->increments('id');
+            $table->engine = 'InnoDB';
             $table->integer('zone_id')->unsigned();
             $table->integer('region_id')->unsigned();
-            //$table->timestamps();
 
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
@@ -99,23 +99,54 @@ class CreateZonesTable extends Migration {
 
         Schema::create('location_zone', function(Blueprint $table)
         {
-           // $table->engine = 'InnoDB';
-          //  $table->increments('id');
+            $table->engine = 'InnoDB';
             $table->integer('zone_id')->unsigned();
             $table->integer('location_id')->unsigned();
-           // $table->timestamps();
 
             $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
         });
 
+        Schema::create('specialties', function(Blueprint $table)
+        {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('code',10)->nullable();
+            $table->string('name',100);
+            $table->text('description')->nullable();
+            $table->string('realname',100)->nullable();
+            $table->boolean('active')->default(true);
+            $table->timestamps();
+        });
+
+        Schema::create('specialty_sub_business_unit', function(Blueprint $table)
+        {
+            $table->engine = 'InnoDB';
+            $table->integer('sub_business_unit_id')->unsigned();
+            $table->integer('specialty_id')->unsigned();
+
+
+            $table->foreign('sub_business_unit_id')->references('id')->on('sub_business_units')->onDelete('cascade');
+            $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('cascade');
+        });
+
+        Schema::create('specialty_zone', function(Blueprint $table)
+        {
+           // $table->engine = 'InnoDB';
+            $table->integer('zone_id')->unsigned();
+            $table->integer('specialty_id')->unsigned();
+
+
+            $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('cascade');
+            $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
+        });
+
+
         Schema::create('user_zone', function(Blueprint $table)
         {
            // $table->engine = 'InnoDB';
-          //  $table->increments('id');
             $table->integer('zone_id')->unsigned();
             $table->integer('user_id')->unsigned();
-          //  $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');

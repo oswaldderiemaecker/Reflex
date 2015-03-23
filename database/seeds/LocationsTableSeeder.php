@@ -20,7 +20,7 @@ class LocationsTableSeeder extends \Illuminate\Database\Seeder {
 
             foreach($results as $result)
             {
-                \Reflex\Location::create(array(
+                \Reflex\Models\Location::create(array(
                     'country_id' => $result->country_id,
                     'region_id' => $result->region_id,
                     'code' => $result->code,

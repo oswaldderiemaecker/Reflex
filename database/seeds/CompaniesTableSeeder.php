@@ -12,8 +12,8 @@ class CompaniesTableSeeder extends \Illuminate\Database\Seeder {
 
         DB::table('companies')->delete();
 
-        \Reflex\Company::create(array(
-            'country_id' =>  \Reflex\Country::where('code','=', 'PE')->first()->id,
+        \Reflex\Models\Company::create(array(
+            'country_id' =>  \Reflex\Models\Country::where('code','=', 'PE')->first()->id,
             'code' => 'FJ',
             'name' => 'FARMA JASMINE'));
 

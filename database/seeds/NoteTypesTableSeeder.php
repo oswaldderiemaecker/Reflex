@@ -12,13 +12,13 @@ class NoteTypesTableSeeder extends Seeder {
 
         DB::table('note_types')->delete();
 
-        \Reflex\Role::create(array('code' => 'AD', 'name' => 'Administrador'));
-        \Reflex\Role::create(array('code' => 'LU', 'name' => 'Lufthansa'));
-        \Reflex\Role::create(array('code' => 'GG', 'name' => 'Gerente General'));
-        \Reflex\Role::create(array('code' => 'GD', 'name' => 'Gerente División'));
-        \Reflex\Role::create(array('code' => 'JP', 'name' => 'Product Manager'));
-        \Reflex\Role::create(array('code' => 'SU', 'name' => 'Supervisor'));
-        \Reflex\Role::create(array('code' => 'CO', 'name' => 'Consultor'));
+        \Reflex\Models\Role::create(array('code' => 'AD', 'name' => 'Administrador'));
+        \Reflex\Models\Role::create(array('code' => 'LU', 'name' => 'Lufthansa'));
+        \Reflex\Models\Role::create(array('code' => 'GG', 'name' => 'Gerente General'));
+        \Reflex\Models\Role::create(array('code' => 'GD', 'name' => 'Gerente División'));
+        \Reflex\Models\Role::create(array('code' => 'JP', 'name' => 'Product Manager'));
+        \Reflex\Models\Role::create(array('code' => 'SU', 'name' => 'Supervisor'));
+        \Reflex\Models\Role::create(array('code' => 'CO', 'name' => 'Consultor'));
 
 
     }

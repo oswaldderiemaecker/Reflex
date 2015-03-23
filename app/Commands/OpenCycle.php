@@ -9,8 +9,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
 use Log;
-use Reflex\Target;
-use Reflex\Visit;
+use Reflex\Models\Target;
+use Reflex\Models\Visit;
 use Uuid;
 
 class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {

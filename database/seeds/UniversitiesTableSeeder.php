@@ -21,7 +21,7 @@ class UniversitiesTableSeeder extends \Illuminate\Database\Seeder {
 
             foreach($results as $result)
             {
-                    \Reflex\University::create(array('country_id' => $result->country_id,
+                    \Reflex\Models\University::create(array('country_id' => $result->country_id,
                     'code' => $result->code,
                     'name' => $result->name
                     ));

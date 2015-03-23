@@ -16,22 +16,6 @@ Burp::get(null, 'ord=(-?)(\w+)', array('as'=>'orderby', function($direction, $fi
 
 //todo: dataedit  
 
-
 Route::get('rapyd-ajax/{hash}', array('as' => 'rapyd.remote', 'uses' => '\Zofe\Rapyd\Controllers\AjaxController@getRemote'));
-
-
-Route::controller('paises','\Reflex\Http\Controllers\CountryController');
-Route::controller('empresas','\Reflex\Http\Controllers\CompanyController');
-Route::controller('unidad_de_negocios','\Reflex\Http\Controllers\BusinessUnitController');
-Route::controller('sub_unidad_de_negocios','\Reflex\Http\Controllers\SubBusinessUnitController');
-Route::controller('zonas','\Reflex\Http\Controllers\ZoneController');
-Route::controller('clientes','\Reflex\Http\Controllers\ClientController');
-Route::controller('ciclos','\Reflex\Http\Controllers\CampaignController');
-Route::controller('usuarios','\Reflex\Http\Controllers\UserController');
-Route::controller('targets','\Reflex\Http\Controllers\TargetController');
-
-Route::controller('farmacias','\Reflex\Http\Controllers\PharmacyController');
-Route::controller('instituciones','\Reflex\Http\Controllers\InstitutionController');
-
 
 

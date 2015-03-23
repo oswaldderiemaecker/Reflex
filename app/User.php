@@ -22,22 +22,22 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function role()
     {
-        return $this->belongsTo('Reflex\Role');
+        return $this->belongsTo('Reflex\Models\Role');
     }
 
     public function company()
     {
-        return $this->belongsTo('Reflex\Company');
+        return $this->belongsTo('Reflex\Models\Company');
     }
 
     public function business_unit()
     {
-        return $this->belongsTo('Reflex\BusinessUnit');
+        return $this->belongsTo('Reflex\Models\BusinessUnit');
     }
 
     public function sub_business_unit()
     {
-        return $this->belongsTo('Reflex\SubBusinessUnit');
+        return $this->belongsTo('Reflex\Models\SubBusinessUnit');
     }
 
     public function parent()

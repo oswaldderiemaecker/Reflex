@@ -35,7 +35,15 @@ class RedirectIfAuthenticated {
 	{
 		if ($this->auth->check())
 		{
-			return new RedirectResponse(url('/home'));
+           // print_r($this->auth->user()->role_id ); die();
+            if($this->auth->user()->role_id == 1 or $this->auth->user()->role_id == 2)
+            {
+                return new RedirectResponse(url('/backend/home'));
+            }elseif($this->auth->user()->role_id == 8)
+            {
+                return new RedirectResponse(url('/frontend/home'));
+            }
+
 		}
 
 		return $next($request);

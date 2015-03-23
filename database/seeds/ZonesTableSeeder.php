@@ -20,16 +20,16 @@ class ZonesTableSeeder extends \Illuminate\Database\Seeder {
 
         foreach (range(1, 400) as $index)
         {
-            $business_unit_id = rand(1,5);
+            $sub_business_unit_id = rand(1,20);
 
-            $firstname = $faker->firstName;
-            $lastname = $faker->lastName;
+            $sub = \Reflex\Models\SubBusinessUnit::where('id','=',$sub_business_unit_id)->first()->business_unit_id;
 
-            \Reflex\Zone::create([
+            \Reflex\Models\Zone::create([
                 'company_id' => 1,
-                'business_unit_id' => $business_unit_id,
-                'code' => $faker->postcode,
-                'name' => $firstname.' '.$lastname
+                'business_unit_id' => $sub,
+                'sub_business_unit_id' => $sub_business_unit_id,
+                'code' => 'ZO-'.$index,
+                'name' => $faker->firstName.' '.$faker->lastName
             ]);
         }
     }

@@ -67,7 +67,7 @@ $(document).ready(function() {
 
     // Donut Chart
 
-    var jsonData = $.getJSON("/category_report", function(json) {
+    var jsonData = $.getJSON("/backend/category_report", function(json) {
         console.log(json); // show the info in console
 
         Morris.Donut({
@@ -77,7 +77,7 @@ $(document).ready(function() {
         });
     });
 
-    var jsonData = $.getJSON("/place_report", function(json) {
+    var jsonData = $.getJSON("/backend/place_report", function(json) {
         console.log(json); // show the info in console
 
         Morris.Donut({
@@ -87,7 +87,7 @@ $(document).ready(function() {
         });
     });
 
-    var jsonData = $.getJSON("/client_type_report", function(json) {
+    var jsonData = $.getJSON("/backend/client_type_report", function(json) {
         console.log(json); // show the info in console
 
         Morris.Donut({
@@ -212,7 +212,7 @@ $(document).ready(function() {
     */
 
 
-    var jsonData = $.getJSON("/client_specialty", function(json) {
+    var jsonData = $.getJSON("/backend/client_specialty", function(json) {
         console.log(json); // show the info in console
 
         // Bar Chart

@@ -13,14 +13,6 @@
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
-Route::get('perfil', 'HomeController@profile');
-Route::get('sub_unidades', 'HomeController@sub_business_unit');
-Route::get('category_report', 'HomeController@category_report');
-Route::get('place_report', 'HomeController@place_report');
-Route::get('client_type_report', 'HomeController@client_type_report');
-Route::get('client_specialty', 'HomeController@client_specialty');
-
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -30,16 +22,48 @@ Route::controllers([
 Route::get('/inicio_de_ciclo', function(){
 
     Queue::push(new \Reflex\Commands\OpenCycle('open'));
-    return Redirect::to('home');
+    return Redirect::to('/');
 });
 
 Route::group(array('prefix' => 'api'), function(){
-    Route::resource('countries', 'CountryController');
-    Route::resource('companies', 'CompanyController');
-    Route::resource('business_units', 'BusinessUnitController');
-    Route::resource('sub_business_units', 'SubBusinessUnitController');
-    Route::resource('zones', 'ZoneController');
-    Route::resource('users', 'UserController');
-    Route::resource('regions', 'RegionController');
-    Route::resource('locations', 'LocationController');
+    Route::resource('countries', 'Backend\CountryController');
+    Route::resource('companies', 'Backend\CompanyController');
+    Route::resource('business_units', 'Backend\BusinessUnitController');
+    Route::resource('sub_business_units', 'Backend\SubBusinessUnitController');
+    Route::resource('zones', 'Backend\ZoneController');
+    Route::resource('users', 'Backend\UserController');
+    Route::resource('regions', 'Backend\RegionController');
+    Route::resource('locations', 'Backend\LocationController');
+});
+
+
+Route::group(array('prefix' => 'backend'), function() {
+
+    Route::get('home', 'Backend\HomeController@index');
+    Route::get('perfil', 'Backend\HomeController@profile');
+    Route::get('sub_unidades', 'Backend\HomeController@sub_business_unit');
+    Route::get('category_report', 'Backend\HomeController@category_report');
+    Route::get('place_report', 'Backend\HomeController@place_report');
+    Route::get('client_type_report', 'Backend\HomeController@client_type_report');
+    Route::get('client_specialty', 'Backend\HomeController@client_specialty');
+
+    Route::controller('paises', '\Reflex\Http\Controllers\Backend\CountryController');
+    Route::controller('empresas', '\Reflex\Http\Controllers\Backend\CompanyController');
+    Route::controller('unidad_de_negocios', '\Reflex\Http\Controllers\Backend\BusinessUnitController');
+    Route::controller('sub_unidad_de_negocios', '\Reflex\Http\Controllers\Backend\SubBusinessUnitController');
+    Route::controller('zonas', '\Reflex\Http\Controllers\Backend\ZoneController');
+    Route::controller('clientes', '\Reflex\Http\Controllers\Backend\ClientController');
+    Route::controller('ciclos', '\Reflex\Http\Controllers\Backend\CampaignController');
+    Route::controller('usuarios', '\Reflex\Http\Controllers\Backend\UserController');
+    Route::controller('targets', '\Reflex\Http\Controllers\Backend\TargetController');
+
+    Route::controller('farmacias', '\Reflex\Http\Controllers\Backend\PharmacyController');
+    Route::controller('instituciones', '\Reflex\Http\Controllers\Backend\InstitutionController');
+
+});
+
+
+Route::group(array('prefix' => 'frontend'), function() {
+
+    Route::get('home', 'Frontend\HomeController@index');
 });

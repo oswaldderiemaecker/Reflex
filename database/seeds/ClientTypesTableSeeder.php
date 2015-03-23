@@ -12,10 +12,10 @@ class ClientTypesTableSeeder extends \Illuminate\Database\Seeder {
 
         DB::table('client_types')->delete();
 
-        \Reflex\ClientType::create(array('code' => 'DO', 'name' => 'Doctor'));
-        \Reflex\ClientType::create(array('code' => 'FA', 'name' => 'Farmacia'));
-        \Reflex\ClientType::create(array('code' => 'CL', 'name' => 'Clínica'));
-        \Reflex\ClientType::create(array('code' => 'HO', 'name' => 'Hospital'));
+        \Reflex\Models\ClientType::create(array('code' => 'DO', 'name' => 'Doctor'));
+        \Reflex\Models\ClientType::create(array('code' => 'FA', 'name' => 'Farmacia'));
+        \Reflex\Models\ClientType::create(array('code' => 'CL', 'name' => 'Clínica'));
+        \Reflex\Models\ClientType::create(array('code' => 'HO', 'name' => 'Hospital'));
 
     }
 

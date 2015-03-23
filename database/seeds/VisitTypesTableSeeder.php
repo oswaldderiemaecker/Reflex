@@ -12,9 +12,9 @@ class VisitTypesTableSeeder extends \Illuminate\Database\Seeder {
 
         DB::table('visit_types')->delete();
 
-        \Reflex\VisitType::create(array('code' => 'PR', 'name' => 'Programada'));
-        \Reflex\VisitType::create(array('code' => 'AD', 'name' => 'Adicional'));
-        \Reflex\VisitType::create(array('code' => 'RE', 'name' => 'Reemplazo'));
+        \Reflex\Models\VisitType::create(array('code' => 'PR', 'name' => 'Programada'));
+        \Reflex\Models\VisitType::create(array('code' => 'AD', 'name' => 'Adicional'));
+        \Reflex\Models\VisitType::create(array('code' => 'RE', 'name' => 'Reemplazo'));
 
 
 

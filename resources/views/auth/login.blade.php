@@ -1,62 +1,46 @@
 @extends('clean')
 
 @section('content')
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Upss!</strong> Hubo algunos problemas con su ingreso.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Login</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Upss!</strong> Hubo algunos problemas con su ingreso.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+    <p class="login-box-msg">Iniciar Sesión</p>
+    <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <div class="form-group has-feedback">
+            <input type="email" class="form-control" placeholder="Correo Electrónico" name="email" value="{{ old('email') }}">
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input type="password" class="form-control" name="password" placeholder="Contraseña"/>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <div class="checkbox icheck">
+                    <label>
+                        <input type="checkbox" name="remember"> Recuerdame
+                    </label>
+                </div>
+            </div><!-- /.col -->
+            <div class="col-xs-4">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+            </div><!-- /.col -->
+        </div>
+    </form>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Correo Electrónico</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
+    <a class="btn btn-link" href="{{ url('/password/email') }}">¿Olvidó su contraseña?</a>
+    <br>
+    <a href="#" class="text-center">Si eres nuevo en Reflex, Registrate</a>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Contraseña</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Recuerdame
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-
-								<a class="btn btn-link" href="{{ url('/password/email') }}">¿Olvidó su contraseña?</a>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 @endsection

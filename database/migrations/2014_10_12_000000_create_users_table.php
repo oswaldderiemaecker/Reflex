@@ -105,6 +105,9 @@ class CreateUsersTable extends Migration {
 
 
 
+
+
+
 	}
 
 	/**
@@ -114,7 +117,6 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-
         Schema::dropIfExists('notes');
         Schema::dropIfExists('note_types');
         Schema::dropIfExists('visits');
@@ -134,7 +136,6 @@ class CreateUsersTable extends Migration {
         Schema::dropIfExists('specialties');
         Schema::dropIfExists('hobbies');
 
-
         Schema::dropIfExists('zone_users');
         Schema::dropIfExists('zone_regions');
         Schema::dropIfExists('zone_locations');
@@ -142,6 +143,8 @@ class CreateUsersTable extends Migration {
         Schema::dropIfExists('user_zone');
         Schema::dropIfExists('region_zone');
         Schema::dropIfExists('location_zone');
+        Schema::dropIfExists('specialty_zone');
+        Schema::dropIfExists('specialty_sub_business_unit');
 
         Schema::dropIfExists('zones');
 
@@ -150,18 +153,11 @@ class CreateUsersTable extends Migration {
         Schema::dropIfExists('users');
         Schema::dropIfExists('roles');
 
-
         Schema::dropIfExists('sub_business_units');
         Schema::dropIfExists('business_units');
 
-
-
         Schema::dropIfExists('companies');
         Schema::dropIfExists('countries');
-
-
-
-
 
         Schema::dropIfExists('regions');
         Schema::dropIfExists('campaigns');

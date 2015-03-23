@@ -23,17 +23,6 @@ class CreateDoctorsTable extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('specialties', function(Blueprint $table)
-        {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->string('code',10)->nullable();
-            $table->string('name',100)->nullable();
-            $table->text('description')->nullable();
-            $table->boolean('active')->default(true);
-            $table->timestamps();
-        });
-
         Schema::create('universities', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
@@ -85,6 +74,17 @@ class CreateDoctorsTable extends Migration {
             $table->timestamps();
         });
 
+        Schema::create('address_types', function(Blueprint $table)
+        {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('code',10)->nullable();
+            $table->string('name',100)->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('active')->default(true);
+            $table->timestamps();
+        });
+
         Schema::create('clients', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
@@ -99,21 +99,24 @@ class CreateDoctorsTable extends Migration {
             $table->integer('specialty_target_id', false, true)->nullable();
             $table->integer('university_id', false, true)->nullable();
             $table->integer('location_id', false, true)->nullable();
+            $table->integer('address_type_id', false, true)->nullable();
             $table->integer('parent_id', false, true)->nullable();
-            $table->string('cmp',50)->nullable();
+            $table->string('cmp',50)->nullable(); //CMP
             $table->string('code',50)->nullable(); //refers to DNI in peru and cedula in chile or RUC
             $table->string('name',200)->nullable(); //Only For Pharmacy or Institutions
             $table->string('firstname',100)->nullable();
             $table->string('lastname', 100)->nullable();
             $table->string('closeup_name', 200)->nullable();
-            $table->string('photo',255)->nullable();
+            $table->string('photo',255)->nullable(); //doctor photo or image of pharmacy
             $table->string('email',100)->nullable();
-            $table->date('date_of_birth')->nullable();
+            $table->date('date_of_birth')->nullable();//date fundation or date of birth
             $table->string('gender',1)->nullable();
             $table->integer('qty_visits')->default(1)->nullable(); // Per Cycle
             $table->string('marital_status',1)->nullable();
             $table->string('institution',500)->nullable();
             $table->string('address',500);
+            $table->string('address_number',10)->nullable();
+            $table->string('address_interior',20)->nullable();
             $table->string('reference',500)->nullable();
             $table->string('phone','100')->nullable();
             $table->string('mobile','100')->nullable();
@@ -124,10 +127,10 @@ class CreateDoctorsTable extends Migration {
             $table->boolean('attends_teen')->default(false);
             $table->boolean('attends_adult')->default(false);
             $table->boolean('attends_old')->default(false);
-            $table->boolean('is_alive')->default(true);
+            $table->boolean('is_alive')->default(true); //is active
             $table->decimal('longitude',10,8)->nullable();
             $table->decimal('latitude',10,8)->nullable();
-            $table->boolean('active')->default(true);
+            $table->boolean('active')->default(true); //was deleted
             $table->timestamps();
             $table->softDeletes();
 
@@ -146,6 +149,7 @@ class CreateDoctorsTable extends Migration {
             $table->foreign('specialty_target_id')->references('id')->on('specialties');
             $table->foreign('university_id')->references('id')->on('universities');
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('address_type_id')->references('id')->on('address_types');
             $table->foreign('parent_id')->references('id')->on('clients');
 
         });

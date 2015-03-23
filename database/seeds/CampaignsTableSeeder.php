@@ -12,7 +12,7 @@ class CampaignsTableSeeder extends \Illuminate\Database\Seeder {
 
         DB::table('campaigns')->delete();
 
-        \Reflex\Campaign::create(array(
+        \Reflex\Models\Campaign::create(array(
             'company_id' =>  1,
             'code' => '201503',
             'name' => 'Ciclo Marzo',
@@ -23,7 +23,7 @@ class CampaignsTableSeeder extends \Illuminate\Database\Seeder {
             'active' => '1'
             ));
 
-        \Reflex\Campaign::create(array(
+        \Reflex\Models\Campaign::create(array(
             'company_id' =>  1,
             'code' => '201504',
             'name' => 'Ciclo Abril',
@@ -33,7 +33,7 @@ class CampaignsTableSeeder extends \Illuminate\Database\Seeder {
             'qty_days' => '21'
         ));
 
-        \Reflex\Campaign::create(array(
+        \Reflex\Models\Campaign::create(array(
             'company_id' =>  1,
             'code' => '201505',
             'name' => 'Ciclo Mayo',
@@ -43,7 +43,7 @@ class CampaignsTableSeeder extends \Illuminate\Database\Seeder {
             'qty_days' => '21'
         ));
 
-        \Reflex\Campaign::create(array(
+        \Reflex\Models\Campaign::create(array(
             'company_id' =>  1,
             'code' => '201506',
             'name' => 'Ciclo Junio',
@@ -53,7 +53,7 @@ class CampaignsTableSeeder extends \Illuminate\Database\Seeder {
             'qty_days' => '21'
         ));
 
-        \Reflex\Campaign::create(array(
+        \Reflex\Models\Campaign::create(array(
             'company_id' =>  1,
             'code' => '201507',
             'name' => 'Ciclo Agosto',

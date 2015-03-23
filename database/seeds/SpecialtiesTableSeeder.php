@@ -10,7 +10,7 @@ class SpecialtiesTableSeeder extends \Illuminate\Database\Seeder {
 
     public function run(){
 
-        DB::disableQueryLog();
+       // DB::disableQueryLog();
 
         DB::table('specialties')->delete();
 
@@ -20,12 +20,14 @@ class SpecialtiesTableSeeder extends \Illuminate\Database\Seeder {
 
             foreach($results as $result)
             {
-                \Reflex\Specialty::create(array(
+                \Reflex\Models\Specialty::create(array(
                     'code' => $result->code,
-                    'name' => $result->name
+                    'name' => $result->name,
+                    'realname' => $result->name
                     ));
             }
         });
+
     }
 
 }
