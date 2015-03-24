@@ -52,10 +52,15 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
         DB::table('notes')->where('campaign_id'  ,'=', $campaign->id)->delete();
         DB::table('targets')->where('campaign_id','=', $campaign->id)->delete();
 
+        $user_zones = DB::table('zones')->select('id as zone_id, id+2 as user_id')->get();
+
+        foreach($user_zones as%$ $data)
+        {}
+
         DB::statement("insert into user_zone(zone_id, user_id) select id, id+2 from zones;");
 
         DB::statement("insert into region_zone(zone_id, region_id) ".
-            "select c.zone_id, r.id from clients as c ".
+            "select c.zone_id as zone_id, r.id as region_id from clients as c ".
             "inner join locations as l on l.id = c.location_id ".
             "inner join regions as r on r.id = l.region_id group by c.zone_id, r.id;");
 
@@ -63,7 +68,7 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
             "select zone_id, location_id from clients group by zone_id,location_id;");
 
         DB::statement("insert into targets (company_id,campaign_id, zone_id, user_id,client_id,qty_visits) ".
-            "select 1,1,uz.zone_id,uz.user_id,c.id,c.qty_visits from user_zone as uz ".
+            "select 1 as company_id,1 as campaign_id,uz.zone_id,uz.user_id,c.id as client_id,c.qty_visits from user_zone as uz ".
             "inner join clients as c on uz.zone_id = c.zone_id;");
 
         Log::info(Uuid::generate());
