@@ -28,31 +28,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="database.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/database.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.375" vertical-offset="645" max-vertical-offset="1965">
-              <caret line="74" column="27" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="OpenCycle.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Commands/OpenCycle.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.75342464" vertical-offset="560" max-vertical-offset="1590">
-              <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.59931505" vertical-offset="605" max-vertical-offset="1590">
+              <caret line="52" column="41" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
               <folding>
                 <element signature="e#34#52#0#PHP" expanded="true" />
-                <marker date="1427240064000" expanded="true" signature="1238:1328" placeholder="insert into ..." />
-                <marker date="1427240064000" expanded="true" signature="1278:1328" placeholder="select id as..zones..." />
-                <marker date="1427240064000" expanded="true" signature="1357:1634" placeholder="insert into ..." />
-                <marker date="1427240064000" expanded="true" signature="1417:1634" placeholder="select c.zon..clients..." />
-                <marker date="1427240064000" expanded="true" signature="1663:1796" placeholder="insert into ..." />
-                <marker date="1427240064000" expanded="true" signature="1727:1796" placeholder="select zone_..clients..." />
-                <marker date="1427240064000" expanded="true" signature="1825:2206" placeholder="insert into ..." />
-                <marker date="1427240064000" expanded="true" signature="1959:2206" placeholder="select 1 as ..user_zone..." />
+                <marker date="1427240249000" expanded="true" signature="1242:1332" placeholder="insert into ..." />
+                <marker date="1427240249000" expanded="true" signature="1282:1332" placeholder="select id as..zones..." />
+                <marker date="1427240249000" expanded="true" signature="1361:1638" placeholder="insert into ..." />
+                <marker date="1427240249000" expanded="true" signature="1421:1638" placeholder="select c.zon..clients..." />
+                <marker date="1427240249000" expanded="true" signature="1667:1800" placeholder="insert into ..." />
+                <marker date="1427240249000" expanded="true" signature="1731:1800" placeholder="select zone_..clients..." />
+                <marker date="1427240249000" expanded="true" signature="1829:2210" placeholder="insert into ..." />
+                <marker date="1427240249000" expanded="true" signature="1963:2210" placeholder="select 1 as ..user_zone..." />
               </folding>
             </state>
           </provider>
@@ -877,26 +867,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/database.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.375" vertical-offset="645" max-vertical-offset="1965">
-          <caret line="74" column="27" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.19672132" vertical-offset="1080" max-vertical-offset="1965">
+          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Commands/OpenCycle.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75342464" vertical-offset="560" max-vertical-offset="1590">
-          <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.59931505" vertical-offset="605" max-vertical-offset="1590">
+          <caret line="52" column="41" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
           <folding>
             <element signature="e#34#52#0#PHP" expanded="true" />
-            <marker date="1427240064000" expanded="true" signature="1238:1328" placeholder="insert into ..." />
-            <marker date="1427240064000" expanded="true" signature="1278:1328" placeholder="select id as..zones..." />
-            <marker date="1427240064000" expanded="true" signature="1357:1634" placeholder="insert into ..." />
-            <marker date="1427240064000" expanded="true" signature="1417:1634" placeholder="select c.zon..clients..." />
-            <marker date="1427240064000" expanded="true" signature="1663:1796" placeholder="insert into ..." />
-            <marker date="1427240064000" expanded="true" signature="1727:1796" placeholder="select zone_..clients..." />
-            <marker date="1427240064000" expanded="true" signature="1825:2206" placeholder="insert into ..." />
-            <marker date="1427240064000" expanded="true" signature="1959:2206" placeholder="select 1 as ..user_zone..." />
+            <marker date="1427240249000" expanded="true" signature="1242:1332" placeholder="insert into ..." />
+            <marker date="1427240249000" expanded="true" signature="1282:1332" placeholder="select id as..zones..." />
+            <marker date="1427240249000" expanded="true" signature="1361:1638" placeholder="insert into ..." />
+            <marker date="1427240249000" expanded="true" signature="1421:1638" placeholder="select c.zon..clients..." />
+            <marker date="1427240249000" expanded="true" signature="1667:1800" placeholder="insert into ..." />
+            <marker date="1427240249000" expanded="true" signature="1731:1800" placeholder="select zone_..clients..." />
+            <marker date="1427240249000" expanded="true" signature="1829:2210" placeholder="insert into ..." />
+            <marker date="1427240249000" expanded="true" signature="1963:2210" placeholder="select 1 as ..user_zone..." />
           </folding>
         </state>
       </provider>
