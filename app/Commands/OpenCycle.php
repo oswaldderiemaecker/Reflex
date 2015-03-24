@@ -44,13 +44,13 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
 
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
-        DB::table('user_zone')->delete();
-        DB::table('region_zone')->delete();
-        DB::table('location_zone')->delete();
-        DB::table('visits')->where('campaign_id' ,'=', $campaign->id)->delete();
-        DB::table('routes')->where('campaign_id' ,'=', $campaign->id)->delete();
-        DB::table('notes')->where('campaign_id'  ,'=', $campaign->id)->delete();
-       DB::table('targets')->truncate();
+        DB::table('user_zone')->truncate();
+        DB::table('region_zone')->truncate();
+        DB::table('location_zone')->truncate();
+        DB::table('visits')->truncate();
+        DB::table('routes')->truncate();
+        DB::table('notes')->truncate();
+        DB::table('targets')->truncate();
 
         DB::statement("insert into user_zone(zone_id, user_id) select id as zone_id, (id+2) as user_id from zones;");
 
