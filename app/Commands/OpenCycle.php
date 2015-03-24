@@ -50,7 +50,7 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
         DB::table('visits')->where('campaign_id' ,'=', $campaign->id)->delete();
         DB::table('routes')->where('campaign_id' ,'=', $campaign->id)->delete();
         DB::table('notes')->where('campaign_id'  ,'=', $campaign->id)->delete();
-        DB::table('targets')->where('campaign_id','=', $campaign->id)->delete();
+       DB::table('targets')->truncate();
 
         DB::statement("insert into user_zone(zone_id, user_id) select id as zone_id, (id+2) as user_id from zones;");
 
