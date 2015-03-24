@@ -69,9 +69,9 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
         DB::statement("insert into location_zone(zone_id, location_id) ".
             "select zone_id, location_id from clients group by zone_id,location_id;");
 
-        DB::statement("insert into targets (company_id,campaign_id, zone_id, user_id,client_id,qty_visits) ".
-            "select 1 as company_id,1 as campaign_id,uz.zone_id,uz.user_id,c.id as client_id,c.qty_visits from user_zone as uz ".
-            "inner join clients as c on uz.zone_id = c.zone_id;");
+        DB::statement("insert into targets(company_id,campaign_id, zone_id, user_id,client_id,qty_visits) ".
+            "select 1 as company_id, 1 as campaign_id, uz.zone_id,uz.user_id,c.id as client_id,1 as qty_visits from user_zone as uz ".
+            " inner join clients as c on uz.zone_id = c.zone_id;");
 
         Log::info(Uuid::generate());
 
@@ -79,7 +79,7 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
 
         Log::info("finish at: ".$time_start->toDateTimeString()."\n");
 
-        $this->delete();
+
 
         $targets = Target::where('campaign_id' ,'=', $campaign->id)->get();
 
@@ -100,6 +100,8 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
                 $visit->save();
             }
         }
+
+        $this->delete();
     }
 
 }
