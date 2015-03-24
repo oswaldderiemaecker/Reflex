@@ -52,14 +52,14 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
         DB::table('notes')->where('campaign_id'  ,'=', $campaign->id)->delete();
         DB::table('targets')->where('campaign_id','=', $campaign->id)->delete();
 
-        DB::statement("insert into user_zone select id, id+2 from zones;");
+        DB::statement("insert into user_zone(zone_id, user_id) select id, id+2 from zones;");
 
-        DB::statement("insert into region_zone ".
+        DB::statement("insert into region_zone(zone_id, region_id) ".
             "select c.zone_id, r.id from clients as c ".
             "inner join locations as l on l.id = c.location_id ".
             "inner join regions as r on r.id = l.region_id group by c.zone_id, r.id;");
 
-        DB::statement("insert into location_zone ".
+        DB::statement("insert into location_zone(zone_id, location_id) ".
             "select zone_id, location_id from clients group by zone_id,location_id;");
 
         DB::statement("insert into targets (company_id,campaign_id, zone_id, user_id,client_id,qty_visits) ".
