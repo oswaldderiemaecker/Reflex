@@ -47,8 +47,8 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
         DB::table('user_zone')->truncate();
         DB::table('region_zone')->truncate();
         DB::table('location_zone')->truncate();
-        DB::table('routes')->truncate();
         DB::table('visits')->truncate();
+        DB::table('routes')->truncate();
         DB::table('notes')->truncate();
         DB::table('targets')->truncate();
 
