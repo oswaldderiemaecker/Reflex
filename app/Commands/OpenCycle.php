@@ -54,10 +54,12 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
 
         $user_zones = DB::table('zones')->select('id as zone_id, id+2 as user_id')->get();
 
-        foreach($user_zones as%$ $data)
-        {}
+        foreach($user_zones as $data)
+        {
 
-        DB::statement("insert into user_zone(zone_id, user_id) select id, id+2 from zones;");
+        }
+
+        DB::statement("insert into user_zone(zone_id, user_id) select id as zone_id, (id+2) as user_id from zones;");
 
         DB::statement("insert into region_zone(zone_id, region_id) ".
             "select c.zone_id as zone_id, r.id as region_id from clients as c ".
