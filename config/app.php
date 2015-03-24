@@ -197,7 +197,8 @@ return [
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
         'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
         'Uuid'      => 'Webpatser\Uuid\Uuid',
-
-	],
+        'Html'      => 'Illuminate\Html\HtmlFacade',
+        'Form'      => 'Illuminate\Html\FormFacade',
+    ],
 
 ];

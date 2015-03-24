@@ -1,6 +1,7 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Request;
 use Reflex\Models\Category;
 use Reflex\Models\Client;
 use Reflex\Models\ClientType;
@@ -86,12 +87,21 @@ class ClientController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
+     * @param Request $request
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		//
+        $latitude  = $request->get('latitude', null, true);
+        $longitude = $request->get('longitude', null, true);
+
+        $client = Client::find($id);
+
+        $client->latitude = $latitude;
+        $client->longitude = $longitude;
+        $client->save();
+        return $this->responseFactory->json($client);
 	}
 
 	/**

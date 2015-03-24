@@ -11,6 +11,7 @@
     "zofe/rapyd": "2.0.*",
     "fzaninotto/faker": "*",
     "webpatser/laravel-uuid": "1.*",
+    "illuminate/html": "5.0.*@dev",
     "ext-gd": "*"
   },
   "require-dev": {

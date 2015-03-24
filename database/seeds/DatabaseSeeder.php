@@ -97,6 +97,10 @@ class DatabaseSeeder extends Seeder {
 
         $this->command->info('Clients Table Seeded!');
 
+        $this->call('NoteTypesTableSeeder');
+
+        $this->command->info('Note Types Table Seeded!');
+
 	}
 
 }

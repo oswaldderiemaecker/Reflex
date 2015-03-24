@@ -1,5 +1,6 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\ResponseFactory;
 use Reflex\Models\Campaign;
 use Reflex\Http\Requests;
@@ -8,6 +9,7 @@ use Auth;
 use Log;
 use Reflex\User;
 use Reflex\Models\Zone;
+use Input;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
 use Zofe\Rapyd\Facades\DataEdit;
@@ -25,12 +27,35 @@ class TargetController extends Controller {
     }
 	/**
 	 * Display a listing of the resource.
-	 *
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
+        $zone_id     = $request->get('zone_id',null,true);
+        $campaign_id = $request->get('campaign_id',null,true);
+        $query = $request->get('query',null,true);
+
+        $targets =  $this->target->newQuery()->with('client','client.location','client.category','client.place');
+
+        if(!(is_null($zone_id) || $zone_id == '')){
+            $targets->where('zone_id','=', $zone_id);
+        }
+
+        if(!(is_null($campaign_id) || $campaign_id == '')){
+            $targets->where('campaign_id','=', $campaign_id);
+        }
+
+
+        if(!(is_null($query) || $query == '')){
+
+            $targets->whereHas('client', function($q){
+               $q->where('closeup_name','LIKE','%'.$query.'%');
+            });
+        }
+
+
+        return $targets->get()->toJson();
 	}
 
 	/**

@@ -1,5 +1,11 @@
 @extends('frontend.app')
 
+
+@section('includes.js')
+    @parent
+<script src="/js/plugins/morris/morris-data.js"></script>
+    @stop
+
 @section('content')
 
     <div class="row">
@@ -25,35 +31,7 @@
             </div>
         </div>
     </div>
-    <!-- /.row -->
-    <div class="row">
-        @foreach($businessUnits as $businessUnit)
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-shopping-cart fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">{{ count($businessUnit->sub_business_units) }}</div>
-                            <div>{{ $businessUnit->name }}</div>
-                        </div>
-                    </div>
-                </div>
-                <a href="{{ url('/backend/sub_unidades?business_unit_id='.$businessUnit->id) }}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Detalle</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
 
-        </div>
-        @endforeach
-
-    </div>
 
     <div class="row">
         <div class="col-lg-4">
@@ -104,14 +82,5 @@
         </div>
     </div>
 
-    <div class="page-header">
-        <h1>Procesos</h1>
-    </div>
-    <p>
-        <a href="{{ url('/inicio_de_ciclo') }}" class="btn btn-lg btn-success" onclick="return confirm('Estar Seguro?')">
-            Inicio de Ciclo</a>
-
-        <button type="button" class="btn btn-lg btn-danger" onclick="alert('Proximamente!')")>Cierre de Ciclo</button>
-    </p>
 
 @endsection

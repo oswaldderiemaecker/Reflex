@@ -54,16 +54,16 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
 
         DB::statement("insert into user_zone select id, id+2 from zones;");
 
-        DB::statement("insert into region_zone\n".
-            "select c.zone_id, r.id from clients as c\n".
-            "inner join locations as l on l.id = c.location_id\n".
+        DB::statement("insert into region_zone ".
+            "select c.zone_id, r.id from clients as c ".
+            "inner join locations as l on l.id = c.location_id ".
             "inner join regions as r on r.id = l.region_id group by c.zone_id, r.id;");
 
-        DB::statement("insert into location_zone\n".
+        DB::statement("insert into location_zone ".
             "select zone_id, location_id from clients group by zone_id,location_id;");
 
-        DB::statement("insert into targets (company_id,campaign_id, zone_id, user_id,client_id,qty_visits,created_at,updated_at,deleted_at)\n".
-            "select 1,1,uz.zone_id,uz.user_id,c.id,c.qty_visits,now(),now(),null from user_zone as uz\n".
+        DB::statement("insert into targets (company_id,campaign_id, zone_id, user_id,client_id,qty_visits) ".
+            "select 1,1,uz.zone_id,uz.user_id,c.id,c.qty_visits from user_zone as uz ".
             "inner join clients as c on uz.zone_id = c.zone_id;");
 
         Log::info(Uuid::generate());

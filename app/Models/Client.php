@@ -66,4 +66,9 @@ class Client extends Model {
     {
         return $this->hasMany('Reflex\Models\Client', 'parent_id');
     }
+
+    public function schedules()
+    {
+        return $this->hasMany('Reflex\Models\Schedule');
+    }
 }
