@@ -138,7 +138,7 @@ class RouteController extends Controller {
     {
         $user = Auth::user();
         $zone = Auth::user()->zones->first();
-        $campaign = DB::table('Campaigns')->where('active','=',1)->first();
+        $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
         return view('frontend.route',compact('zone','user','campaign'));
     }
