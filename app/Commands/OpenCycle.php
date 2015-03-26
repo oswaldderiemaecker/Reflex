@@ -36,8 +36,6 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
 	{
 
         ini_set('memory_limit','10024M');
-        Eloquent::unguard();
-
         DB::disableQueryLog();
 
         echo("starting Proccess Kardex Job\n\n");
