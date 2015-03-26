@@ -13,7 +13,7 @@ class Note extends Model {
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['uuid', 'note_type_id', 'zone_id', 'campaign_id', 'target_id',
+    protected $fillable = ['uuid', 'note_type_id', 'zone_id','user_id', 'campaign_id', 'target_id',
             'client_id', 'date', 'time', 'title', 'description', 'is_completed', 'is_from_mobile', 'active', 'synchro'];
 
     /**
@@ -44,6 +44,11 @@ class Note extends Model {
     public function target()
     {
         return $this->belongsTo('Reflex\Models\Target');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('Reflex\User');
     }
 
 }

@@ -33,8 +33,9 @@ class TargetController extends Controller {
 	public function index(Request $request)
 	{
         $zone_id     = $request->get('zone_id',null,true);
+        $user_id     = $request->get('user_id',null,true);
         $campaign_id = $request->get('campaign_id',null,true);
-        $query = $request->get('query',null,true);
+        $query_in = $request->get('query',null,true);
 
         $targets =  $this->target->newQuery()->with('client','client.location','client.category','client.place');
 
@@ -42,18 +43,20 @@ class TargetController extends Controller {
             $targets->where('zone_id','=', $zone_id);
         }
 
+        if(!(is_null($user_id) || $user_id == '')){
+            $targets->where('user_id','=', $user_id);
+        }
+
         if(!(is_null($campaign_id) || $campaign_id == '')){
             $targets->where('campaign_id','=', $campaign_id);
         }
 
+        if(!(is_null($query_in) || $query_in == '')){
 
-        if(!(is_null($query) || $query == '')){
-
-            $targets->whereHas('client', function($q){
-               $q->where('closeup_name','LIKE','%'.$query.'%');
+            $targets->whereHas('client', function($q) use($query_in){
+               $q->where('closeup_name','LIKE','%'.strtoupper($query_in).'%');
             });
         }
-
 
         return $targets->get()->toJson();
 	}

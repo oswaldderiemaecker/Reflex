@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d99963a92bd9cac636e8b5ebececa494",
+    "hash": "88e082ca212d3299eab9d2b3ce5cdb62",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -568,12 +568,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d16eee297dd0f86e666c8bbffa6b2434b323f9a4"
+                "reference": "e7365f39a54329f121028f6b92efe4ea6ecb7573"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d16eee297dd0f86e666c8bbffa6b2434b323f9a4",
-                "reference": "d16eee297dd0f86e666c8bbffa6b2434b323f9a4",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e7365f39a54329f121028f6b92efe4ea6ecb7573",
+                "reference": "e7365f39a54329f121028f6b92efe4ea6ecb7573",
                 "shasum": ""
             },
             "require": {
@@ -686,7 +686,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-03-24 21:09:20"
+            "time": "2015-03-25 13:17:34"
         },
         {
             "name": "league/flysystem",
@@ -1102,6 +1102,61 @@
                 "xlsx"
             ],
             "time": "2014-03-02 15:22:49"
+        },
+        {
+            "name": "predis/predis",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "b8decc75a884fce1bfc62d5bc6823298a678f890"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/b8decc75a884fce1bfc62d5bc6823298a678f890",
+                "reference": "b8decc75a884fce1bfc62d5bc6823298a678f890",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete PHP client library for Redis",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2015-01-02 13:37:26"
         },
         {
             "name": "psr/log",
@@ -3352,7 +3407,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "illuminate/html": 20
+        "illuminate/html": 20,
+        "predis/predis": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

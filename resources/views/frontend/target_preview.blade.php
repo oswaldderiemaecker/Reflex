@@ -190,7 +190,7 @@
         <!-- top row -->
         <div class="row">
             <div class="btn-group pull-right" style="padding-bottom: 5px">
-                <button type="button" class="btn btn-primary btn-flat" style="margin-right: 5px;">Visitar</button>
+                <a type="button" class="btn btn-primary btn-flat" href="{{ url('/frontend/visitar') }}" style="margin-right: 5px;">Visitar</a>
                 <button type="button" class="btn btn-primary btn-flat" style="margin-right: 5px;">Ruta</button>
                 <button type="button" class="btn btn-primary btn-flat" style="margin-right: 5px;">Ausencia</button>
                 <button type="button" class="btn btn-primary btn-flat" style="margin-right: 5px;">Modificar</button>
@@ -211,8 +211,6 @@
                         <div class="pull-right box-tools">
                             <button class="btn btn-danger btn-sm" data-widget='collapse' data-toggle="tooltip" title="Colapsar"><i class="fa fa-minus"></i>
                             </button>
-                            <button class="btn btn-danger btn-sm" data-widget='remove' data-toggle="tooltip" title="Eliminar"><i class="fa fa-times"></i>
-                            </button>
                         </div>
                         <!-- /. tools -->
                         <i class="fa fa-user-md"></i>
@@ -220,41 +218,77 @@
                         <h3 class="box-title">Médico</h3>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body no-padding">
-                        <div class="row">
+                    <div class="box-body">
 
 
+                            <table class="table">
+                                <tr>
+                                    <td><b>Foto</b></td>
+                                    <td><img src="http://200.48.13.46/cmp/fotos/{{ substr($target->client->code,-5) }}.jpg"/></td>
+                                </tr>
+                                <tr>
+                                    <td><b># Colegiatura: </b></td>
+                                    <td>{{{ $target->client->code }}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Nombres: </b></td>
+                                    <td>{{{ $target->client->closeup_name }}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Dirección: </b></td>
+                                    <td>{{{ $target->client->address. ' - '. $target->client->location->name }}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Categoría: </b></td>
+                                    <td>{{{ $target->client->category->name }}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Lugar: </b></td>
+                                    <td>{{{ $target->client->place->name }}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Especialidad Base: </b></td>
+                                    <td>{{{ $target->client->specialty_base->name }}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Especialidad Target: </b></td>
+                                    <td>{{{ $target->client->specialty_target->name }}}</td>
+                                </tr>
+                                @if ($target->client->cmp != '')
+                                <tr>
+                                    <td><b>Dni: </b></td>
+                                    <td>{{{ $target->client->cmp }}}</td>
+                                </tr>
+                                @endif
+                                @if ($target->client->date_of_birth != '')
+                                <tr>
+                                    <td><b>Fecha de Nacimiento: </b></td>
+                                    <td>{{{ $target->client->date_of_birth }}}</td>
+                                </tr>
+                                @endif
+                                @if ($target->client->email != '')
+                                <tr>
+                                    <td><b>Correo Electrónico: </b></td>
+                                    <td>{{{ $target->client->email }}}</td>
+                                </tr>
+                                @endif
+                                <tr>
+                                    <td><b>Marketing Info:</b></td>
+                                    <td>
+                                        <ul>
+                                            <li><b>Cant. Pacientes:</b> {{{ $target->client->qty_patients }}}</li>
+                                            <li><b>Precio Consulta:</b> S/. {{{ $target->client->price_inquiry }}}</li>
+                                            <li><b>Nivel Socio Económico:</b> {{{ $target->client->social_level_patients }}}</li>
+                                            <li><b>Grupo Etario:</b> {{{ ($target->client->attends_child)?'Niños ':' ' }}}
+                                                {{{ ($target->client->attends_teen)?'Adolecentes ':' ' }}}
+                                                {{{ ($target->client->attends_adult)?'Adultos ':' ' }}}
+                                                {{{ ($target->client->attends_old)?'Adulto Mayor ':' ' }}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
 
-                            <ul>
-                                <li><b># Colegiatura: </b> {{{ $target->client->cmp }}}</li>
-                                <li><b>Nombres: </b>{{{ $target->client->closeup_name }}}</li>
-                                <li><b>Dirección: </b>
-                                    {{{ $target->client->address. ' - '. $target->client->location->name }}}
-                                </li>
-                                <li><b>Categoría</b>: {{{ $target->client->category->name }}}</li>
-                                <li><b>Lugar:</b> {{{ $target->client->place->name }}}</li>
-                                <li><b>Especialidad Base:</b> {{{ $target->client->specialty_base->name }}}</li>
-                                <li><b>Especialidad Target:</b> {{{ $target->client->specialty_target->name }}}</li>
-                                <li><b>DNI:</b> {{{ $target->client->code }}}</li>
-                                <li><b>Fecha de Nacimiento:</b> {{{ $target->client->date_of_birth }}}</li>
-                                <li><b>Correo Electrónico:</b> {{{ $target->client->email }}}</li>
-                                <li><b>Marketing Info:</b>
-                                    <ul>
-                                        <li><b>Cant. Pacientes:</b> {{{ $target->client->qty_patients }}}</li>
-                                        <li><b>Precio Consulta:</b> S/. {{{ $target->client->price_inquiry }}}</li>
-                                        <li><b>Nivel Socio Económico:</b> {{{ $target->client->social_level_patients }}}</li>
-                                        <li><b>Grupo Etario:</b> {{{ ($target->client->attends_child)?'Niños ':' ' }}}
-                                            {{{ ($target->client->attends_teen)?'Adolecentes ':' ' }}}
-                                            {{{ ($target->client->attends_adult)?'Adultos ':' ' }}}
-                                            {{{ ($target->client->attends_old)?'Adulto Mayor ':' ' }}}
-                                        </li>
-                                    </ul>
-
-                                </li>
-                            </ul>
-
-
-                        </div>
                         <!-- /.row - inside box -->
                     </div>
                     <!-- /.box-body -->
@@ -378,6 +412,7 @@
                 </div>
                 <form action="#" method="post" id="form_note">
                     <input name="zone_id" type="hidden" value='{{{ $target->zone_id }}}' />
+                    <input name="user_id" type="hidden" value='{{{ $target->user_id }}}' />
                     <input name="campaign_id" type="hidden" value='{{{ $target->campaign_id }}}' />
                     <input name="client_id" type="hidden" value='{{{ $target->client_id }}}' />
                     <input name="target_id" type="hidden" value='{{{ $target->id }}}' />

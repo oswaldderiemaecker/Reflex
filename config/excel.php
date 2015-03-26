@@ -58,15 +58,15 @@ return array(
     ),
 
     'properties' => array(
-        'creator'        => 'Maatwebsite',
-        'lastModifiedBy' => 'Maatwebsite',
+        'creator'        => 'Reflex 360',
+        'lastModifiedBy' => 'Reflex 360',
         'title'          => 'Spreadsheet',
-        'description'    => 'Default spreadsheet export',
-        'subject'        => 'Spreadsheet export',
-        'keywords'       => 'maatwebsite, excel, export',
+        'description'    => 'Reflex excel export',
+        'subject'        => 'Reflex excel export',
+        'keywords'       => 'reflex,excel,xls,xlsx',
         'category'       => 'Excel',
-        'manager'        => 'Maatwebsite',
-        'company'        => 'Maatwebsite',
+        'manager'        => 'Reflex 360',
+        'company'        => 'reflex.pe',
     ),
 
     /*
@@ -106,7 +106,7 @@ return array(
     |
     */
 
-    'creator'    => 'Maatwebsite',
+    'creator'    => 'Reflex 360',
 
     'csv'        => array(
         /*

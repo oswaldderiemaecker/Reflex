@@ -49,4 +49,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('Reflex\User', 'parent_id');
     }
+
+    public function zones()
+    {
+        return $this->belongsToMany('Reflex\Models\Zone');
+    }
 }

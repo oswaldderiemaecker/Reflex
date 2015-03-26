@@ -6,6 +6,7 @@ use Reflex\Http\Requests;
 use Reflex\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Reflex\Models\Route;
 use Reflex\Models\Schedule;
 use Uuid;
 
@@ -112,7 +113,7 @@ class ScheduleController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+
 	}
 
 	/**

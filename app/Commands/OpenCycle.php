@@ -34,7 +34,11 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
 	 */
 	public function handle()
 	{
-        ini_set("memory_limit","-1");
+
+        ini_set('memory_limit','10024M');
+        Eloquent::unguard();
+
+        DB::disableQueryLog();
 
         echo("starting Proccess Kardex Job\n\n");
 
@@ -72,8 +76,6 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
 
         Log::info("finish at: ".$time_start->toDateTimeString()."\n");
 
-
-
         $targets = Target::where('campaign_id' ,'=', $campaign->id)->get();
 
         foreach($targets as $target)
@@ -85,6 +87,7 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
                 $visit->visit_type_id = 1;
                 $visit->visit_status_id = 1;
                 $visit->zone_id = $target->zone_id;
+                $visit->user_id = $target->user_id;
                 $visit->campaign_id = $target->campaign_id;
                 $visit->target_id = $target->id;
                 $visit->client_id = $target->client_id;

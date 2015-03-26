@@ -229,9 +229,7 @@ class UserController extends Controller {
                 $form->model->save();
 
             }
-            $form->message("El registro se guardo correctamente.");
-            $form->link("/backend/home","Regresar");
-                });
+        });
 
         return view('backend.user.form', compact('form'));
 

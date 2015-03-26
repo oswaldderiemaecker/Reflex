@@ -31,6 +31,7 @@ class NoteController extends Controller {
 	{
         $client_id    = $request->get('client_id',null,true);
         $zone_id      = $request->get('zone_id',null,true);
+        $user_id      = $request->get('user_id',null,true);
         $campaign_id  = $request->get('campaign_id',null,true);
         $note_type_id = $request->get('note_type_id',null,true);
 
@@ -43,6 +44,10 @@ class NoteController extends Controller {
 
         if(!(is_null($zone_id) || $zone_id == '')){
             $data->where('zone_id','=', $zone_id);
+        }
+
+        if(!(is_null($user_id) || $user_id == '')){
+            $data->where('user_id','=', $user_id);
         }
 
         if(!(is_null($campaign_id) || $campaign_id == '')){
@@ -79,6 +84,7 @@ class NoteController extends Controller {
 	{
         $client_id      = $request->get('client_id',null,true);
         $zone_id        = $request->get('zone_id',null,true);
+        $user_id        = $request->get('user_id',null,true);
         $campaign_id    = $request->get('campaign_id',null,true);
         $note_type_id   = $request->get('note_type_id',null,true);
         $target_id      = $request->get('target_id',null,true);
@@ -97,6 +103,7 @@ class NoteController extends Controller {
             'uuid' => Uuid::generate(),
             'note_type_id' => $note_type_id,
             'zone_id' => $zone_id,
+            'user_id' => $user_id,
             'campaign_id' => $campaign_id,
             'target_id' => $target_id,
             'client_id' => $client_id,
@@ -154,5 +161,6 @@ class NoteController extends Controller {
 	public function destroy($id)
 	{
         $this->note->findOrFail($id)->delete();
+        return $this->responseFactory->json("OK");
 	}
 }

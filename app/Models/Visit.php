@@ -14,7 +14,7 @@ class Visit extends Model {
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['uuid', 'route_uuid', 'visit_type_id',
-        'visit_status_id', 'reason_id', 'zone_id', 'campaign_id', 'target_id',
+        'visit_status_id', 'reason_id', 'zone_id','user_id', 'campaign_id', 'target_id',
         'specialty_id', 'client_id', 'start', 'end', 'supervisor',
         'description', 'cmp', 'firstname', 'lastname',
         'is_supervised', 'is_from_mobile', 'active', 'synchro', 'longitude', 'latitude'];
@@ -57,6 +57,11 @@ class Visit extends Model {
     public function client()
     {
         return $this->belongsTo('Reflex\Models\Client');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('Reflex\User');
     }
 
 

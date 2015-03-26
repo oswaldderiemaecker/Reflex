@@ -24,7 +24,7 @@
                 'serverSide': false,
                 'ajax': {
                   //  'url': '/api/kardexs?zone_id='+localStorage.zone_id+'&cycle_id='+localStorage.cycle_id,
-                    'url' : '/api/targets?zone_id=390&campaign_id=1',
+                    'url' : '/api/targets?zone_id={{ $zone->id }}&campaign_id={{ $campaign->id }}&user_id={{ $user->id }}',
                     'dataSrc': '',
                     'type' : 'get'
                 },
@@ -35,8 +35,8 @@
                     { 'data': 'client.photo',
                         'mRender' : function(data,type,full){
                             console.log(full);
-                            return "<img src='http://200.48.13.46/cmp/fotos/"+full.client.code+".jpg'/>";
-                            //return '';
+                            //return "<img src='http://200.48.13.46/cmp/fotos/"+full.client.code+".jpg'/>";
+                            return '';
                         }
                     },
                     { 'data': 'client.code' },

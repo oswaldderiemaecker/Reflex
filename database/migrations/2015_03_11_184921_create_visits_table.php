@@ -15,6 +15,7 @@ class CreateVisitsTable extends Migration {
         Schema::create('routes', function(Blueprint $table)
         {
             $table->string('uuid',36)->primary();
+            $table->integer('user_id')->unsigned();
             $table->integer('zone_id')->unsigned();
             $table->integer('campaign_id')->unsigned();
             $table->integer('target_id')->unsigned();
@@ -30,6 +31,7 @@ class CreateVisitsTable extends Migration {
             $table->softDeletes();
 
             $table->foreign('zone_id')->references('id')->on('zones');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->foreign('target_id')->references('id')->on('targets');
             $table->foreign('client_id')->references('id')->on('clients');
@@ -73,6 +75,7 @@ class CreateVisitsTable extends Migration {
             $table->integer('visit_status_id')->unsigned();
             $table->integer('reason_id',false, true)->nullable();
             $table->integer('zone_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('campaign_id')->unsigned();
             $table->integer('target_id')->unsigned();
             $table->integer('specialty_id',false,true)->nullable();
@@ -102,6 +105,7 @@ class CreateVisitsTable extends Migration {
             $table->foreign('visit_status_id')->references('id')->on('visit_status');
             $table->foreign('reason_id')->references('id')->on('reasons');
             $table->foreign('zone_id')->references('id')->on('zones');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->foreign('target_id')->references('id')->on('targets');
             $table->foreign('specialty_id')->references('id')->on('specialties');
@@ -124,6 +128,7 @@ class CreateVisitsTable extends Migration {
             $table->string('uuid',36)->primary();
             $table->integer('note_type_id')->unsigned()->nullable();
             $table->integer('zone_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('campaign_id')->unsigned();
             $table->integer('target_id',false,true)->nullable();
             $table->integer('client_id',false,true)->nullable();

@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Log;
 use Reflex\Http\Requests;
 use Reflex\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
 use Reflex\Models\Schedule;
 use Reflex\Models\Target;
+use Auth;
 
 class TargetController extends Controller {
 
@@ -92,7 +92,11 @@ class TargetController extends Controller {
      */
     public function main()
     {
-        return view('frontend.target');
+        $user = Auth::user();
+        $zone = Auth::user()->zones->first();
+        $campaign = DB::table('Campaigns')->where('active','=',1)->first();
+
+        return view('frontend.target', compact('user','zone','campaign'));
     }
 
     /**

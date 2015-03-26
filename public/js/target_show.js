@@ -1,7 +1,5 @@
 $(document).ready(function() {
-
-   "use strict";
-
+    "use strict";
 
     $('.datepicker').datepicker({
         startDate: 'now',
@@ -10,26 +8,20 @@ $(document).ready(function() {
         daysOfWeekDisabled: '0'
     });
 
-
-
-    //Timepicker
     $('.timepicker').timepicker({
         showInputs: false,
         showMeridian: false,
         defaultTime: 'current'
     });
 
-
     $('#schedule_refresh').on('click', function() {
         console.log('refreshing calendar');
         $('#calendar').fullCalendar('refetchEvents');
-
     });
 
     $("#clear_schedule").click(function() {
         $(".timepicker").val('');
     });
-
 
     $("#submit_note").click(function() {
 
@@ -155,7 +147,7 @@ $(document).ready(function() {
 function loadNotes(page) {
     $.ajax({
         type: "GET",
-        url: "/api/notes?zone_id=" + zone_id +"&client_id="+client_id+ "&page=" + page,
+        url: "/api/notes?zone_id=" + zone_id +"&client_id="+client_id+"&user_id="+user_id+ "&page=" + page,
         contentType: "application/json; charset=utf-8",
         data: "{}",
         dataType: "json",

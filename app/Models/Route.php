@@ -11,9 +11,8 @@ class Route extends Model {
 
     protected $primaryKey = 'uuid';
 
-    protected $fillable = ['uuid', 'note_type_id', 'zone_id', 'campaign_id',
-        'target_id', 'client_id', 'date', 'time', 'title', 'description',
-        'is_completed', 'is_from_mobile', 'active', 'synchro'];
+    protected $fillable = ['uuid', 'user_id', 'zone_id', 'campaign_id', 'target_id','client_id',
+                           'start', 'end', 'description', 'point_of_contact', 'is_from_mobile', 'active', 'synchro'];
 
     protected $dates = ['deleted_at'];
 
@@ -35,6 +34,11 @@ class Route extends Model {
     public function client()
     {
         return $this->belongsTo('Reflex\Models\Client');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('Reflex\User');
     }
 
     public function toArray()
