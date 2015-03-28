@@ -23,11 +23,28 @@ $(document).ready(function() {
         $(".timepicker").val('');
     });
 
+    $("#submit_marketing").click(function() {
+        var data_form = $('#form_marketing').serialize();
+        console.log(data_form);
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/clients/"+client_id,
+            data: data_form,
+            success: function(data) {
+                console.log(data);
+            }
+        });
+
+        $('#marketing-modal').modal('hide');
+        toastr.success('Se actualizo la información correctamente!', doctor_name);
+        return false;
+    });
+
     $("#submit_note").click(function() {
 
         if (($('#note_description').val() == '') || $('note_date').val() == '') {
             $('#message').removeClass('hide');
-
         } else {
             var data_form = $('#form_note').serialize();
             console.log(data_form);
@@ -49,10 +66,6 @@ $(document).ready(function() {
             $('#note-modal').modal('hide');
             toastr.success('Se agrego una nota correctamente!', doctor_name);
         }
-
-
-
-
         return false;
     });
 
@@ -87,7 +100,6 @@ $(document).ready(function() {
 
         var viernes_inicio = $('#viernes_inicio').val();
         var viernes_fin = $('#viernes_fin').val();
-
 
         $.ajax({
             type: "POST",
@@ -139,7 +151,6 @@ $(document).ready(function() {
         toastr.success('Se actualizó el horario correctamente!', doctor_name);
 
         return false;
-
     });
 });
 

@@ -73,14 +73,15 @@ Route::group(array('prefix' => 'frontend'), function() {
 
     Route::get('home', 'Frontend\HomeController@index');
 
-    Route::get('target'  ,array('uses' => 'Frontend\TargetController@main'));
-    Route::get('visitas' ,array('uses' => 'Frontend\VisitController@main'));
-    Route::get('visitar' ,array('uses' => 'Frontend\VisitController@visit_new'));
-    Route::get('rutas'   ,array('uses' => 'Frontend\RouteController@main'));
-    Route::get('reportes',array('uses' => 'Frontend\ReportController@main'));
-    Route::get('notas'   ,array('uses' => 'Frontend\NoteController@main'));
+    Route::get('target'      ,array('uses' => 'Frontend\TargetController@main'));
+    Route::get('visitas'     ,array('uses' => 'Frontend\VisitController@main'));
+    Route::get('visitar'     ,array('uses' => 'Frontend\VisitController@visit_new'));
+    Route::get('visita/{id}' ,array('uses' => 'Frontend\VisitController@visit_preview'));
+    Route::get('rutas'       ,array('uses' => 'Frontend\RouteController@main'));
+    Route::get('reportes'    ,array('uses' => 'Frontend\ReportController@main'));
+    Route::get('notas'       ,array('uses' => 'Frontend\NoteController@main'));
 
-    Route::get('target/{id}',array('uses' => 'Frontend\TargetController@preview'));
+    Route::get('target/{id}'   ,array('uses' => 'Frontend\TargetController@preview'));
     Route::get('schedule/calendar/{id}',array('uses' => 'Frontend\ScheduleController@calendar'));
     Route::get('rutas/calendar',array('uses' => 'Frontend\RouteController@calendar'));
     Route::get('rutas/exportar',array('uses' => 'Frontend\RouteController@export'));

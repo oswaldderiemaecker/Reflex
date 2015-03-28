@@ -8,8 +8,8 @@
 @section('includes.js')
     @parent
 
-    <script src="/plugins/fittext/jquery.fittext.js"></script>
-    <script src="/js/custom.js" type="text/javascript"></script>
+    <script src="/plugins/moment/moment.min.js" type="text/javascript"></script>
+    <script src="/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
 
@@ -28,6 +28,7 @@
             var mils;
             var paused = false;
             var count = 0;
+
             $('#time').on('click', function(){
                 if(mils != undefined){
                     if(mils > 0){
@@ -44,19 +45,128 @@
             });
 
             $('#btnPause').on('click', function(){
-                if(paused == false){
+
+                bootbox.dialog({
+                    message: "Estás seguro de queres guardar esta visita?",
+                    title: "Nueva Visita",
+                    buttons: {
+                        success: {
+                            label: "Visitar",
+                            className: "btn-success",
+                            callback: function() {
+
+                                $('#time').addClass('paused');
+                                paused = true;
+                                clearTimeout(timeout);
+                                pauseTime = mils;
+
+
+                                $('#btnPause').hide();
+
+                                console.log(startTime);
+                                console.log(mils);
+
+                                var data_form = $('#visit_form').serialize();
+                                var visit_start = $('#visit_start').val();
+                                var uuid = $('#uuid').val();
+                                var start = moment(visit_start).add(mils,'ms');
+
+                                console.log(data_form);
+                                console.log(visit_start);
+                                console.log(start.format('YYYY-MM-DD HH:mm:ss'));
+
+                                data_form = data_form+'&end='+start.format('YYYY-MM-DD HH:mm:ss');
+
+                                $("#is_supervised").prop('disabled', true);
+                                $("#visit_description").prop('disabled', true);
+
+                                if(navigator.geolocation) {
+                                    navigator.geolocation.getCurrentPosition(function(position) {
+                                        var latitude = position.coords.latitude;
+                                        var longitude = position.coords.longitude;
+
+                                        data_form=data_form+'&latitude='+latitude+'&longitude='+longitude;
+
+                                        $.ajax({
+                                            type: "PUT",
+                                            url: "/api/visits/"+uuid,
+                                            data: data_form,
+                                            success: function(data) {
+                                                console.log(data);
+                                                toastr.success('Se Visita se guardo correctamente!');
+
+                                                $('#divBack').fadeIn(function(){
+                                                    $('#back').removeClass("hidden");
+                                                });
+                                            }
+                                        });
+                                    }, function() {
+                                        $.ajax({
+                                            type: "PUT",
+                                            url: "/api/visits/"+uuid,
+                                            data: data_form,
+                                            success: function(data) {
+                                                console.log(data);
+                                                toastr.success('Se Visita se guardo correctamente!');
+
+                                                $('#divBack').fadeIn(function(){
+                                                    $('#back').removeClass("hidden");
+                                                });
+                                            }
+                                        });
+                                    });
+                                } else {
+                                    $.ajax({
+                                        type: "PUT",
+                                        url: "/api/visits/"+uuid,
+                                        data: data_form,
+                                        success: function(data) {
+                                            console.log(data);
+                                            toastr.success('Se Visita se guardo correctamente!');
+
+                                            $('#divBack').fadeIn(function(){
+                                                $('#back').removeClass("hidden");
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        },
+                        danger: {
+                            label: "Cancelar",
+                            className: "btn-danger",
+                            callback: function() {
+                                paused = false;
+                                $(this).html('<i class="icon-pause"></i>&nbsp;&nbsp;Fin');
+                               // startTime = new Date();
+                                clock();
+                            }
+                        }
+                    }
+                });
+
+
+               /* if(paused == false){
                     paused = true;
                     clearTimeout(timeout);
                     pauseTime = mils;
-                    $(this).html('<i class="icon-play-circle"></i>&nbsp;&nbsp;Resume');
+                    $(this).html('<i class="icon-play-circle"></i>&nbsp;&nbsp;Fin');
                     $('#time').addClass('paused');
                 }else{
                     paused = false;
-                    $(this).html('<i class="icon-pause"></i>&nbsp;&nbsp;Pause');
+                    $(this).html('<i class="icon-pause"></i>&nbsp;&nbsp;Fin');
                     startTime = new Date();
                     clock();
-                }
+                }*/
+
+
+
+
+                return false;
+
             });
+
+
             $('#btnStop').on('click', function(){
                 $('#title').slideDown();
                 $('#lapInst').hide();
@@ -68,10 +178,11 @@
                 $('#time').html('00:00:00');
                 $('#btnClear').click();
                 $('#divControls').fadeOut(function(){
-                    $('#divStart').fadeIn()
-                    $('#btnPause').html('<i class="icon-pause"></i>&nbsp;&nbsp;Pause');
+                    $('#divStart').fadeIn();
+                    $('#btnPause').html('<i class="icon-pause"></i>&nbsp;&nbsp;Procesando');
                 });
             });
+
             $('#btnStart').on('click', function(){
                /* $('#title').slideUp(function(){
                     adjustHeight();
@@ -132,8 +243,28 @@
                     count = 0;
                 });
             });
-        });			</script>
+        });
+    </script>
     @stop
+
+
+@section('header')
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Nueva Visita
+            <small>{{ $visit->client->closeup_name }}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li><a href="{{ url('/frontend/target') }}"><i class="fa fa-user-md"></i> Target</a></li>
+            <li><a href="{{ url('/frontend/target/'.$visit->target_id) }}"><i class="fa fa-user"></i> Perfil</a></li>
+            <li class="active">
+                <i class="fa fa-medkit"></i> Nueva Visita
+            </li>
+        </ol>
+    </section>
+@stop
 
 @section('content')
 
@@ -145,12 +276,42 @@
                 <div class="box-body">
 
 
+    <form id="visit_form">
+        <input type="hidden" name="uuid" id="uuid" value="{{ $visit->uuid }}" />
+        <input type="hidden" name="visit_type_id" value="1" />
+        <input type="hidden" name="visit_status_id" value="2" />
+        <input type="hidden" name="zone_id" value="{{ $visit->zone_id }}" />
+        <input type="hidden" name="user_id" value="{{ $visit->user_id }}" />
+        <input type="hidden" name="campaign_id" value="{{ $visit->campaign_id }}" />
+        <input type="hidden" name="target_id" value="{{ $visit->target_id }}" />
+        <input type="hidden" name="specialty_id" value="{{ $visit->client->specialty_base_id }}" />
+        <input type="hidden" name="client_id" value="{{ $visit->client_id }}" />
+        <input type="hidden" name="start" id="visit_start" value="{{ $start }}" />
+        <input type="hidden" name="cmp" value="{{ $visit->client->code }}" />
+        <input type="hidden" name="firstname" value="{{ $visit->client->firstname }}" />
+        <input type="hidden" name="lastname" value="{{ $visit->client->lastname }}" />
+        <input type="hidden" name="is_from_mobile" value="0" />
+        <input type="hidden" name="active" value="1" />
+
         <div class="center">
             <div id="stopWatch">
-                <h1 id="title">Nueva Visita</h1>
+                <h1 id="title">Nueva Visita<br><small>{{ $visit->client->closeup_name }}</small></h1>
                 <div class="">
                     <div class="span12">
                         <div id="time" class="pointable" style="font-weight:bold; width:100%; display:block;">00:00:00</div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="span4 center">
+                        <div class="form-group">
+                            <select id="is_supervised" name="is_supervised" class="form-control center">
+                                <option value="0">Sin Supervisión</option>
+                                <option value="1">Con supervisión</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input id="visit_description" name="description" placeholder="Comentario" class="form-control input-lg" />
+                        </div>
                     </div>
                 </div>
                 <div class="">
@@ -161,12 +322,23 @@
                 <div class="" id="divControls">
                     <div class="center">
                         <div class="hidden" id="stop">
-										<span class="span2">
-											<button id="btnPause" class="btn btn-large btn-block" type="button">
-                                                <i class="icon-pause"></i>
-                                                &nbsp;&nbsp;Fin
-                                            </button>
-										</span>
+                            <span class="span2">
+								<button id="btnPause" class="btn btn-large btn-block" type="button">
+                                    <i class="icon-pause"></i>
+                                        &nbsp;&nbsp;Fin
+                                </button>
+							</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="" id="divBack">
+                    <div class="center">
+                        <div class="hidden" id="back">
+                            <span class="span2">
+								<a id="btnBack" class="btn btn-large btn-block" type="button" href="{{ url('frontend/target/'.$visit->target_id) }}">
+                                    &nbsp;&nbsp;Regresar
+                                </a>
+							</span>
                         </div>
                     </div>
                 </div>
@@ -195,6 +367,7 @@
             </div>
         </div>
     </div>
+    </form>
 </div><!-- /.box-body -->
 </div><!-- /.box -->
 @endsection

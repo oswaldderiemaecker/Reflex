@@ -8,6 +8,7 @@ use Reflex\Http\Controllers\Controller;
 use Reflex\Models\Schedule;
 use Reflex\Models\Target;
 use Auth;
+use Reflex\Models\Visit;
 
 class TargetController extends Controller {
 
@@ -124,8 +125,9 @@ class TargetController extends Controller {
             ->orWhere('code','=','OBJ')
             ->orderBy('name','asc')
             ->lists('name','id');
+        $visits = Visit::with('visit_type')->where('target_id','=',$target->id)->where('visit_status_id','=',1)->get();
 
-        return view('frontend.target_preview', compact('target','schedules','note_types_options'));
+        return view('frontend.target_preview', compact('target','schedules','note_types_options','visits'));
 
     }
 

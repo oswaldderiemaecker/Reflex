@@ -17,13 +17,10 @@
 
         $(document).ready(function() {
 
-            console.log('starting process');
-
             var table = $('#example').dataTable({
                 'processing': false,
                 'serverSide': false,
                 'ajax': {
-                  //  'url': '/api/kardexs?zone_id='+localStorage.zone_id+'&cycle_id='+localStorage.cycle_id,
                     'url' : '/api/targets?zone_id={{ $zone->id }}&campaign_id={{ $campaign->id }}&user_id={{ $user->id }}',
                     'dataSrc': '',
                     'type' : 'get'
@@ -34,9 +31,9 @@
                 'columns': [
                     { 'data': 'client.photo',
                         'mRender' : function(data,type,full){
-                            console.log(full);
-                            //return "<img src='http://200.48.13.46/cmp/fotos/"+full.client.code+".jpg'/>";
-                            return '';
+                          //  console.log(full);
+                            return "<img src='/pictures/"+full.client.code+".jpg'/>";
+                            //return '';
                         }
                     },
                     { 'data': 'client.code' },
@@ -70,11 +67,11 @@
             });
 
             $('#filter_category').change( function() {
-                table.fnFilter(this.value,4);
+                table.fnFilter(this.value,5);
             });
 
             $('#filter_place').change( function() {
-                table.fnFilter(this.value,5);
+                table.fnFilter(this.value,6);
             });
             console.log('finish process');
         });

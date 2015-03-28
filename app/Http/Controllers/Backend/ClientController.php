@@ -95,11 +95,64 @@ class ClientController extends Controller {
 	{
         $latitude  = $request->get('latitude', null, true);
         $longitude = $request->get('longitude', null, true);
+        $qty_patiences = $request->get('qty_patiences', null, true);
+        $price_inquiry = $request->get('price_inquiry', null, true);
+        $social_level_patients = $request->get('social_level_patients', null, true);
+
+        $attends_child = $request->get('attends_child', null, true);
+        $attends_teen = $request->get('attends_teen', null, true);
+        $attends_adult = $request->get('attends_adult', null, true);
+        $attends_old = $request->get('attends_old', null, true);
+
 
         $client = Client::find($id);
 
-        $client->latitude = $latitude;
-        $client->longitude = $longitude;
+        if(!(is_null($latitude) || $latitude == '')){
+            $client->latitude = $latitude;
+        }
+
+        if(!(is_null($longitude) || $longitude == '')){
+            $client->longitude = $longitude;
+        }
+
+        if(!(is_null($qty_patiences) || $qty_patiences == '')){
+            $client->qty_patiences = $qty_patiences;
+
+
+            if(!(is_null($attends_child) || $attends_child == '')){
+                $client->attends_child = '1';
+            }else{
+                $client->attends_child = '0';
+            }
+
+            if(!(is_null($attends_teen) || $attends_teen == '')){
+                $client->attends_teen = '1';
+            }else{
+                $client->attends_teen = '0';
+            }
+
+            if(!(is_null($attends_adult) || $attends_adult == '')){
+                $client->attends_adult = '1';
+            }else{
+                $client->attends_adult = '0';
+            }
+
+            if(!(is_null($attends_old) || $attends_old == '')){
+                $client->attends_old = '1';
+            }else{
+                $client->attends_old = '0';
+            }
+        }
+
+        if(!(is_null($price_inquiry) || $price_inquiry == '')){
+            $client->price_inquiry = $price_inquiry;
+        }
+
+        if(!(is_null($social_level_patients) || $social_level_patients == '')){
+            $client->social_level_patients = $social_level_patients;
+        }
+
+
         $client->save();
         return $this->responseFactory->json($client);
 	}

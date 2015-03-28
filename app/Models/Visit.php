@@ -11,7 +11,11 @@ class Visit extends Model {
 
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+
+    public function getDates()
+    {
+        return ['created_at','updated_at','deleted_at','start','end'];
+    }
 
     protected $fillable = ['uuid', 'route_uuid', 'visit_type_id',
         'visit_status_id', 'reason_id', 'zone_id','user_id', 'campaign_id', 'target_id',

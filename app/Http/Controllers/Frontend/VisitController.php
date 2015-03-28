@@ -1,12 +1,16 @@
 <?php namespace Reflex\Http\Controllers\Frontend;
 
+use Carbon\Carbon;
 use Illuminate\Routing\ResponseFactory;
 use Reflex\Http\Requests;
 use Reflex\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Reflex\Models\Target;
 use Reflex\Models\Visit;
 use Webpatser\Uuid\Uuid;
+use Auth;
+use DB;
 
 class VisitController extends Controller {
 
@@ -32,6 +36,8 @@ class VisitController extends Controller {
         $query_in = $request->get('query',null,true);
 
         $targets =  $this->visit->newQuery()->with('target','client','client.location','client.category','client.place');
+        $targets->where('zone_id','=', $zone_id);
+        $targets->where('visit_status_id','=', '2');
 
         if(!(is_null($zone_id) || $zone_id == '')){
             $targets->where('zone_id','=', $zone_id);
@@ -76,6 +82,7 @@ class VisitController extends Controller {
 	{
         $route_uuid      = $request->get('route_uuid',null,true);
         $visit_type_id   = $request->get('visit_type_id',null,true);
+        $target_id       = $request->get('target_id',null,true);
         $visit_status_id = $request->get('visit_status_id',null,true);
         $reason_id       = $request->get('reason_id',null,true);
         $start           = $request->get('start',null,true);
@@ -91,8 +98,7 @@ class VisitController extends Controller {
         $latitude        = $request->get('latitude',null,true);
 
         $visit = new Visit();
-        $target = Target::with('client')->find($visit->target_id);
-
+        $target = Target::with('client')->find($target_id);
 
         $visit->uuid = Uuid::generate();
         $visit->route_uuid      = $route_uuid;
@@ -116,6 +122,7 @@ class VisitController extends Controller {
         $visit->active          = $active;
         $visit->longitude       = $longitude;
         $visit->latitude        = $latitude;
+
         $visit-save();
 
         return $this->responseFactory->json($visit);
@@ -147,12 +154,12 @@ class VisitController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+     * @param Request $request
+	 * @param int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-        $uuid            = $request->get('uuid',null,true);
         $route_uuid      = $request->get('route_uuid',null,true);
         $visit_type_id   = $request->get('visit_type_id',null,true);
         $visit_status_id = $request->get('visit_status_id',null,true);
@@ -169,7 +176,8 @@ class VisitController extends Controller {
         $longitude       = $request->get('longitude',null,true);
         $latitude        = $request->get('latitude',null,true);
 
-        $visit = Visit::find($uuid);
+        $visit = Visit::find($id);
+
         $target = Target::with('client')->find($visit->target_id);
 
         $visit->route_uuid      = $route_uuid;
@@ -193,7 +201,8 @@ class VisitController extends Controller {
         $visit->active          = $active;
         $visit->longitude       = $longitude;
         $visit->latitude        = $latitude;
-        $visit-save();
+
+        $visit->save();
 
         return $this->responseFactory->json($visit);
 	}
@@ -262,12 +271,29 @@ class VisitController extends Controller {
 
     public function main()
     {
-        return view('frontend.visit');
+        $user = Auth::user();
+        $zone = Auth::user()->zones->first();
+        $campaign = DB::table('campaigns')->where('active','=',1)->first();
+
+        return view('frontend.visit', compact('user','zone','campaign'));
     }
 
-    public function visit_new()
+    public function visit_new(Request $request)
     {
-        return view('frontend.visit_new');
+        $uuid   = $request->get('uuid',null,true);
+        $visit = Visit::with('target','client')->find($uuid);
+        $start = Carbon::now();
+
+        return view('frontend.visit_new', compact('visit','start'));
+    }
+
+
+    public function visit_preview($id)
+    {
+        $visit = $this->visit->findOrFail($id);
+
+
+        return view('frontend.visit_preview', compact('visit'));
     }
 
 }

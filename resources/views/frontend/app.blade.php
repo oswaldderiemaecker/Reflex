@@ -121,7 +121,7 @@
             <!-- search form -->
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Buscar..."/>
+                    <input type="text" name="q" class="form-control typeahead" placeholder="Buscar..."/>
               <span class="input-group-btn">
                 <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
               </span>
@@ -192,7 +192,11 @@
 <script src="/plugins/slimScroll/jquery.slimScroll.min.js" type="text/javascript"></script>
 <!-- FastClick -->
 <script src='/plugins/fastclick/fastclick.min.js'></script>
-<!-- AdminLTE App -->
+
+<script type="text/javascript">
+    var user_id = {{ Auth::user()->id }};
+</script>
+
 <script src="/dist/js/app.min.js" type="text/javascript"></script>
 
 <script src="/js/plugins/morris/raphael.min.js"></script>

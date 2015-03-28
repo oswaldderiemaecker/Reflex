@@ -185,15 +185,18 @@
     <!-- Main content -->
     <section class="content">
 
-
-
         <!-- top row -->
         <div class="row">
+            <div class="pull-left" style="  margin: 0 0 -25 20px;">
+                <img src="/pictures/{{ substr($target->client->code,-5) }}.jpg" class="img-circle"/>
+            </div>
             <div class="btn-group pull-right" style="padding-bottom: 5px">
-                <a type="button" class="btn btn-primary btn-flat" href="{{ url('/frontend/visitar') }}" style="margin-right: 5px;">Visitar</a>
-                <button type="button" class="btn btn-primary btn-flat" style="margin-right: 5px;">Ruta</button>
-                <button type="button" class="btn btn-primary btn-flat" style="margin-right: 5px;">Ausencia</button>
-                <button type="button" class="btn btn-primary btn-flat" style="margin-right: 5px;">Modificar</button>
+                @foreach ($visits as $key => $visit)
+                    <a type="button" class="btn btn-primary btn-flat" href="{{ url('/frontend/visitar?uuid='.$visit->uuid) }}" style="margin-right: 5px;">Visitar {{ $key+1 }}</a>
+                    <a type="button" class="btn btn-primary btn-flat" href="{{ url('/frontend/visitar?uuid='.$visit->uuid) }}" style="margin-right: 5px;">Ausencia {{ $key+1 }}</a>
+                @endforeach
+
+                    <a type="button" class="btn btn-primary btn-flat" href="{{ url('/frontend/rutas') }}" style="margin-right: 5px;">Ruta</a>
 
             </div>
 
@@ -207,8 +210,11 @@
                 <!-- Box (with bar chart) -->
                 <div class="box box-danger" id="loading-example">
                     <div class="box-header">
+
                         <!-- tools box -->
                         <div class="pull-right box-tools">
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#marketing-modal"><i class="fa fa-edit"></i>
+                            </button>
                             <button class="btn btn-danger btn-sm" data-widget='collapse' data-toggle="tooltip" title="Colapsar"><i class="fa fa-minus"></i>
                             </button>
                         </div>
@@ -220,14 +226,9 @@
                     <!-- /.box-header -->
                     <div class="box-body">
 
-
                             <table class="table">
                                 <tr>
-                                    <td><b>Foto</b></td>
-                                    <td><img src="http://200.48.13.46/cmp/fotos/{{ substr($target->client->code,-5) }}.jpg"/></td>
-                                </tr>
-                                <tr>
-                                    <td><b># Colegiatura: </b></td>
+                                    <td><b>Colegiatura: </b></td>
                                     <td>{{{ $target->client->code }}}</td>
                                 </tr>
                                 <tr>
@@ -276,7 +277,7 @@
                                     <td><b>Marketing Info:</b></td>
                                     <td>
                                         <ul>
-                                            <li><b>Cant. Pacientes:</b> {{{ $target->client->qty_patients }}}</li>
+                                            <li><b>Cant. Pacientes:</b> {{{ $target->client->qty_patiences }}}</li>
                                             <li><b>Precio Consulta:</b> S/. {{{ $target->client->price_inquiry }}}</li>
                                             <li><b>Nivel Socio Económico:</b> {{{ $target->client->social_level_patients }}}</li>
                                             <li><b>Grupo Etario:</b> {{{ ($target->client->attends_child)?'Niños ':' ' }}}
@@ -320,9 +321,6 @@
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li><a href="#" data-toggle="modal" data-target="#schedule-modal">Modificar Horario</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li><a href="https://www.google.com/calendar/embed?src=383cekfadd88q0btvajv3uo7os%40group.calendar.google.com&ctz=America/Lima" target="BLANK">Ver Calendario LF</a>
                                     </li>
                                 </ul>
                             </div>
@@ -455,6 +453,94 @@
                         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
 
                         <button id="submit_note" type="button" class="btn btn-primary pull-left"><i class="fa fa-save"></i> Grabar</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MARKETING MODAL -->
+    <div class="modal fade" id="marketing-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><i class="ion ion-clipboard"></i> Info Marketing</h4>
+                    {{{ $target->client->closeup_name }}}
+                </div>
+                <form action="#" method="post" id="form_marketing">
+                    <input name="client_id" type="hidden" value='{{{ $target->client_id }}}' />
+
+                    <div class="modal-body clearfix">
+
+                        <div class="col-md-6 col-sm-12">
+
+                        <div class="form-group required">
+                            <label>Cant. Pacientes</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="qty_patiences" id="qty_patiences"
+                                       value="{{ $target->client->qty_patiences }}" />
+                            </div>
+                        </div>
+
+                        <div class="form-group required">
+                            <label>Precio Consulta</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="price_inquiry" id="price_inquiry"
+                                       value="{{ $target->client->price_inquiry }}"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group required">
+                            <label>Nivel Socio Económico</label>
+                            <div class="input-group">
+                                <select id="social_level_patients" name="social_level_patients" class="form-control">
+                                    <option value="A" {{ ($target->client->social_level_patients == 'A')?'selected':'' }}>A</option>
+                                    <option value="B" {{ ($target->client->social_level_patients == 'B')?'selected':'' }}>B</option>
+                                    <option value="C" {{ ($target->client->social_level_patients == 'C')?'selected':'' }}>C</option>
+                                </select>
+                            </div>
+                        </div>
+
+                            </div>
+                        <div class="col-md-6 col-sm-12">
+                        <div class="form-group required">
+                            <label>Niños</label>
+                            <div class="input-group">
+                                <input type="checkbox" id="attends_child" name="attends_child"
+                                       value="1" {{ ($target->client->attends_child == '1')?'checked':'' }}>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label>Adolecentes</label>
+                            <div class="input-group">
+                                <input type="checkbox" id="attends_teen" name="attends_teen"
+                                       value="1" {{ ($target->client->attends_teen == '1')?'checked':'' }}>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label>Adultos</label>
+                            <div class="input-group">
+                                <input type="checkbox" id="attends_adult" name="attends_adult"
+                                       value="1" {{ ($target->client->attends_adult == '1')?'checked':'' }}>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label>Ancianos</label>
+                            <div class="input-group">
+                                <input type="checkbox" id="attends_old" name="attends_old"
+                                       value="1" {{ ($target->client->attends_old == '1')?'checked':'' }}>
+                            </div>
+                        </div>
+                            </div>
+                    </div>
+
+                    <div class="modal-footer clearfix">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+
+                        <button id="submit_marketing" type="button" class="btn btn-primary pull-left"><i class="fa fa-save"></i> Grabar</button>
 
                     </div>
                 </form>
