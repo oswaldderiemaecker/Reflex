@@ -26,11 +26,55 @@ class RouteController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
+     * @param Request $request
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
+        $page = 20;
+        $zone_id     = $request->get('zone_id',null,true);
+        $user_id     = $request->get('user_id',null,true);
+        $start       = $request->get('start',null,true);
+        $end         = $request->get('end',null,true);
+        $campaign_id = $request->get('campaign_id',null,true);
+        $query_in = $request->get('query',null,true);
+
+        $targets =  $this->route->newQuery()->with('target','client','client.location','client.category','client.place');
+        $targets->where('zone_id','=', $zone_id);
+
+        if(!(is_null($zone_id) || $zone_id == '')){
+            $targets->where('zone_id','=', $zone_id);
+        }
+
+        if(!(is_null($start) || $start == ''))
+        {
+            $targets->where('start','>=',$start);
+        }
+
+        if(!(is_null($end) || $end == ''))
+        {
+            $targets->where('start','<=',$end);
+        }
+
+        if(!(is_null($user_id) || $user_id == '')){
+            $targets->where('user_id','=', $user_id);
+        }
+
+        if(!(is_null($campaign_id) || $campaign_id == '')){
+            $targets->where('campaign_id','=', $campaign_id);
+        }
+
+        if(!(is_null($query_in) || $query_in == '')){
+
+            $targets->whereHas('client', function($q) use($query_in){
+                $q->where('closeup_name','LIKE','%'.strtoupper($query_in).'%');
+            });
+        }
+
+        $targets->whereNull('deleted_at');
+        $targets->orderBy('start','asc');
+
+        return $this->responseFactory->json($targets->paginate($page));
 	}
 
 	/**

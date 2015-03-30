@@ -63,6 +63,7 @@ return [
 			'prefix'    => '',
 			'strict'    => false,
 		],
+
         'pgsql' => [
             'driver'   => 'pgsql',
             'host'     => parse_url(getenv("DATABASE_URL"))["host"],

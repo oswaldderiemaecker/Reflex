@@ -6,7 +6,7 @@ use Auth;
 use Reflex\Models\BusinessUnit;
 use Reflex\Models\Company;
 use Reflex\User;
-
+use DB;
 class HomeController extends Controller {
 
 	/**
@@ -25,6 +25,15 @@ class HomeController extends Controller {
 
         return view('frontend.home', array('user' => $user,'company' => $company, 'businessUnits' => $businessUnits));
 	}
+
+    public function map()
+    {
+        $user = Auth::user();
+        $zone = Auth::user()->zones->first();
+        $campaign = DB::table('campaigns')->where('active','=',1)->first();
+
+        return view('frontend.map', compact('user','zone','campaign'));
+    }
 
 	/**
 	 * Show the form for creating a new resource.

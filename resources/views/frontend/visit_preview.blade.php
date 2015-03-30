@@ -108,7 +108,7 @@
                         <input type="button" class="btn btn-primary" value="Eliminar">
                         <span></span>
                         <a href="{{ url('/frontend/visitas') }}" class="btn btn-default">Regresar
-                            </a>
+                        </a>
                     </div>
                 </div>
             </form>

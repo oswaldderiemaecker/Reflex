@@ -80,6 +80,8 @@ Route::group(array('prefix' => 'frontend'), function() {
     Route::get('rutas'       ,array('uses' => 'Frontend\RouteController@main'));
     Route::get('reportes'    ,array('uses' => 'Frontend\ReportController@main'));
     Route::get('notas'       ,array('uses' => 'Frontend\NoteController@main'));
+    Route::get('mapa'       ,array('uses' => 'Frontend\HomeController@map'));
+
 
     Route::get('target/{id}'   ,array('uses' => 'Frontend\TargetController@preview'));
     Route::get('schedule/calendar/{id}',array('uses' => 'Frontend\ScheduleController@calendar'));
