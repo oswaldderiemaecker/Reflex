@@ -4,6 +4,9 @@ use Reflex\Http\Requests;
 use Reflex\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Reflex\Models\Visit;
+use Auth;
+use DB;
 
 class NoteController extends Controller {
 
@@ -83,7 +86,21 @@ class NoteController extends Controller {
 
     public function main()
     {
-        return view('frontend.note');
+        $zone     = Auth::user()->zones->first();
+        $campaign = DB::table('campaigns')->where('active','=',1)->first();
+
+        $visits = Visit::with('target','user','client','client.location','client.category','client.place');
+        $visits->where('visit_status_id','=', '2');
+        $visits->where('campaign_id','=', $campaign->id);
+        $visits->whereHas('target', function($q) use($zone){
+            $q->where('company_id','=',$zone->company_id);
+        });
+        $visits->orderby('start','DESC');
+
+        $datos = $visits->get();
+
+
+        return view('frontend.note', compact('datos'));
     }
 
 }

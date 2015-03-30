@@ -1,35 +1,65 @@
 @extends('frontend.app')
 
+@section('header')
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Social
+            <small>Lista de visitas de toda la empresa.</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li class="active">
+                <i class="fa fa-comments-o"></i> Social
+            </li>
+        </ol>
+    </section>
+@stop
+
 @section('content')
-
+    <!-- row -->
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Notas <small>Lista completo del mes</small>
-            </h1>
-            <ol class="breadcrumb">
+        <div class="col-md-12">
+            <!-- The time line -->
+            <ul class="timeline">
+
+                @foreach ($datos as $key => $visit)
+
+                    @if ($key == 0)
+                <!-- timeline time label -->
+                <li class="time-label">
+                  <span class="bg-red">
+                    {{ Carbon::createFromFormat('Y-m-d H:i:s',$visit->start)->toFormattedDateString() }}
+                  </span>
+                </li>
+                    @else
+                        @if (Carbon::createFromFormat('Y-m-d H:i:s',$visit->start)->diffInDays(Carbon::createFromFormat('Y-m-d H:i:s',$datos[$key-1]->start)) > 1)
+                            <li class="time-label">
+                                <span class="bg-red">
+                                    {{ Carbon::createFromFormat('Y-m-d H:i:s',$visit->start)->toFormattedDateString() }}
+                                </span>
+                            </li>
+                            @endif
+                    @endif
+
+                <!-- /.timeline-label -->
+                <!-- timeline item -->
                 <li>
-                    <a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a>
+                    <i class="fa fa-user-md bg-aqua"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> {{ Carbon::createFromFormat('Y-m-d H:i:s',$visit->start)->diffForHumans() }}</span>
+                        <h3 class="timeline-header no-border"><a href="#">{{ $visit->user->closeup_name }}</a> visitó al médico {{ $visit->client->closeup_name }}</h3>
+                    </div>
                 </li>
-                <li class="active">
-                    <i class="fa fa-dashboard"></i> Target Médico
+                <!-- END timeline item -->
+
+                @endforeach
+
+
+                <li>
+                    <i class="fa fa-clock-o bg-gray"></i>
                 </li>
-            </ol>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="alert alert-info alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <i class="fa fa-info-circle"></i>
-                    <strong>Bienvenido a Reflex 360º?</strong>
-                    Esta es una version de prueba, sientete libre de realizar los cambios que sean necesarios.
-            </div>
-        </div>
-    </div>
-    <!-- /.row -->
-    <div class="row">
-
-    </div>
+            </ul>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
 @endsection

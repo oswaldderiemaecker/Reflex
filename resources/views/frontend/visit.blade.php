@@ -29,14 +29,16 @@
                     'url': 'http://cdn.datatables.net/plug-ins/be7019ee387/i18n/Spanish.json'
                 },
                 'columns': [
-                    { 'data': 'client.photo',
+                  /*  { 'data': 'client.photo',
+                        'mRender' : function(data,type,full) {
+                            return "<img src='/pictures/"+full.client.code+".jpg' class='img-circle' />";
+                        }
+                    },*/
+                    { 'data': 'client.code',
                         'mRender' : function(data,type,full){
-                            //console.log(full);
-                            return "<img src='/pictures/"+full.client.code+".jpg'/>";
-                            //return '';
+                            return ('0000'+full.client.code).slice(-5);
                         }
                     },
-                    { 'data': 'client.code' },
                     { 'data': 'client.closeup_name',
                         'mRender' : function(data,type,full){
                             return "<a href='/frontend/visita/"+full.uuid+"'>"+data+"</a>";
@@ -47,20 +49,30 @@
                         'mRender' : function(data,type,full){ return (data == null)?' ':data } },
                     { 'data': 'client.category.code', "class": "text-center " },
                     { 'data': 'client.place.code', "class": "text-center " },
-                    { 'data': 'start', "class": "text-center " }
+                    { 'data': 'start', "class": "text-center " },
+                    { 'data': 'client.is_supervised',
+                        'mRender' : function(data,type,full){
+                            if(full.is_supervised == '1'){
+                                return "<i class='fa fa-user-secret'></i>";
+                            }else{
+                                return "";
+                            }
+
+                        }
+                    }
                 ],
                 "iDisplayLength": 20,
                 'order': [[3, 'asc']]
             });
 
             $('#filter_category').change( function() {
-                table.fnFilter(this.value,5);
+                table.fnFilter(this.value,4);
             });
 
             $('#filter_place').change( function() {
-                table.fnFilter(this.value,6);
+                table.fnFilter(this.value,5);
             });
-            console.log('finish process');
+          //  console.log('finish process');
         });
 
     </script>
@@ -142,14 +154,15 @@
                     <table id="example" class="display table table-bordered table-striped center-table">
                         <thead>
                         <tr>
-                            <th>Foto</th>
+                            <!--<th>Foto</th>-->
                             <th>Cmp</th>
                             <th>Médico</th>
                             <th>Dirección</th>
                             <th>Localidad</th>
                             <th>Cat.</th>
                             <th>Tar.</th>
-                            <th>Fecha.</th>
+                            <th>Fecha</th>
+                            <th>Sup</th>
                         </tr>
                         </thead>
                     </table>

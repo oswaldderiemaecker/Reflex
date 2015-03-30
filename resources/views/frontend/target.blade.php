@@ -31,12 +31,14 @@
                 'columns': [
                     { 'data': 'client.photo',
                         'mRender' : function(data,type,full){
-                          //  console.log(full);
-                            return "<img src='/pictures/"+full.client.code+".jpg'/>";
-                            //return '';
+                            return "<img src='/pictures/"+('0000'+full.client.code).slice(-5)+".jpg'  class='img-circle' style='width: 80px; height: 90px;' />";
                         }
                     },
-                    { 'data': 'client.code' },
+                    { 'data': 'client.code',
+                        'mRender' : function(data,type,full){
+                            return ('0000'+full.client.code).slice(-5);
+                        }
+                    },
                     { 'data': 'client.closeup_name',
                         'mRender' : function(data,type,full){
                             return "<a href='/frontend/target/"+full.id+"'>"+data+"</a>";

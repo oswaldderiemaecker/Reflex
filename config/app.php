@@ -200,6 +200,7 @@ return [
         'Uuid'      => 'Webpatser\Uuid\Uuid',
         'Html'      => 'Illuminate\Html\HtmlFacade',
         'Form'      => 'Illuminate\Html\FormFacade',
+        'Carbon'    => 'Carbon\Carbon',
     ],
 
 ];

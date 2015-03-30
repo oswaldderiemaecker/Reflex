@@ -71,9 +71,9 @@
                                 var uuid = $('#uuid').val();
                                 var start = moment(visit_start).add(mils,'ms');
 
-                                console.log(data_form);
-                                console.log(visit_start);
-                                console.log(start.format('YYYY-MM-DD HH:mm:ss'));
+                               // console.log(data_form);
+                               // console.log(visit_start);
+                               // console.log(start.format('YYYY-MM-DD HH:mm:ss'));
 
                                 data_form = data_form+'&end='+start.format('YYYY-MM-DD HH:mm:ss');
 
@@ -92,7 +92,7 @@
                                             url: "/api/visits/"+uuid,
                                             data: data_form,
                                             success: function(data) {
-                                                console.log(data);
+                                               // console.log(data);
                                                 toastr.success('Se Visita se guardo correctamente!');
 
                                                 $('#divBack').fadeIn(function(){
@@ -106,7 +106,7 @@
                                             url: "/api/visits/"+uuid,
                                             data: data_form,
                                             success: function(data) {
-                                                console.log(data);
+                                               // console.log(data);
                                                 toastr.success('Se Visita se guardo correctamente!');
 
                                                 $('#divBack').fadeIn(function(){
@@ -121,7 +121,7 @@
                                         url: "/api/visits/"+uuid,
                                         data: data_form,
                                         success: function(data) {
-                                            console.log(data);
+                                           // console.log(data);
                                             toastr.success('Se Visita se guardo correctamente!');
 
                                             $('#divBack').fadeIn(function(){
@@ -310,7 +310,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input id="visit_description" name="description" placeholder="Comentario" class="form-control input-lg" />
+                            <input id="description" name="description" placeholder="Comentario" class="form-control input-lg" value="{{ $visit->client->description }}"/>
                         </div>
                     </div>
                 </div>

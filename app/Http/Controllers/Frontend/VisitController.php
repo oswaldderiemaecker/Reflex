@@ -167,6 +167,7 @@ class VisitController extends Controller {
         $start           = $request->get('start',null,true);
         $end             = $request->get('end',null,true);
         $supervisor      = $request->get('supervisor',null,true);
+        $description     = $request->get('description',null,true);
         $cmp             = $request->get('cmp',null,true);
         $firstname       = $request->get('firstname',null,true);
         $lastname        = $request->get('lastname',null,true);
@@ -193,6 +194,7 @@ class VisitController extends Controller {
         $visit->start           = $start;
         $visit->end             = $end;
         $visit->supervisor      = $supervisor;
+        $visit->description     = $description;
         $visit->cmp             = $cmp;
         $visit->firstname       = $firstname;
         $visit->lastname        = $lastname;

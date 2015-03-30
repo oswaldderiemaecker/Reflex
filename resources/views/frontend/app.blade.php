@@ -136,7 +136,7 @@
                 <li><a href="{{ url('/frontend/target') }}"><i class="fa fa-fw fa-user-md"></i> Target</a></li>
                 <li><a href="{{ url('/frontend/visitas') }}"><i class="fa fa-fw fa-medkit"></i> Visitas</a></li>
                 <li><a href="{{ url('/frontend/rutas') }}"><i class="fa fa-fw fa-calendar"></i> Rutas</a></li>
-                <li><a href="{{ url('/frontend/notas') }}"><i class="fa fa-fw fa-file"></i> Notas</a></li>
+                <li><a href="{{ url('/frontend/notas') }}"><i class="fa fa-fw fa-comments-o"></i> Social</a></li>
                 <li><a href="{{ url('/frontend/reportes') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Reportes</a></li>
 
             </ul>
