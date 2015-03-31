@@ -109,7 +109,7 @@
                         <p class="form-control">{{ $visit->client->address.' - '.$visit->client->location->name }}</p>
                     </div>
                 </div>
-                @if ($visit->visit_status->code <> 'PE')
+                @if ($visit->visit_status->id <> 1)
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Fecha Visita:</label>
                     <div class="col-lg-8">
@@ -117,6 +117,7 @@
                     </div>
                 </div>
                 @endif
+
                 @if($visit->visit_status->code == 'AU')
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Motivo Ausencia:</label>
@@ -153,7 +154,7 @@
                         <a href="{{ url('/frontend/target/'.$visit->target_id) }}" class="btn btn-primary">Target
                         </a>
                         <span></span>
-                        @if ($visit->visit_status->code <> 'PE')
+                        @if ($visit->visit_status->id <> 1)
                         <input type="button" id="delete_visit" name="delete_visit" class="btn btn-danger" value="Eliminar"/>
                         @endif
                         <span></span>
