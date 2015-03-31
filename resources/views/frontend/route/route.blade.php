@@ -192,14 +192,14 @@
 
                     data_form = data_form+'&start='+start+'&end='+end;
 
-                    console.log(data_form);
+                    //console.log(data_form);
 
                     $.ajax({
                         type: "POST",
                         url: "/api/routes",
                         data: data_form,
                         success: function(data) {
-                            console.log(data);
+                            //console.log(data);
 
                             toastr.success('Se creó la ruta correctamente!', copiedEventObject.title);
                             copiedEventObject.uuid = data.uuid;

@@ -1,5 +1,6 @@
 <?php namespace Reflex\Http\Controllers\Frontend;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Facades\DB;
 use Reflex\Http\Requests;
@@ -184,7 +185,7 @@ class RouteController extends Controller {
         $zone = Auth::user()->zones->first();
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
-        return view('frontend.route',compact('zone','user','campaign'));
+        return view('frontend.route.route',compact('zone','user','campaign'));
     }
 
     public function calendar(Request $request)
@@ -233,7 +234,7 @@ class RouteController extends Controller {
                 'uuid' => $dato->uuid,
                 'target_id' => $dato->target_id,
                 'point_of_contact' => $dato->point_of_contact,
-                'title' => $dato->client->closeup_name,
+                'title' => $dato->client->closeup_name, //."\n".$dato->client->address,
                 'start' => $dato->start,
                 'end' => $dato->end,
                 'address' => $dato->client->address.' '.$dato->client->location->name,
@@ -241,6 +242,7 @@ class RouteController extends Controller {
                 'allDay' => false
             );
         }
+
         return $this->responseFactory->json($result);
     }
 
@@ -255,6 +257,8 @@ class RouteController extends Controller {
         $zone_id     = $request->get('zone_id',null,true);
         $campaign_id = $request->get('campaign_id',null,true);
         $user_id = $request->get('user_id',null,true);
+
+        $date = Carbon::now()->toDateTimeString();
 
         $routes = DB::table('routes')
             ->join('zones','routes.zone_id','=','zones.id')
@@ -280,7 +284,7 @@ class RouteController extends Controller {
 
         $data = json_decode(json_encode((array) $routes), true);
 
-        Excel::create('backup_rutas', function($excel) use($data) {
+        Excel::create('backup_rutas_'.$date, function($excel) use($data) {
             $excel->sheet('rutas', function($sheet) use($data) {
                 $sheet->fromArray($data);
             });

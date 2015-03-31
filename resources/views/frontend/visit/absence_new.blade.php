@@ -47,11 +47,11 @@
             $('#btnPause').on('click', function(){
 
                 bootbox.dialog({
-                    message: "Estás seguro de queres guardar esta visita?",
-                    title: "Nueva Visita",
+                    message: "Estás seguro de queres guardar esta ausencia?",
+                    title: "Nueva Ausencia",
                     buttons: {
                         success: {
-                            label: "Visitar",
+                            label: "Ausencia",
                             className: "btn-success",
                             callback: function() {
 
@@ -93,7 +93,7 @@
                                             data: data_form,
                                             success: function(data) {
                                                // console.log(data);
-                                                toastr.success('Se Visita se guardo correctamente!');
+                                                toastr.success('La ausencia se guardo correctamente!');
 
                                                 $('#divBack').fadeIn(function(){
                                                     $('#back').removeClass("hidden");
@@ -107,7 +107,7 @@
                                             data: data_form,
                                             success: function(data) {
                                                // console.log(data);
-                                                toastr.success('Se Visita se guardo correctamente!');
+                                                toastr.success('La ausencia se guardo correctamente!');
 
                                                 $('#divBack').fadeIn(function(){
                                                     $('#back').removeClass("hidden");
@@ -122,7 +122,7 @@
                                         data: data_form,
                                         success: function(data) {
                                            // console.log(data);
-                                            toastr.success('Se Visita se guardo correctamente!');
+                                            toastr.success('La ausencia se guardo correctamente!');
 
                                             $('#divBack').fadeIn(function(){
                                                 $('#back').removeClass("hidden");
@@ -252,7 +252,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Nueva Visita
+            Ausencia
             <small>{{ $visit->client->closeup_name }}</small>
         </h1>
         <ol class="breadcrumb">
@@ -260,7 +260,7 @@
             <li><a href="{{ url('/frontend/target') }}"><i class="fa fa-user-md"></i> Target</a></li>
             <li><a href="{{ url('/frontend/target/'.$visit->target_id) }}"><i class="fa fa-user"></i> Perfil</a></li>
             <li class="active">
-                <i class="fa fa-medkit"></i> Nueva Visita
+                <i class="fa fa-medkit"></i> Ausencia
             </li>
         </ol>
     </section>
@@ -271,7 +271,7 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title">Nueva Visita</h3>
+                    <h3 class="box-title">Nueva Ausencia</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
 
@@ -279,7 +279,7 @@
     <form id="visit_form">
         <input type="hidden" name="uuid" id="uuid" value="{{ $visit->uuid }}" />
         <input type="hidden" name="visit_type_id" value="1" />
-        <input type="hidden" name="visit_status_id" value="2" />
+        <input type="hidden" name="visit_status_id" value="3" />
         <input type="hidden" name="zone_id" value="{{ $visit->zone_id }}" />
         <input type="hidden" name="user_id" value="{{ $visit->user_id }}" />
         <input type="hidden" name="campaign_id" value="{{ $visit->campaign_id }}" />
@@ -295,7 +295,7 @@
 
         <div class="center">
             <div id="stopWatch">
-                <h1 id="title">Nueva Visita<br><small>{{ $visit->client->closeup_name }}</small></h1>
+                <h1 id="title">Nueva Ausencia<br><small>{{ $visit->client->closeup_name }}</small></h1>
                 <div class="">
                     <div class="span12">
                         <div id="time" class="pointable" style="font-weight:bold; width:100%; display:block;">00:00:00</div>
@@ -307,6 +307,13 @@
                             <select id="is_supervised" name="is_supervised" class="form-control center">
                                 <option value="0">Sin Supervisión</option>
                                 <option value="1">Con supervisión</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="reason_id" name="reason_id" class="form-control center">
+                                @foreach($reasons as $reason)
+                                    <option value="{{ $reason->id }}">{{ $reason->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">

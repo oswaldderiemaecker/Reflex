@@ -87,8 +87,8 @@ class CreateVisitsTable extends Migration {
             $table->string('cmp',10)->nullable();
             $table->string('firstname',100)->nullable();
             $table->string('lastname',100)->nullable();
-            $table->boolean('is_supervised')->default(true);
-            $table->boolean('is_from_mobile')->default(true);
+            $table->boolean('is_supervised')->default(false);
+            $table->boolean('is_from_mobile')->default(false);
             $table->boolean('active')->default(true);
             $table->boolean('synchro')->default(false);
             $table->decimal('longitude',10,8)->nullable();

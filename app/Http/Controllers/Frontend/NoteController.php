@@ -100,7 +100,7 @@ class NoteController extends Controller {
         $datos = $visits->get();
 
 
-        return view('frontend.note', compact('datos'));
+        return view('frontend.visit.note', compact('datos'));
     }
 
 }

@@ -2,12 +2,15 @@
 
 use Carbon\Carbon;
 use Illuminate\Routing\ResponseFactory;
+use Excel;
 use Reflex\Http\Requests;
 use Reflex\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Reflex\Models\Reason;
 use Reflex\Models\Target;
 use Reflex\Models\Visit;
+use Reflex\Models\VisitStatus;
 use Webpatser\Uuid\Uuid;
 use Auth;
 use DB;
@@ -33,11 +36,12 @@ class VisitController extends Controller {
         $zone_id     = $request->get('zone_id',null,true);
         $user_id     = $request->get('user_id',null,true);
         $campaign_id = $request->get('campaign_id',null,true);
+        $visit_status_id = $request->get('visit_status_id',null,true);
         $query_in = $request->get('query',null,true);
 
         $targets =  $this->visit->newQuery()->with('target','client','client.location','client.category','client.place');
         $targets->where('zone_id','=', $zone_id);
-        $targets->where('visit_status_id','=', '2');
+      //  $targets->where('visit_status_id','=', '2');
 
         if(!(is_null($zone_id) || $zone_id == '')){
             $targets->where('zone_id','=', $zone_id);
@@ -51,12 +55,17 @@ class VisitController extends Controller {
             $targets->where('campaign_id','=', $campaign_id);
         }
 
+        if(!(is_null($visit_status_id) || $visit_status_id == '')){
+            $targets->where('visit_status_id','=', $visit_status_id);
+        }
+
         if(!(is_null($query_in) || $query_in == '')){
 
             $targets->whereHas('client', function($q) use($query_in){
                 $q->where('closeup_name','LIKE','%'.strtoupper($query_in).'%');
             });
         }
+        $targets->orderBy('created_at');
 
         return $targets->get()->toJson();
 	}
@@ -212,10 +221,11 @@ class VisitController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
+     * @param Request $request
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Request $request, $id)
 	{
         $visit = Visit::find($id);
         $target = Target::with('client')->find($visit->target_id);
@@ -236,8 +246,8 @@ class VisitController extends Controller {
             $cmp             = $request->get('cmp',null,true);
             $firstname       = $request->get('firstname',null,true);
             $lastname        = $request->get('lastname',null,true);
-            $is_supervised   = $request->get('is_supervised',null,true);
-            $is_from_mobile  = $request->get('is_from_mobile',null,true);
+            $is_supervised   = $request->get('is_supervised',0,true);
+            $is_from_mobile  = $request->get('is_from_mobile',0,true);
             $active          = 0;
             $longitude       = $request->get('longitude',null,true);
             $latitude        = $request->get('latitude',null,true);
@@ -264,7 +274,7 @@ class VisitController extends Controller {
             $visit->active          = $active;
             $visit->longitude       = $longitude;
             $visit->latitude        = $latitude;
-            $visit-save();
+            $visit->save();
 
             return $this->responseFactory->json($visit);
         }
@@ -277,7 +287,7 @@ class VisitController extends Controller {
         $zone = Auth::user()->zones->first();
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
-        return view('frontend.visit', compact('user','zone','campaign'));
+        return view('frontend.visit.visit', compact('user','zone','campaign'));
     }
 
     public function visit_new(Request $request)
@@ -286,7 +296,7 @@ class VisitController extends Controller {
         $visit = Visit::with('target','client')->find($uuid);
         $start = Carbon::now();
 
-        return view('frontend.visit_new', compact('visit','start'));
+        return view('frontend.visit.visit_new', compact('visit','start'));
     }
 
 
@@ -295,7 +305,81 @@ class VisitController extends Controller {
         $visit = $this->visit->findOrFail($id);
 
 
-        return view('frontend.visit_preview', compact('visit'));
+        return view('frontend.visit.visit_preview', compact('visit'));
+    }
+
+    public function absence_new(Request $request)
+    {
+        $uuid   = $request->get('uuid',null,true);
+        $visit = Visit::with('target','client')->find($uuid);
+        $start = Carbon::now();
+        $reasons = Reason::all();
+
+        return view('frontend.visit.absence_new', compact('visit','start','reasons'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function export(Request $request)
+    {
+        $zone_id         = $request->get('zone_id',null,true);
+        $campaign_id     = $request->get('campaign_id',null,true);
+        $visit_status_id = $request->get('visit_status_id',null,true);
+
+        $user_id = $request->get('user_id',null,true);
+
+        $date = Carbon::now()->toDateTimeString();
+
+        $visit_status = VisitStatus::find($visit_status_id);
+
+        $visits = DB::table('visits')
+            ->join('zones'       ,'visits.zone_id'        ,'=','zones.id')
+            ->join('visit_status','visits.visit_status_id','=','visit_status.id')
+            ->join('visit_types' ,'visits.visit_type_id'  ,'=','visit_types.id')
+            ->leftJoin('reasons' ,'visits.reason_id'  ,'=','reasons.id')
+            ->join('users'       ,'visits.user_id'        ,'=','users.id')
+            ->join('campaigns'   ,'visits.campaign_id'    ,'=','campaigns.id')
+            ->join('clients'     ,'visits.client_id'      ,'=','clients.id')
+            ->join('categories'  ,'categories.id'         ,'=','clients.category_id')
+            ->join('places'      ,'places.id'             ,'=','clients.place_id')
+            ->join('locations'   ,'clients.location_id'   ,'=','locations.id')
+            ->select('campaigns.name as ciclo',
+                'visit_types.name as tipo',
+                'visit_status.name as estado',
+                'zones.name as zona',
+                'users.closeup_name as usuario',
+                'clients.closeup_name as doctor',
+                'clients.address as direccion',
+                'locations.name as distrito',
+                'categories.name as categoria',
+                'places.name as lugar',
+                'visits.start as inicio',
+                'visits.end as fin',
+                'visits.is_supervised as supervisado',
+                'visits.description as descripcion',
+                'reasons.name as motivo'
+            )
+            ->where('visits.zone_id','=',$zone_id)
+            ->where('visits.campaign_id','=',$campaign_id)
+            ->where('visits.user_id','=',$user_id)
+            ->where('visits.visit_status_id','=',$visit_status_id)
+            ->whereNull('visits.deleted_at')
+            ->orderBy('visits.start','desc')
+            ->get();
+
+        $data = json_decode(json_encode((array) $visits), true);
+
+        //print_r(count($visits));
+
+        Excel::create('Backup_'.$visit_status->name.'-'.$date, function($excel) use($data) {
+            $excel->sheet('datos', function($sheet) use($data) {
+                $sheet->fromArray($data);
+            });
+        })->export('xls');
     }
 
 }

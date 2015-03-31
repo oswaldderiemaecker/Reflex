@@ -2,8 +2,10 @@
 
 use Reflex\Http\Requests;
 use Reflex\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use Auth;
+use DB;
+
 
 class ReportController extends Controller {
 
@@ -83,7 +85,12 @@ class ReportController extends Controller {
 
     public function main()
     {
-        return view('frontend.report');
+        $user = Auth::user();
+        $zone = Auth::user()->zones->first();
+        $campaign = DB::table('campaigns')->where('active','=',1)->first();
+
+        return view('frontend.report',compact('zone','user','campaign'));
+
     }
 
 }

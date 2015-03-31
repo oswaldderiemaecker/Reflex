@@ -1,5 +1,15 @@
 @extends('frontend.app')
 
+@section('includes.js')
+    @parent
+
+    <script src="/plugins/moment/moment.min.js" type="text/javascript"></script>
+    <script src="/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    </script>
+    @stop
+
 @section('header')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -48,7 +58,7 @@
                     <i class="fa fa-user-md bg-aqua"></i>
                     <div class="timeline-item">
                         <span class="time"><i class="fa fa-clock-o"></i> {{ Carbon::createFromFormat('Y-m-d H:i:s',$visit->start)->diffForHumans() }}</span>
-                        <h3 class="timeline-header no-border"><a href="#">{{ $visit->user->closeup_name }}</a> visitó al médico {{ $visit->client->closeup_name }}</h3>
+                        <h3 class="timeline-header no-border"><a href="#">{{ $visit->user->closeup_name }}</a> visitó al doctór {{ $visit->client->closeup_name }}</h3>
                     </div>
                 </li>
                 <!-- END timeline item -->

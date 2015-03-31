@@ -193,7 +193,7 @@
             <div class="btn-group pull-right" style="padding-bottom: 5px">
                 @foreach ($visits as $key => $visit)
                     <a type="button" class="btn btn-primary btn-flat" href="{{ url('/frontend/visitar?uuid='.$visit->uuid) }}" style="margin-right: 5px;">Visitar {{ $key+1 }}</a>
-                    <a type="button" class="btn btn-primary btn-flat" href="{{ url('/frontend/visitar?uuid='.$visit->uuid) }}" style="margin-right: 5px;">Ausencia {{ $key+1 }}</a>
+                    <a type="button" class="btn btn-primary btn-flat" href="{{ url('/frontend/ausencia?uuid='.$visit->uuid) }}" style="margin-right: 5px;">Ausencia {{ $key+1 }}</a>
                 @endforeach
 
                     <a type="button" class="btn btn-primary btn-flat" href="{{ url('/frontend/rutas') }}" style="margin-right: 5px;">Ruta</a>

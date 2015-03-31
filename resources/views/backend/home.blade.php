@@ -1,5 +1,64 @@
 @extends('backend.app')
 
+@section('includes.js')
+    @parent
+<script>
+    // Morris.js Charts sample data for SB Admin template
+
+    $(document).ready(function() {
+
+        var jsonData = $.getJSON("/backend/category_report", function(json) {
+            console.log(json); // show the info in console
+
+            Morris.Donut({
+                element: 'morris-donut-client-category',
+                data: json,
+                resize: true
+            });
+        });
+
+        var jsonData = $.getJSON("/backend/place_report", function(json) {
+            console.log(json); // show the info in console
+
+            Morris.Donut({
+                element: 'morris-donut-client-place',
+                data: json,
+                resize: true
+            });
+        });
+
+        var jsonData = $.getJSON("/backend/client_type_report", function(json) {
+            console.log(json); // show the info in console
+
+            Morris.Donut({
+                element: 'morris-donut-client-type',
+                data: json,
+                resize: true
+            });
+        });
+
+        var jsonData = $.getJSON("/backend/client_specialty", function(json) {
+            console.log(json); // show the info in console
+
+            // Bar Chart
+            Morris.Bar({
+                element: 'morris-bar-chart',
+                data: json,
+                xkey: 'label',
+                ykeys: ['value'],
+                labels: ['# Doctores'],
+                barRatio: 0.4,
+                xLabelAngle: 35,
+                hideHover: 'auto',
+                resize: true
+            });
+        });
+    });
+
+</script>
+    @stop
+
+
 @section('content')
 
     <div class="row">

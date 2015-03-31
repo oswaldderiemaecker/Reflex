@@ -25,7 +25,7 @@ Route::get('/inicio_de_ciclo', function(){
     return Redirect::to('/backend/home');
 });
 
-Route::group(array('prefix' => 'api'), function(){
+Route::group(array('prefix' => 'api', 'middleware' => 'auth.basic'), function(){
     Route::resource('countries', 'Backend\CountryController');
     Route::resource('companies', 'Backend\CompanyController');
     Route::resource('business_units', 'Backend\BusinessUnitController');
@@ -43,7 +43,7 @@ Route::group(array('prefix' => 'api'), function(){
 });
 
 
-Route::group(array('prefix' => 'backend'), function() {
+Route::group(array('prefix' => 'backend', 'middleware' => 'auth.basic'), function() {
 
     Route::get('home', 'Backend\HomeController@index');
     Route::get('perfil', 'Backend\HomeController@profile');
@@ -53,39 +53,48 @@ Route::group(array('prefix' => 'backend'), function() {
     Route::get('client_type_report', 'Backend\HomeController@client_type_report');
     Route::get('client_specialty', 'Backend\HomeController@client_specialty');
 
-    Route::controller('paises', '\Reflex\Http\Controllers\Backend\CountryController');
-    Route::controller('empresas', '\Reflex\Http\Controllers\Backend\CompanyController');
-    Route::controller('unidad_de_negocios', '\Reflex\Http\Controllers\Backend\BusinessUnitController');
-    Route::controller('sub_unidad_de_negocios', '\Reflex\Http\Controllers\Backend\SubBusinessUnitController');
-    Route::controller('zonas', '\Reflex\Http\Controllers\Backend\ZoneController');
-    Route::controller('clientes', '\Reflex\Http\Controllers\Backend\ClientController');
-    Route::controller('ciclos', '\Reflex\Http\Controllers\Backend\CampaignController');
-    Route::controller('usuarios', '\Reflex\Http\Controllers\Backend\UserController');
-    Route::controller('targets', '\Reflex\Http\Controllers\Backend\TargetController');
-    Route::controller('farmacias', '\Reflex\Http\Controllers\Backend\PharmacyController');
-    Route::controller('instituciones', '\Reflex\Http\Controllers\Backend\InstitutionController');
-
-
+    Route::controller('paises', 'Backend\CountryController');
+    Route::controller('empresas', 'Backend\CompanyController');
+    Route::controller('unidad_de_negocios', 'Backend\BusinessUnitController');
+    Route::controller('sub_unidad_de_negocios', 'Backend\SubBusinessUnitController');
+    Route::controller('zonas', 'Backend\ZoneController');
+    Route::controller('clientes', 'Backend\ClientController');
+    Route::controller('ciclos', 'Backend\CampaignController');
+    Route::controller('usuarios', 'Backend\UserController');
+    Route::controller('targets', 'Backend\TargetController');
+    Route::controller('farmacias', 'Backend\PharmacyController');
+    Route::controller('instituciones', 'Backend\InstitutionController');
 });
 
-
-Route::group(array('prefix' => 'frontend'), function() {
+Route::group(array('prefix' => 'frontend', 'middleware' => 'auth.basic'), function() {
 
     Route::get('home', 'Frontend\HomeController@index');
 
     Route::get('target'      ,array('uses' => 'Frontend\TargetController@main'));
     Route::get('visitas'     ,array('uses' => 'Frontend\VisitController@main'));
     Route::get('visitar'     ,array('uses' => 'Frontend\VisitController@visit_new'));
+    Route::get('ausencia'    ,array('uses' => 'Frontend\VisitController@absence_new'));
     Route::get('visita/{id}' ,array('uses' => 'Frontend\VisitController@visit_preview'));
     Route::get('rutas'       ,array('uses' => 'Frontend\RouteController@main'));
     Route::get('reportes'    ,array('uses' => 'Frontend\ReportController@main'));
     Route::get('notas'       ,array('uses' => 'Frontend\NoteController@main'));
-    Route::get('mapa'       ,array('uses' => 'Frontend\HomeController@map'));
+    Route::get('mapa'        ,array('uses' => 'Frontend\HomeController@map'));
 
+    Route::get('target/{id}'           , array('uses' => 'Frontend\TargetController@preview'));
+    Route::get('schedule/calendar/{id}', array('uses' => 'Frontend\ScheduleController@calendar'));
+    Route::get('rutas/calendar'        , array('uses' => 'Frontend\RouteController@calendar'));
+    Route::get('rutas/exportar'        , array('uses' => 'Frontend\RouteController@export'));
+    Route::get('visitas/exportar'      , array('uses' => 'Frontend\VisitController@export'));
+    Route::get('ausencias/exportar'    , array('uses' => 'Frontend\VisitController@absence_export'));
+    Route::get('cobertura/exportar'    , array('uses' => 'Frontend\HomeController@coverage_export'));
+    Route::get('targets/exportar/{zone_id}/{campaign_id}/{user_id}'      , array('uses' => 'Frontend\TargetController@target_export'));
 
-    Route::get('target/{id}'   ,array('uses' => 'Frontend\TargetController@preview'));
-    Route::get('schedule/calendar/{id}',array('uses' => 'Frontend\ScheduleController@calendar'));
-    Route::get('rutas/calendar',array('uses' => 'Frontend\RouteController@calendar'));
-    Route::get('rutas/exportar',array('uses' => 'Frontend\RouteController@export'));
+    Route::get('visit_status'      , 'Frontend\HomeController@visit_status');
+    Route::get('category_report'   , 'Frontend\HomeController@category_report');
+    Route::get('place_report'      , 'Frontend\HomeController@place_report');
+    Route::get('client_type_report', 'Frontend\HomeController@client_type_report');
+    Route::get('client_specialty'  , 'Frontend\HomeController@client_specialty');
+
+    Route::controller('usuarios', 'Frontend\UserController');
 
 });

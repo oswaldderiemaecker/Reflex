@@ -9,16 +9,17 @@
 @section('includes.js')
     @parent
 
-    <script src="/plugins/moment/moment.min.js" type="text/javascript"></script>
+    <script src="/plugins/moment/moment.js" type="text/javascript"></script>
     <script src="/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
     <script src="/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.js" type="text/javascript"></script>
     <script src="/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
     <script type="text/javascript" class="init">
 
         $(document).ready(function() {
+            moment.locale('es-PE');
 
             var table = $('#example').dataTable({
-                'processing': false,
+                'processing': true,
                 'serverSide': false,
                 'ajax': {
                     'url' : '/api/visits?zone_id={{ $zone->id }}&campaign_id={{ $campaign->id }}&user_id={{ $user->id }}',
@@ -49,7 +50,17 @@
                         'mRender' : function(data,type,full){ return (data == null)?' ':data } },
                     { 'data': 'client.category.code', "class": "text-center " },
                     { 'data': 'client.place.code', "class": "text-center " },
-                    { 'data': 'start', "class": "text-center " },
+                    { 'data': 'start', "class": "text-center ",
+                        'mRender' : function(data,type,full){
+                            var val = '';
+                            if(full.start != '' || full.start != null)
+                            {
+
+                                val = moment(full.start,'YYYY-MM-DD HH:mm:ss').format("DD/MM/YY HH:mm");
+                            }
+                            return val;
+                        }
+                    },
                     { 'data': 'client.is_supervised',
                         'mRender' : function(data,type,full){
                             if(full.is_supervised == '1'){
@@ -57,13 +68,29 @@
                             }else{
                                 return "";
                             }
+                        }
+                    },{ 'data' : 'visit_status_id',
+                        'mRender' : function(data,type,full){
+                            var val = '';
+                           // return data;
+                            switch(data){
+                                case 1:
+                                    val = "Pendiente";break;
+                                case 2:
+                                    val = "Visitado";break;
+                                case 3:
+                                    val = "Ausente";break;
+                            }
 
+                            return val;
                         }
                     }
                 ],
                 "iDisplayLength": 20,
-                'order': [[3, 'asc']]
+                'order': [[6, 'asc']]
             });
+
+           // table.fnFilter("Visitado",8);
 
             $('#filter_category').change( function() {
                 table.fnFilter(this.value,4);
@@ -71,6 +98,10 @@
 
             $('#filter_place').change( function() {
                 table.fnFilter(this.value,5);
+            });
+
+            $('#filter_status').change( function() {
+                table.fnFilter(this.value,8);
             });
           //  console.log('finish process');
         });
@@ -139,6 +170,16 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <select class="form-control filter_grid" id="filter_status">
+                                    <option value="Visitado">Visitas</option>
+                                    <option value="Pendiente">Pendientes</option>
+                                    <option value="Ausente">Ausentes</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -163,6 +204,7 @@
                             <th>Tar.</th>
                             <th>Fecha</th>
                             <th>Sup</th>
+                            <th>Estado</th>
                         </tr>
                         </thead>
                     </table>
