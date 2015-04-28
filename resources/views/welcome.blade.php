@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -39,7 +39,7 @@
     </header>
 
     <div class="buttons">
-        <a href="/auth/login" target="_blank" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Demo</a>
+        <a href="/auth/login" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Demo</a>
         <a href="/auth/login" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Documentación</a>
         <a href="/auth/login" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-list"></span> Lanzamientos</a>
         <a href="/auth/login" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cloud"></span> Github</a>
@@ -59,7 +59,7 @@
 
     <h2>Quieres una demo?</h2>
 
-    <p>Indiquenos que tipo de trabajo usted realiza y haga una prueba de Réflex 360°, la solución XXXXXXXXXXXX</p>
+    <p>Indiquenos que tipo de trabajo usted realiza y haga una prueba de Réflex 360°.</p>
 
     <ul>
         <li>Administrador</li>

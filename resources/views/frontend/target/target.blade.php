@@ -26,12 +26,12 @@
                     'type' : 'get'
                 },
                 'language': {
-                    'url': 'http://cdn.datatables.net/plug-ins/be7019ee387/i18n/Spanish.json'
+                    'url': '/json/i18n/Spanish.json'
                 },
                 'columns': [
                     { 'data': 'client.photo',
                         'mRender' : function(data,type,full){
-                            return "<img src='/pictures/"+('0000'+full.client.code).slice(-5)+".jpg'  class='img-circle' style='width: 80px; height: 90px;' />";
+                            return "<img src='/frontend/image/client/"+full.client.code+"'  class='img-circle' style='width: 80px; height: 90px;' />";
                         }
                     },
                     { 'data': 'client.code',
@@ -48,8 +48,8 @@
                     { 'data': 'client.location.name',
                         'mRender' : function(data,type,full){ return (data == null)?' ':data } },
                     { 'data': 'client.category.code', "class": "text-center " },
-                    { 'data': 'client.place.code', "class": "text-center " },
-                    { 'data': 'id', "class": "text-center ",
+                    { 'data': 'client.place.code', "class": "text-center " }
+                   /* { 'data': 'id', "class": "text-center ",
                         'mRender' : function(data,type,full){
                             //TODO: fix the color
                             //console.log(full);
@@ -62,7 +62,7 @@
                             }
 
                             return "<a class='btn "+color+
-                                    " btn-lg' href='/frontend/target/"+full.id+"'> </a>"; } }
+                                    " btn-lg' href='/frontend/target/"+full.id+"'> </a>"; } }*/
                 ],
                 "iDisplayLength": 20,
                 'order': [[3, 'asc']]
@@ -164,7 +164,7 @@
                             <th>Localidad</th>
                             <th>Cat.</th>
                             <th>Tar.</th>
-                            <th>Estado</th>
+                           <!-- <th>Estado</th>-->
                         </tr>
                         </thead>
                     </table>

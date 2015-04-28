@@ -12,9 +12,9 @@ class VisitStatusTableSeeder extends \Illuminate\Database\Seeder {
 
         DB::table('visit_status')->delete();
 
-        \Reflex\Models\VisitStatus::create(array('code' => 'PL', 'name' => 'Plan'));
-        \Reflex\Models\VisitStatus::create(array('code' => 'VI', 'name' => 'Visita'));
-        \Reflex\Models\VisitStatus::create(array('code' => 'AU', 'name' => 'Ausencia'));
+        \Reflex\Models\VisitStatus::create(array('code' => 'PE', 'name' => 'Pendiente'));
+        \Reflex\Models\VisitStatus::create(array('code' => 'VI', 'name' => 'Visitado'));
+        \Reflex\Models\VisitStatus::create(array('code' => 'AU', 'name' => 'Ausente'));
 
 
     }

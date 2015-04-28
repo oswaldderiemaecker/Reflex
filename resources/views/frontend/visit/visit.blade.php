@@ -27,7 +27,7 @@
                     'type' : 'get'
                 },
                 'language': {
-                    'url': 'http://cdn.datatables.net/plug-ins/be7019ee387/i18n/Spanish.json'
+                    'url': '/json/i18n/Spanish.json'
                 },
                 'columns': [
                   /*  { 'data': 'client.photo',
@@ -55,8 +55,14 @@
                             var val = '';
                             if(full.start != '' || full.start != null)
                             {
+                                if(moment(full.start,'YYYY-MM-DD HH:mm:ss').isValid())
+                                {
+                                    val = moment(full.start,'YYYY-MM-DD HH:mm:ss').format("DD/MM/YY HH:mm");
+                                }else{
+                                    val='';
+                                }
 
-                                val = moment(full.start,'YYYY-MM-DD HH:mm:ss').format("DD/MM/YY HH:mm");
+
                             }
                             return val;
                         }
@@ -64,27 +70,16 @@
                     { 'data': 'client.is_supervised',
                         'mRender' : function(data,type,full){
                             if(full.is_supervised == '1'){
-                                return "<i class='fa fa-user-secret'></i>";
+                                return "<i class='fa fa-user-secret center-block'></i>";
                             }else{
                                 return "";
                             }
                         }
                     },{ 'data' : 'visit_status_id',
                         'mRender' : function(data,type,full){
-                            var val = '';
-                           // return data;
-                            switch(data){
-                                case 1:
-                                    val = "Pendiente";break;
-                                case 2:
-                                    val = "Visitado";break;
-                                case 3:
-                                    val = "Ausente";break;
-                            }
-
-                            return val;
+                            return "<img src='/images/"+full.visit_status_id+".png' class='img-responsive center-block' alt='Estado' />";
                         }
-                    }
+                    },{ 'data': 'visit_status_id', 'visible': false }
                 ],
                 "iDisplayLength": 20,
                 'order': [[6, 'asc']]
@@ -101,7 +96,7 @@
             });
 
             $('#filter_status').change( function() {
-                table.fnFilter(this.value,8);
+                table.fnFilter(this.value,9);
             });
           //  console.log('finish process');
         });
@@ -174,9 +169,9 @@
                             <div class="form-group">
                                 <label>Estado</label>
                                 <select class="form-control filter_grid" id="filter_status">
-                                    <option value="Visitado">Visitas</option>
-                                    <option value="Pendiente">Pendientes</option>
-                                    <option value="Ausente">Ausentes</option>
+                                    <option value="2">Visitas</option>
+                                    <option value="1">Pendientes</option>
+                                    <option value="3">Ausentes</option>
                                 </select>
                             </div>
                         </div>

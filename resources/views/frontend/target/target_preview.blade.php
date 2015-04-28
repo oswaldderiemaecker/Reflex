@@ -188,7 +188,7 @@
         <!-- top row -->
         <div class="row">
             <div class="pull-left" style="  margin: 0 0 -25 20px;">
-                <img src="/pictures/{{ substr($target->client->code,-5) }}.jpg" class="img-circle"/>
+                <img src="/frontend/image/client/{{ $target->client->code }}" class="img-circle" style='width: 80px; height: 90px;' />
             </div>
             <div class="btn-group pull-right" style="padding-bottom: 5px">
                 @foreach ($visits as $key => $visit)
@@ -389,6 +389,44 @@
                     </div>
                 </div>
                 <!-- /.box -->
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <i class="fa fa-fw fa-medkit"></i>
+                                <h3 class="box-title">Historial de Visitas</h3>
+                            </div><!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Ciclo</th>
+                                        <th>Consultor</th>
+                                        <th>Fecha</th>
+                                        <th>Sup</th>
+                                        <th>Estado</th>
+                                    </tr>
+
+
+                                    @foreach ($allVisits as $key => $visit)
+                                        <tr>
+                                            <td>{{{ $visit->campaign->code }}}</td>
+                                            <td>{{{ $visit->user->lastname.' '.$visit->user->firstname }}}</td>
+                                            <td>
+                                                <a href="{{ url('/frontend/visita/'.$visit->uuid) }}" >{{{ $visit->start }}}</a>
+                                            </td>
+                                            <td class="center-block">@if ($visit->is_supervised == 1)
+                                                    <i class='fa fa-user-secret center-block'></i>
+                                                @endif
+                                            </td>
+                                            <td><img src='/images/{{{ $visit->visit_status_id }}}.png' class='img-responsive center-block' alt='Estado' /></td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                    </div>
+                </div>
 
             </section>
             <!-- right col -->

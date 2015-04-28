@@ -182,16 +182,13 @@
 </div><!-- ./wrapper -->
 
 @section('includes.js')
-<!-- jQuery 2.1.3 -->
-<script src="/plugins/jQuery/jQuery-2.1.3.min.js"></script>
-<!-- Bootstrap 3.3.2 JS -->
-<script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
+<script src="/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+<script src="/plugins/touchpunch/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+<script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/plugins/datepicker/bootstrap-datepicker.es.js" type="text/javascript"></script>
-<!-- SlimScroll -->
-<script src="/plugins/slimScroll/jquery.slimScroll.min.js" type="text/javascript"></script>
-<!-- FastClick -->
+<!--<script src="/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>-->
 <script src='/plugins/fastclick/fastclick.min.js'></script>
 
 <script type="text/javascript">
@@ -203,12 +200,11 @@
 <script src="/js/plugins/morris/raphael.min.js"></script>
 <script src="/js/plugins/morris/morris.min.js"></script>
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript"></script>
 
 {!! Rapyd::scripts() !!}
 
-    @show
+@show
 
 </body>
 </html>

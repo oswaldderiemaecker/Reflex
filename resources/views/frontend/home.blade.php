@@ -7,7 +7,7 @@
         $(document).ready(function() {
 
             var jsonData = $.getJSON("/frontend/visit_status", function(json) {
-                console.log(json); // show the info in console
+                //console.log(json); // show the info in console
 
                 Morris.Donut({
                     element: 'morris-donut-visit-status',
@@ -19,7 +19,7 @@
         });
 
         var jsonData = $.getJSON("/frontend/client_specialty", function(json) {
-            console.log(json); // show the info in console
+            //console.log(json); // show the info in console
 
             // Bar Chart
             Morris.Bar({
@@ -37,7 +37,7 @@
         });
 
         var jsonData = $.getJSON("/frontend/category_report", function(json) {
-            console.log(json); // show the info in console
+           // console.log(json); // show the info in console
 
             Morris.Donut({
                 element: 'morris-donut-client-category',
@@ -47,7 +47,7 @@
         });
 
         var jsonData = $.getJSON("/frontend/place_report", function(json) {
-            console.log(json); // show the info in console
+           // console.log(json); // show the info in console
 
             Morris.Donut({
                 element: 'morris-donut-client-place',
@@ -57,7 +57,7 @@
         });
 
         var jsonData = $.getJSON("/frontend/client_type_report", function(json) {
-            console.log(json); // show the info in console
+           // console.log(json); // show the info in console
 
             Morris.Donut({
                 element: 'morris-donut-client-type',

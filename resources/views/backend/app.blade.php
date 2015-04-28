@@ -131,6 +131,9 @@
                 <li><a href="{{ url('/backend/paises') }}"><i class="fa fa-fw fa-flag"></i> Paises</a></li>
                 <li><a href="{{ url('/backend/empresas') }}"><i class="fa fa-fw fa-building-o"></i> Empresas</a></li>
 
+                <li><a href="{{ url('/backend/categorias') }}"><i class="fa fa-fw fa-tags"></i> Categorias</a></li>
+                <li><a href="{{ url('/backend/tareas') }}"><i class="fa fa-fw fa-sun-o"></i> Tareas</a></li>
+
                 <li><a href="{{ url('/backend/unidad_de_negocios') }}"><i class="fa fa-fw fa-list"></i> Unidades de Negocios</a></li>
                 <li><a href="{{ url('/backend/sub_unidad_de_negocios') }}"><i class="fa fa-fw fa-indent"></i> Sub Unidades de Negocios</a></li>
                 <li><a href="{{ url('/backend/zonas') }}"><i class="fa fa-fw fa-map-marker"></i> Zonas</a></li>
@@ -181,16 +184,9 @@
         </footer>
     </div><!-- ./wrapper -->
 
-
-<!-- jQuery 2.1.3 -->
 <script src="/plugins/jQuery/jQuery-2.1.3.min.js"></script>
-<!-- Bootstrap 3.3.2 JS -->
 <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<!-- SlimScroll -->
-<script src="/plugins/slimScroll/jquery.slimScroll.min.js" type="text/javascript"></script>
-<!-- FastClick -->
 <script src='/plugins/fastclick/fastclick.min.js'></script>
-<!-- AdminLTE App -->
 <script src="/dist/js/app.min.js" type="text/javascript"></script>
 
 <script src="/js/plugins/morris/raphael.min.js"></script>
@@ -198,7 +194,6 @@
 <script src="/js/plugins/morris/morris-data.js"></script>
 
 {!! Rapyd::scripts() !!}
-
 
 </body>
 </html>

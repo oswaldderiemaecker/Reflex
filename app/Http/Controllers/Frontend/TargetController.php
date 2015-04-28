@@ -130,7 +130,9 @@ class TargetController extends Controller
 
         $visits = Visit::with('visit_type')->where('target_id', '=', $target->id)->where('visit_status_id', '=', 1)->get();
 
-        return view('frontend.target.target_preview', compact('target', 'schedules', 'note_types_options', 'visits'));
+        $allVisits = Visit::with('user','campaign')->where('client_id', '=', $target->client_id)->get();
+
+        return view('frontend.target.target_preview', compact('target', 'schedules', 'note_types_options', 'visits','allVisits'));
     }
 
     /**
@@ -183,7 +185,7 @@ class TargetController extends Controller
         //print_r($data);
         //die();
 
-        Excel::create('Backup_target' . $date, function ($excel) use ($data) {
+        Excel::create('Backup_target_' . $date, function ($excel) use ($data) {
             $excel->sheet('target', function ($sheet) use ($data) {
                 $sheet->fromArray($data);
             });

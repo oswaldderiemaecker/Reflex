@@ -11,6 +11,9 @@ use Reflex\User;
 use DB;
 use Excel;
 use Carbon;
+use Request;
+use File;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Controller {
 
@@ -43,6 +46,7 @@ class HomeController extends Controller {
         $user = User::find($id);
 
         $targets   = DB::table('clients')->where('zone_id','=',$this->zone->id)->count();
+        $targets   = ($targets == 0)?1:$targets;
         $visits    = DB::table('visits')->where('zone_id','=',$this->zone->id)->where('user_id','=',$id)->where('visits.visit_status_id','=','2')->count();
         $absences  = DB::table('visits')->where('zone_id','=',$this->zone->id)->where('user_id','=',$id)->where('visits.visit_status_id','=','3')->count();
         $coverage  = round( $visits*100/$targets, 2, PHP_ROUND_HALF_ODD);
@@ -235,6 +239,32 @@ class HomeController extends Controller {
         $cat[] = array('label' => 'Hospital','value' => DB::table('clients')->where('client_type_id','=',4)->where('zone_id','=',$this->zone->id)->count());
 
         returN $this->responseFactory->json($cat);
+    }
+
+    /**
+     * Get image and validate with cmp.
+     *
+     * @param  String  $cmp
+     * @return Response
+     */
+    public function image_client($cmp)
+    {
+        $cmp = substr('00000'.$cmp,-5);
+        $path = public_path().'/pictures/'.$cmp.'.jpg';
+
+        if (!File::exists($path))
+        {
+
+            $path = public_path().'/images/avatar.png';
+        }
+
+        return $this->responseFactory->make( File::get( $path ) , 200, array('Content-Type' => File::type($path)) );
+
+
+
+
+
+
     }
 
 

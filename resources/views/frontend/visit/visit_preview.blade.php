@@ -76,7 +76,8 @@
         <!-- left column -->
         <div class="col-md-3">
             <div class="text-center">
-                <img src="/pictures/{{ substr($visit->client->code,-5) }}.jpg" class="avatar img-circle" alt="avatar"/>
+                <img src="/frontend/image/client/{{ $visit->client->code }}" class="avatar img-circle" alt="Medico" style='width: 90px; height: 100px;' />
+
                 <p>{{ $visit->client->closeup_name }}</p>
                 <p>cmp: {{ $visit->client->code }}</p>
                 <p>{{ $visit->client->specialty_base->name }}</p>

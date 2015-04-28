@@ -111,7 +111,7 @@ class UserController extends Controller {
         $filter->add('sub_business_unit.name','Sub Unidad de Negocio', 'text');
         $filter->add('code','Codigo', 'text');
         $filter->add('firstname','Nombres','text');
-        $filter->add('lastname','Nombres','text');
+        $filter->add('lastname','Apellidos','text');
         $filter->submit('Buscar');
         $filter->reset('Limpiar');
         $filter->build();

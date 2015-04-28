@@ -34,14 +34,16 @@ class VisitController extends Controller {
 	public function index(Request $request)
 	{
         $zone_id     = $request->get('zone_id',null,true);
-        $user_id     = $request->get('user_id',null,true);
         $campaign_id = $request->get('campaign_id',null,true);
+        $client_id   = $request->get('client_id',null,true);
+        $user_id     = $request->get('user_id',null,true);
+
         $visit_status_id = $request->get('visit_status_id',null,true);
         $query_in = $request->get('query',null,true);
 
         $targets =  $this->visit->newQuery()->with('target','client','client.location','client.category','client.place');
         $targets->where('zone_id','=', $zone_id);
-      //  $targets->where('visit_status_id','=', '2');
+        //$targets->where('visit_status_id','=', '2');
 
         if(!(is_null($zone_id) || $zone_id == '')){
             $targets->where('zone_id','=', $zone_id);
@@ -57,6 +59,10 @@ class VisitController extends Controller {
 
         if(!(is_null($visit_status_id) || $visit_status_id == '')){
             $targets->where('visit_status_id','=', $visit_status_id);
+        }
+
+        if(!(is_null($client_id) || $client_id == '')){
+            $targets->where('client_id','=', $client_id);
         }
 
         if(!(is_null($query_in) || $query_in == '')){

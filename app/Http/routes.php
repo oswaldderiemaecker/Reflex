@@ -40,6 +40,8 @@ Route::group(array('prefix' => 'api', 'middleware' => 'auth.basic'), function(){
     Route::resource('schedules', 'Frontend\ScheduleController');
     Route::resource('routes', 'Frontend\RouteController');
     Route::resource('visits', 'Frontend\VisitController');
+    Route::resource('categories', 'Backend\CategoryController');
+    Route::resource('places', 'Backend\PlaceController');
 });
 
 
@@ -64,6 +66,8 @@ Route::group(array('prefix' => 'backend', 'middleware' => 'auth.basic'), functio
     Route::controller('targets', 'Backend\TargetController');
     Route::controller('farmacias', 'Backend\PharmacyController');
     Route::controller('instituciones', 'Backend\InstitutionController');
+    Route::controller('categorias', 'Backend\CategoryController');
+    Route::controller('tareas', 'Backend\PlaceController');
 });
 
 Route::group(array('prefix' => 'frontend', 'middleware' => 'auth.basic'), function() {
@@ -94,6 +98,7 @@ Route::group(array('prefix' => 'frontend', 'middleware' => 'auth.basic'), functi
     Route::get('place_report'      , 'Frontend\HomeController@place_report');
     Route::get('client_type_report', 'Frontend\HomeController@client_type_report');
     Route::get('client_specialty'  , 'Frontend\HomeController@client_specialty');
+    Route::get('image/client/{cmp}'  , 'Frontend\HomeController@image_client');
 
     Route::controller('usuarios', 'Frontend\UserController');
 

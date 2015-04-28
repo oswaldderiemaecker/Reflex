@@ -1,14 +1,14 @@
 {
   "name": "davidjoan/Reflex",
   "description": "The Ligth CRM for pharmacauticals.",
-  "keywords": ["php", "laravel","mysql","redis"],
+  "keywords": ["php", "laravel","postgres","redis"],
   "license": "MIT",
   "type": "project",
   "minimum-stability": "dev",
   "require": {
     "laravel/framework": "5.0.*",
     "maatwebsite/excel": "~2.0.0",
-    "zofe/rapyd": "*",
+    "zofe/rapyd": "master",
     "fzaninotto/faker": "*",
     "webpatser/laravel-uuid": "1.*",
     "illuminate/html": "5.0.*@dev",

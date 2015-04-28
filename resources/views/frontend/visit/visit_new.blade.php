@@ -93,7 +93,7 @@
                                             data: data_form,
                                             success: function(data) {
                                                // console.log(data);
-                                                toastr.success('Se Visita se guardo correctamente!');
+                                                toastr.success('Su Visita se guardo correctamente!');
 
                                                 $('#divBack').fadeIn(function(){
                                                     $('#back').removeClass("hidden");
@@ -107,7 +107,7 @@
                                             data: data_form,
                                             success: function(data) {
                                                // console.log(data);
-                                                toastr.success('Se Visita se guardo correctamente!');
+                                                toastr.success('Su Visita se guardo correctamente!');
 
                                                 $('#divBack').fadeIn(function(){
                                                     $('#back').removeClass("hidden");
@@ -122,7 +122,7 @@
                                         data: data_form,
                                         success: function(data) {
                                            // console.log(data);
-                                            toastr.success('Se Visita se guardo correctamente!');
+                                            toastr.success('Su Visita se guardo correctamente!');
 
                                             $('#divBack').fadeIn(function(){
                                                 $('#back').removeClass("hidden");

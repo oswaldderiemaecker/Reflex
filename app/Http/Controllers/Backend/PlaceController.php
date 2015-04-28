@@ -1,46 +1,44 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Reflex\Models\BusinessUnit;
-use Reflex\Models\Company;
+use Illuminate\Routing\ResponseFactory;
 use Reflex\Http\Requests;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Zofe\Rapyd\DataEdit\DataEdit;
-use Zofe\Rapyd\DataFilter\DataFilter;
-use Zofe\Rapyd\DataGrid\DataGrid;
 use Reflex\Http\Controllers\Controller;
 
+use Illuminate\Http\Request;
+use Reflex\Models\Company;
+use Reflex\Models\Place;
+use Auth;
+use Zofe\Rapyd\DataFilter\DataFilter;
+use Zofe\Rapyd\Facades\DataEdit;
+use Zofe\Rapyd\Facades\DataGrid;
 
-class BusinessUnitController extends Controller {
+class PlaceController extends Controller {
 
-    protected $businessUnit;
+    protected $place;
     private $responseFactory;
 
-    public function __construct(BusinessUnit $businessUnit, ResponseFactory $responseFactory)
+    public function __construct(Place $place, ResponseFactory $responseFactory)
     {
-        $this->businessUnit = $businessUnit;
+        $this->place = $place;
         $this->responseFactory = $responseFactory;
     }
-
-    /**
+	/**
 	 * Display a listing of the resource.
-     * @param Request $request
 	 *
+     * @param Request $request
 	 * @return Response
 	 */
-	public function index(Request $request)
+	public function index(Request  $request)
 	{
         $company_id = $request->get('company_id',null,true);
 
-        $businessUnits = $this->businessUnit->newQuery()->with('company');
+        $places = $this->place->newQuery()->with('company');
 
         if(!(is_null($company_id) || $company_id == '')){
-            $businessUnits->where('company_id','=', $company_id);
+            $places->where('company_id','=', $company_id);
         }
 
-
-        return $businessUnits->get()->toJson();
+        return $places->get()->toJson();
 	}
 
 	/**
@@ -56,19 +54,22 @@ class BusinessUnitController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-     * @param  Requests\BusinessUnitRequest $request
 	 * @return Response
 	 */
-	public function store(Requests\BusinessUnitRequest $request)
+	public function store()
 	{
-        $businessUnit = BusinessUnit::create(array('company_id' => $request->input('company_id'),
-            'code' => $request->input('code'),
-            'name' => $request->input('name'),
-            'description' => $request->input('description')
+        $company_id  = $request->get('company_id',null,true);
+        $code        = $request->get('code',null,true);
+        $name        = $request->get('name',null,true);
+        $description = $request->get('description',null,true);
+        $active      = $request->get('active',null,true);
+
+        $place = Place::create(array('company_id' => $company_id,
+            'code' => $code, 'name' => $name,
+            'description' => $description,'active' => $active
         ));
 
-        $businessUnit = $this->businessUnit->newQuery()->with('company')->where('id','=',$businessUnit->id)->first();
-        return $this->responseFactory->json($businessUnit);
+        return $this->responseFactory->json($place);
 	}
 
 	/**
@@ -79,8 +80,8 @@ class BusinessUnitController extends Controller {
 	 */
 	public function show($id)
 	{
-        $businessUnit = $this->businessUnit->findOrFail($id);
-        return $this->responseFactory->json($businessUnit);
+        $place = $this->place->findOrFail($id);
+        return $this->responseFactory->json($place);
 	}
 
 	/**
@@ -103,8 +104,22 @@ class BusinessUnitController extends Controller {
 	 */
 	public function update(Request $request, $id)
 	{
-        $businessUnit = $this->businessUnit->findOrFail($id);
-        $businessUnit->update($request->all());
+        $company_id  = $request->get('company_id',null,true);
+        $code        = $request->get('code',null,true);
+        $name        = $request->get('name',null,true);
+        $description = $request->get('description',null,true);
+        $active      = $request->get('active',null,true);
+
+        $place = Place::find($id);
+        $place->company_id = $company_id;
+        $place->code = $code;
+        $place->name = $name;
+        $place->description = $description;
+        $place->active = $active;
+
+        $place->save();
+
+        return $this->responseFactory->json($place);
 	}
 
 	/**
@@ -115,7 +130,7 @@ class BusinessUnitController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        $this->businessUnit->findOrFail($id)->delete();
+        $this->place->findOrFail($id)->delete();
 	}
 
 
@@ -130,7 +145,7 @@ class BusinessUnitController extends Controller {
             $company_combo[$companie->id] = $companie->name;
         }
 
-        $filter = DataFilter::source($this->businessUnit->newQuery()->with('company'));
+        $filter = DataFilter::source($this->place->newQuery()->with('company'));
         $filter->add('company.name','Empresas', 'select')->options($company_combo);
         $filter->add('code','Codigo', 'text');
         $filter->add('name','Nombre','text');
@@ -138,34 +153,31 @@ class BusinessUnitController extends Controller {
         $filter->reset('Limpiar');
         $filter->build();
 
-        //$grid = DataGrid::source($this->country);
-
-
         $grid = DataGrid::source($filter);
         $grid->attributes(array("class"=>"table table-striped"));
 
         $grid->add('company.name','Empresa',false);
         $grid->add('code','Codigo',true);
         $grid->add('name','Nombre',true);
+        $grid->add('description','Descripción',true);
 
-        $grid->edit('/backend/unidad_de_negocios/edit', 'Editar','modify|delete');
-        $grid->link('/backend/unidad_de_negocios/edit',"Nueva Unidad de Negocios", "TR");
+        $grid->edit('/backend/tareas/edit', 'Editar','modify|delete');
+        $grid->link('/backend/tareas/edit',"Nueva Tarea", "TR");
         $grid->orderBy('name','asc');
 
         if(isset($_GET['export']))
         {
-            return $grid->buildCSV('exportar_unidades_', 'Y-m-d.His');
+            return $grid->buildCSV('exportar_tareas_', 'Y-m-d.His');
 
         } else {
             $grid->paginate(25);
-            return view('backend.business_unit.grid', compact('filter','grid'));
+            return view('backend.place.grid', compact('filter','grid'));
         }
     }
 
-
     public function anyEdit()
     {
-        $edit = DataEdit::source($this->businessUnit);
+        $edit = DataEdit::source($this->place);
 
         $company = new Company();
         $companies = $company->newQuery()->where('id','=',Auth::user()->company_id)->get();
@@ -175,20 +187,18 @@ class BusinessUnitController extends Controller {
             $company_combo[$companie->id] = $companie->name;
         }
 
-        $edit->link("/backend/unidad_de_negocios","Lista Unidades de Negocios", "TR")->back();
+        $edit->link("/backend/tareas","Lista tareas", "TR")->back();
         $edit->add('company.name','Empresa', 'select')->options($company_combo);
         $edit->add('code','Codigo', 'text')->rule('required|max:5');
         $edit->add('name','Nombre', 'text')->rule('required|max:25');
-
         $edit->add('description','Descripción', 'redactor');
 
         $edit->saved(function () use ($edit) {
             $edit->message("El registro se guardo correctamente.");
-            $edit->link("/backend/unidad_de_negocios","Regresar");
+            $edit->link("/backend/tareas","Regresar");
         });
 
-
-        return view('backend.business_unit.modify', compact('edit'));
+        return view('backend.place.modify', compact('edit'));
     }
 
 }
