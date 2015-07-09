@@ -4,10 +4,10 @@ use Auth;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Reflex\Http\Controllers\Controller;
 use Reflex\Models\BusinessUnit;
 use Reflex\Models\Company;
 use Reflex\Models\SubBusinessUnit;
-use Reflex\Http\Controllers\Controller;
 use Reflex\User;
 
 class HomeController extends Controller {
@@ -98,6 +98,25 @@ class HomeController extends Controller {
             ->groupBy('specialties.name')->get();
 
         returN $this->responseFactory->json($data);
+    }
+
+    /**
+     * Get image and validate with cmp.
+     *
+     * @param  String $cmp
+     * @return Response
+     */
+    public function image_client($cmp)
+    {
+        $cmp = substr('00000' . $cmp, -5);
+        $path = public_path() . '/pictures/' . $cmp . '.jpg';
+
+        if (!File::exists($path)) {
+
+            $path = public_path() . '/images/avatar.png';
+        }
+
+        return $this->responseFactory->make(File::get($path), 200, array('Content-Type' => File::type($path)));
     }
 
 

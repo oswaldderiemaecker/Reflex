@@ -42,6 +42,7 @@ Route::group(array('prefix' => 'api', 'middleware' => 'auth.basic'), function(){
     Route::resource('visits', 'Frontend\VisitController');
     Route::resource('categories', 'Backend\CategoryController');
     Route::resource('places', 'Backend\PlaceController');
+    Route::get('image/client/{cmp}', 'WelcomeController@image_client');
 });
 
 
@@ -70,7 +71,7 @@ Route::group(array('prefix' => 'backend', 'middleware' => 'auth.basic'), functio
     Route::controller('tareas', 'Backend\PlaceController');
 });
 
-Route::group(array('prefix' => 'frontend', 'middleware' => 'auth.basic'), function() {
+Route::group(array('prefix' => 'frontend'), function () {  //, 'middleware' => 'auth.basic'
 
     Route::get('home', 'Frontend\HomeController@index');
 

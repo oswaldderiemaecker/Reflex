@@ -1,8 +1,14 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
+use Auth;
+use Hash;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Reflex\Models\Company;
+use Illuminate\Http\Request;
+use Input;
+use Log;
+use Reflex\Http\Controllers\Controller;
 use Reflex\Http\Requests;
+use Reflex\Models\Company;
 use Reflex\Models\Role;
 use Reflex\Models\SubBusinessUnit;
 use Reflex\User;
@@ -10,11 +16,6 @@ use Zofe\Rapyd\DataEdit\DataEdit;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataForm\DataForm;
 use Zofe\Rapyd\DataGrid\DataGrid;
-use Reflex\Http\Controllers\Controller;
-use Auth;
-use Log;
-use Hash;
-use Input;
 
 class UserController extends Controller {
 
@@ -28,12 +29,21 @@ class UserController extends Controller {
     }
 	/**
 	 * Display a listing of the resource.
+     * @param Request $request
 	 *
 	 * @return Response
 	 */
-	public function index()
+    public function index(Request $request)
 	{
+
+        $imei = $request->get('imei', null, true);
+
         $users = $this->user->newQuery()->with('role','company','business_unit','sub_business_unit');
+
+        if (!(is_null($imei) || $imei == '')) {
+            $users->where('username', '=', $imei);
+            return $users->get()->first()->toJson();
+        }
         return $users->get()->toJson();
 	}
 

@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'default' => 'pgsql',
+	'default' => 'mysql',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,8 +78,8 @@ return [
             'driver'   => 'pgsql',
             'host'     => env('DB_HOST', 'localhost'),
             'database' => env('DB_DATABASE', 'reflex'),
-            'username' => env('DB_USERNAME', 'David'),
-            'password' => env('DB_PASSWORD', ''),
+			'username' => env('DB_USERNAME', 'root'),
+			'password' => env('DB_PASSWORD', '1234'),
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',

@@ -95,6 +95,55 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+<script src="/plugins/touchpunch/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+<script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="/plugins/datepicker/bootstrap-datepicker.es.js" type="text/javascript"></script>
+<script src='/plugins/fastclick/fastclick.min.js'></script>
+<script src="/dist/js/app.min.js" type="text/javascript"></script>
+<script src="/js/plugins/morris/raphael.min.js"></script>
+<script src="/js/plugins/morris/morris.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript"></script>
+<script src="/plugins/moment/moment.js" type="text/javascript"></script>
+<script src="/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+<script src="/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.js" type="text/javascript"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+<script src="/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<script src="/plugins/jQueryUI/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+<script src="/plugins/moment/moment.min.js" type="text/javascript"></script>
+<script src="/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<script src="/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+<script src="/plugins/fullcalendar/lang-all.js" type="text/javascript"></script>
+<script src="/plugins/fullcalendar/gcal.js" type="text/javascript"></script>
+<script src="/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script src="/plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+<link href="/plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css"/>
+<link href="/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+<link href="/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet" type="text/css" media="print"/>
+<link href="/plugins/iCheck/all.css" rel="stylesheet" type="text/css"/>
+<link href="/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet"/>
+<link href="/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet"/>
+<link href="/plugins/datepicker/datepicker3.css" rel="stylesheet"/>
+<script src="/plugins/moment/moment.min.js" type="text/javascript"></script>
+<script src="/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+<script src="/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.js" type="text/javascript"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+<script src="/plugins/jQueryUI/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+<script src="/plugins/moment/moment.min.js" type="text/javascript"></script>
+<script src="/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<script src="/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+<script src="/plugins/fullcalendar/lang-all.js" type="text/javascript"></script>
+<script src="/plugins/fullcalendar/gcal.js" type="text/javascript"></script>
+<script src="/plugins/typeahead/typeahead.js" type="text/javascript"></script>
+<script src="/plugins/typeahead/bootstrap3-typeahead.js" type="text/javascript"></script>
+<link href="/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+<link href="/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet" type="text/css" media='print'/>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<script src="/plugins/moment/moment.min.js" type="text/javascript"></script>
+<script src="/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 
 </body>
 </html>

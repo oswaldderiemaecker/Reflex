@@ -1,18 +1,18 @@
 <?php namespace Reflex\Http\Controllers\Frontend;
 
-use Illuminate\Routing\ResponseFactory;
-use Reflex\Http\Requests;
-use Reflex\Http\Controllers\Controller;
 use Auth;
+use Carbon;
+use DB;
+use Excel;
+use File;
+use Illuminate\Routing\ResponseFactory;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 use Reflex\Models\BusinessUnit;
 use Reflex\Models\Company;
 use Reflex\Models\Visit;
 use Reflex\User;
-use DB;
-use Excel;
-use Carbon;
 use Request;
-use File;
 use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Controller {
@@ -259,12 +259,6 @@ class HomeController extends Controller {
         }
 
         return $this->responseFactory->make( File::get( $path ) , 200, array('Content-Type' => File::type($path)) );
-
-
-
-
-
-
     }
 
 
