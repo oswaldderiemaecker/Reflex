@@ -11,7 +11,7 @@ class Route extends Model {
 
     protected $primaryKey = 'uuid';
 
-    protected $fillable = ['uuid', 'user_id', 'zone_id', 'campaign_id', 'target_id','client_id',
+    protected $fillable = ['uuid', 'assignment_id', 'user_id', 'zone_id', 'campaign_id', 'target_id', 'client_id',
                            'start', 'end', 'description', 'point_of_contact', 'is_from_mobile', 'active', 'synchro'];
 
     protected $dates = ['deleted_at'];

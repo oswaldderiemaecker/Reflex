@@ -1,19 +1,18 @@
 <?php namespace Reflex\Http\Controllers\Frontend;
 
+use Auth;
 use Carbon\Carbon;
-use Illuminate\Routing\ResponseFactory;
+use DB;
 use Excel;
-use Reflex\Http\Requests;
-use Reflex\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use Illuminate\Routing\ResponseFactory;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 use Reflex\Models\Reason;
 use Reflex\Models\Target;
 use Reflex\Models\Visit;
 use Reflex\Models\VisitStatus;
 use Webpatser\Uuid\Uuid;
-use Auth;
-use DB;
 
 class VisitController extends Controller {
 
@@ -113,15 +112,15 @@ class VisitController extends Controller {
         $latitude        = $request->get('latitude',null,true);
 
         $visit = new Visit();
-        $target = Target::with('client')->find($target_id);
+        $target = Target::with('client', 'assignment')->find($target_id);
 
         $visit->uuid = Uuid::generate();
         $visit->route_uuid      = $route_uuid;
         $visit->visit_type_id   = $visit_type_id;
         $visit->visit_status_id = $visit_status_id;
         $visit->reason_id       = $reason_id;
-        $visit->zone_id         = $target->zone_id;
-        $visit->user_id         = $target->user_id;
+        $visit->zone_id = $target->assignment->zone_id;
+        $visit->user_id = $target->assignment->user_id;
         $visit->campaign_id     = $target->campaign_id;
         $visit->target_id       = $target->id;
         $visit->specialty_id    = $target->client->specialty_base_id;
@@ -200,8 +199,8 @@ class VisitController extends Controller {
         $visit->visit_type_id   = $visit_type_id;
         $visit->visit_status_id = $visit_status_id;
         $visit->reason_id       = $reason_id;
-        $visit->zone_id         = $target->zone_id;
-        $visit->user_id         = $target->user_id;
+        $visit->zone_id = $target->assignment->zone_id;
+        $visit->user_id = $target->assignment->user_id;
         $visit->campaign_id     = $target->campaign_id;
         $visit->target_id       = $target->id;
         $visit->specialty_id    = $target->client->specialty_base_id;
@@ -234,7 +233,7 @@ class VisitController extends Controller {
 	public function destroy(Request $request, $id)
 	{
         $visit = Visit::find($id);
-        $target = Target::with('client')->find($visit->target_id);
+        $target = Target::with('client', 'assignment')->find($visit->target_id);
 
         if($visit->visit_type_id == 2)
         {
@@ -263,8 +262,8 @@ class VisitController extends Controller {
             $visit->visit_type_id   = $visit_type_id;
             $visit->visit_status_id = $visit_status_id;
             $visit->reason_id       = $reason_id;
-            $visit->zone_id         = $target->zone_id;
-            $visit->user_id         = $target->user_id;
+            $visit->zone_id = $target->assignment->zone_id;
+            $visit->user_id = $target->assignment->user_id;
             $visit->campaign_id     = $target->campaign_id;
             $visit->target_id       = $target->id;
             $visit->specialty_id    = $target->client->specialty_base_id;
@@ -290,7 +289,8 @@ class VisitController extends Controller {
     public function main()
     {
         $user = Auth::user();
-        $zone = Auth::user()->zones->first();
+        $assignment = Auth::user()->assignments->first();
+        $zone = DB::table('zones')->where('id', '=', $assignment->zone_id)->first();
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
         return view('frontend.visit.visit', compact('user','zone','campaign'));

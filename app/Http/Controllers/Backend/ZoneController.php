@@ -1,18 +1,17 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
 
+use Auth;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Log;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 use Reflex\Models\BusinessUnit;
 use Reflex\Models\Company;
-use Reflex\Http\Requests;
 use Reflex\Models\Zone;
-use Reflex\Models\Specialty;
 use Zofe\Rapyd\DataEdit\DataEdit;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
-use Reflex\Http\Controllers\Controller;
-use Auth;
-use Log;
 
 class ZoneController extends Controller {
 
@@ -117,7 +116,7 @@ class ZoneController extends Controller {
             $business_units_combo[$business_unite->id] = $business_unite->name.' .';
         }
 
-        $filter = DataFilter::source($this->zone->newQuery()->with('sub_business_unit','regions','locations','specialties','users'));
+        $filter = DataFilter::source($this->zone->newQuery()->with('sub_business_unit', 'regions', 'locations', 'specialties', 'assignments'));
 
        // $filter->add('company.name','Empresa', 'text');
         $filter->add('sub_business_unit.name','Sub Unidad de Negocio', 'autocomplete');//->options($business_units_combo);
@@ -136,7 +135,7 @@ class ZoneController extends Controller {
         $grid->add('sub_business_unit.name','Sub U. de Negocio',false)->style("width:150px");
         $grid->add('{{ implode(", ", $locations->lists("name")) }}','Localidades');
         //$grid->add('{{ implode(", ", $regions->lists("name")) }}','Regiones');
-        $grid->add('{{ $users->count() }}','Usuarios');
+        $grid->add('{{ $assignments->count() }}', 'Usuarios');
         $grid->add('{{ $specialties->count() }}','Esp. Target');
 
         $grid->edit('/backend/zonas/edit', 'Editar','modify|delete');
@@ -192,7 +191,7 @@ class ZoneController extends Controller {
        // $edit->add('regions.name','Regiones','tags',true);//->options(Region::lists('name', 'id'));
         $edit->add('locations.district', 'Localidades','tags',true);
 
-        $edit->add('users.closeup_name','Usuarios','tags',false);
+        //   $edit->add('users.closeup_name','Usuarios','tags',false);
 
         $edit->add('specialties.realname', 'Especialidades Target', 'tags');
 

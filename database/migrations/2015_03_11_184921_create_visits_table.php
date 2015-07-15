@@ -1,7 +1,7 @@
 desc routes<?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateVisitsTable extends Migration {
 
@@ -15,6 +15,7 @@ class CreateVisitsTable extends Migration {
         Schema::create('routes', function(Blueprint $table)
         {
             $table->string('uuid',36)->primary();
+            $table->integer('assignment_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('zone_id')->unsigned();
             $table->integer('campaign_id')->unsigned();
@@ -35,6 +36,7 @@ class CreateVisitsTable extends Migration {
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->foreign('target_id')->references('id')->on('targets');
             $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('assignment_id')->references('id')->on('assignments');
         });
 
         Schema::create('visit_status', function(Blueprint $table)
@@ -74,6 +76,7 @@ class CreateVisitsTable extends Migration {
             $table->integer('visit_type_id')->unsigned();
             $table->integer('visit_status_id')->unsigned();
             $table->integer('reason_id',false, true)->nullable();
+            $table->integer('assignment_id')->unsigned();
             $table->integer('zone_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('campaign_id')->unsigned();
@@ -110,7 +113,8 @@ class CreateVisitsTable extends Migration {
             $table->foreign('target_id')->references('id')->on('targets');
             $table->foreign('specialty_id')->references('id')->on('specialties');
             $table->foreign('client_id')->references('id')->on('clients');
-//CreateSubBusinessUnitsTable
+            $table->foreign('assignment_id')->references('id')->on('assignments');
+
         });
 
         Schema::create('note_types', function(Blueprint $table)
@@ -127,6 +131,7 @@ class CreateVisitsTable extends Migration {
         {
             $table->string('uuid',36)->primary();
             $table->integer('note_type_id')->unsigned()->nullable();
+            $table->integer('assignment_id')->unsigned();
             $table->integer('zone_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('campaign_id')->unsigned();
@@ -148,6 +153,7 @@ class CreateVisitsTable extends Migration {
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->foreign('target_id')->references('id')->on('targets');
             $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('assignment_id')->references('id')->on('assignments');
 
         });
 

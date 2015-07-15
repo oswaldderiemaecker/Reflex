@@ -69,6 +69,7 @@ Route::group(array('prefix' => 'backend', 'middleware' => 'auth.basic'), functio
     Route::controller('instituciones', 'Backend\InstitutionController');
     Route::controller('categorias', 'Backend\CategoryController');
     Route::controller('tareas', 'Backend\PlaceController');
+    Route::controller('asignaciones', 'Backend\AssignmentController');
 });
 
 Route::group(array('prefix' => 'frontend'), function () {  //, 'middleware' => 'auth.basic'

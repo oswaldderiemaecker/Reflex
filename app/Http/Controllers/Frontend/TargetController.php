@@ -1,16 +1,15 @@
 <?php namespace Reflex\Http\Controllers\Frontend;
 
+use Auth;
+use Carbon;
+use Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Reflex\Http\Requests;
 use Reflex\Http\Controllers\Controller;
-use Carbon;
+use Reflex\Http\Requests;
 use Reflex\Models\Schedule;
 use Reflex\Models\Target;
-use Auth;
-use Excel;
 use Reflex\Models\Visit;
-use Symfony\Component\HttpFoundation\Request;
 
 class TargetController extends Controller
 {
@@ -97,7 +96,8 @@ class TargetController extends Controller
     public function main()
     {
         $user = Auth::user();
-        $zone = Auth::user()->zones->first();
+        $assignment = Auth::user()->assignments()->first();
+        $zone = DB::table('zones')->where('id', '=', $assignment->zone_id)->first();
         $campaign = DB::table('campaigns')->where('active', '=', 1)->first();
 
         return view('frontend.target.target', compact('user', 'zone', 'campaign'));
@@ -113,8 +113,8 @@ class TargetController extends Controller
     {
         Log::info('id previewed: ' . $id);
 
-        $target = Target::with('client',
-            'client.location', 'zone', 'user',
+        $target = Target::with('client', 'assignment',
+            'client.location', 'assignment.zone', 'assignment.user',
             'campaign', 'company', 'client.client_type', 'client.category', 'client.place',
             'client.hobby',
             'client.specialty_base', 'client.specialty_target', 'client.university')->find($id);
@@ -157,12 +157,13 @@ class TargetController extends Controller
         $date = Carbon::now()->toDateTimeString();
 
         $targets = DB::table('targets')
-            ->join('zones'     , 'targets.zone_id'     , '=', 'zones.id')
-            ->join('users'     , 'targets.user_id'     , '=', 'users.id')
-            ->join('campaigns' , 'targets.campaign_id' , '=', 'campaigns.id')
-            ->leftJoin('clients'   , 'targets.client_id'   , '=', 'clients.id')
-            ->join('categories', 'categories.id'       , '=', 'clients.category_id')
-            ->join('places'    , 'places.id'           , '=', 'clients.place_id')
+            ->join('assignments', 'assignments.id', '=', 'targets.assignment_id')
+            ->join('zones', 'assignments.zone_id', '=', 'zones.id')
+            ->join('users', 'assignments.user_id', '=', 'users.id')
+            ->join('campaigns', 'targets.campaign_id', '=', 'campaigns.id')
+            ->leftJoin('clients', 'targets.client_id', '=', 'clients.id')
+            ->join('categories', 'categories.id', '=', 'clients.category_id')
+            ->join('places', 'places.id', '=', 'clients.place_id')
             ->leftJoin('locations' , 'clients.location_id' , '=', 'locations.id')
             ->select('campaigns.name as ciclo',
                 'zones.name as zona',
@@ -173,9 +174,9 @@ class TargetController extends Controller
                 'categories.name as categoria',
                 'places.name as tarea'
             )
-            ->where('targets.zone_id', '=', $zone_id)
+            ->where('assignments.zone_id', '=', $zone_id)
             ->where('targets.campaign_id', '=', $campaign_id)
-            ->where('targets.user_id', '=', $user_id)
+            ->where('assignments.user_id', '=', $user_id)
             ->whereNull('targets.deleted_at')
             ->orderBy('clients.closeup_name', 'desc')
             ->get();

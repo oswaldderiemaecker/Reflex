@@ -137,6 +137,8 @@
                 <li><a href="{{ url('/backend/unidad_de_negocios') }}"><i class="fa fa-fw fa-list"></i> Unidades de Negocios</a></li>
                 <li><a href="{{ url('/backend/sub_unidad_de_negocios') }}"><i class="fa fa-fw fa-indent"></i> Sub Unidades de Negocios</a></li>
                 <li><a href="{{ url('/backend/zonas') }}"><i class="fa fa-fw fa-map-marker"></i> Zonas</a></li>
+                <li><a href="{{ url('/backend/asignaciones') }}"><i class="fa fa-fw fa-user-plus"></i> Asignaciones</a>
+                </li>
                 <li><a href="{{ url('/backend/clientes') }}"><i class="fa fa-fw fa-user-md"></i> Clientes</a></li>
                 <li><a href="{{ url('/backend/ciclos') }}"><i class="fa fa-fw fa-bullhorn"></i> Ciclos</a></li>
                 <li><a href="{{ url('/backend/instituciones') }}"><i class="fa fa-fw fa-hospital-o"></i> Instituciones</a></li>

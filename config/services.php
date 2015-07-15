@@ -39,5 +39,9 @@ return [
         'redirect' => 'http://localhost:8000/oauth2callback'
         //'redirect' => 'https://fathomless-atoll-9455.herokuapp.com/oauth2callback',
     ],
+	'stripe' => [
+		'model' => 'User',
+		'secret' => env('STRIPE_API_SECRET'),
+	],
 
 ];

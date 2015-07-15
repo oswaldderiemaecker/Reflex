@@ -138,7 +138,7 @@ return [
 		'Illuminate\View\ViewServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
         'Zofe\Rapyd\RapydServiceProvider',
-
+		'Laravel\Cashier\CashierServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */

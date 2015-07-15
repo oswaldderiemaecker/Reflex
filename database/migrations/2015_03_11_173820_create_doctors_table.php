@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateDoctorsTable extends Migration {
 
@@ -135,7 +135,7 @@ class CreateDoctorsTable extends Migration {
             $table->softDeletes();
 
             $table->index('cmp');
-            //$table->index('closeup_name');
+            $table->index('name');
             //$table->index('institution');
             //$table->index('address');
             //$table->index('email');
@@ -175,9 +175,9 @@ class CreateDoctorsTable extends Migration {
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->integer('campaign_id')->unsigned();
-            $table->integer('zone_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('assignment_id')->unsigned();
             $table->integer('client_id')->unsigned();
+
             $table->integer('qty_visits')->default(0);
             $table->integer('visits_reg')->default(0);
             $table->integer('routes_reg')->default(0);
@@ -188,8 +188,7 @@ class CreateDoctorsTable extends Migration {
 
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('campaign_id')->references('id')->on('campaigns');
-            $table->foreign('zone_id')->references('id')->on('zones');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('assignment_id')->references('id')->on('assignments');
             $table->foreign('client_id')->references('id')->on('clients');
         });
 

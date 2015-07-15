@@ -1,12 +1,10 @@
 <?php namespace Reflex\Http\Controllers\Frontend;
 
-use Reflex\Http\Requests;
-use Reflex\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-use Reflex\Models\Visit;
 use Auth;
 use DB;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
+use Reflex\Models\Visit;
 
 class NoteController extends Controller {
 
@@ -86,7 +84,8 @@ class NoteController extends Controller {
 
     public function main()
     {
-        $zone     = Auth::user()->zones->first();
+		$assignment = Auth::user()->assignments->first();
+		$zone = DB::table('zones')->where('id', '=', $assignment->zone_id)->first();
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
         $visits = Visit::with('target','user','client','client.location','client.category','client.place');

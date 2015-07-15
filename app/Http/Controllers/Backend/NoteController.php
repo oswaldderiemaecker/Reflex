@@ -2,13 +2,11 @@
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Reflex\Http\Requests;
-use Reflex\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 use Reflex\Models\Note;
 use Reflex\Models\NoteType;
-use Reflex\Models\Route;
 use Uuid;
 
 class NoteController extends Controller {
@@ -84,6 +82,7 @@ class NoteController extends Controller {
 	{
         $client_id      = $request->get('client_id',null,true);
         $zone_id        = $request->get('zone_id',null,true);
+        $assignment_id = $request->get('assignment_id', null, true);
         $user_id        = $request->get('user_id',null,true);
         $campaign_id    = $request->get('campaign_id',null,true);
         $note_type_id   = $request->get('note_type_id',null,true);
@@ -102,6 +101,7 @@ class NoteController extends Controller {
         $note = Note::create(array(
             'uuid' => Uuid::generate(),
             'note_type_id' => $note_type_id,
+            'assignment_id' => $assignment_id,
             'zone_id' => $zone_id,
             'user_id' => $user_id,
             'campaign_id' => $campaign_id,

@@ -20,6 +20,7 @@ class HomeController extends Controller {
     private $responseFactory;
     private $zone;
     private $campaign;
+    private $assignment;
 
     /**
      * Create a new controller instance.
@@ -30,7 +31,9 @@ class HomeController extends Controller {
         $this->middleware('auth');
         $this->responseFactory = $responseFactory;
 
-        $this->zone     = Auth::user()->zones->first();
+        $this->assignment = Auth::user()->assignments()->first();
+
+        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
         $this->campaign = DB::table('campaigns')->where('active','=',1)->first();
 
     }
@@ -44,6 +47,8 @@ class HomeController extends Controller {
 	{
         $id = Auth::user()->id;
         $user = User::find($id);
+
+        //print_r($this->zone->toArray());
 
         $targets   = DB::table('clients')->where('zone_id','=',$this->zone->id)->count();
         $targets   = ($targets == 0)?1:$targets;
@@ -70,7 +75,8 @@ class HomeController extends Controller {
     public function map()
     {
         $user = Auth::user();
-        $zone = Auth::user()->zones->first();
+        $assignment = Auth::user()->assignments->first();
+        $zone = DB::table('zones')->where('id', '=', $assignment->zone_id)->first();
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
         return view('frontend.route.map', compact('user','zone','campaign'));
@@ -205,9 +211,10 @@ class HomeController extends Controller {
 
         $data = DB::table('targets')->select(DB::raw('specialties.name as label, count(1) as value'))
             ->join('clients', 'targets.client_id', '=', 'clients.id')
+            ->join('assignments', 'assignments.id', '=', 'targets.assignment_id')
             ->join('specialties', 'clients.specialty_base_id', '=', 'specialties.id')
-            ->where('targets.user_id','=',$user->id)
-            ->where('targets.zone_id','=',$this->zone->id)
+            ->where('assignments.user_id', '=', $user->id)
+            ->where('assignments.zone_id', '=', $this->zone->id)
             ->where('targets.campaign_id','=',$this->campaign->id)
             ->groupBy('specialties.name')->get();
 

@@ -37,13 +37,13 @@ class Zone extends Model {
         return $this->belongsToMany('Reflex\Models\Region');
     }
 
-    public function users()
-    {
-        return $this->belongsToMany('Reflex\User');
-    }
-
     public function specialties()
     {
         return $this->belongsToMany('Reflex\Models\Specialty');
+    }
+
+    public function assignments()
+    {
+        return $this->hasMany('Reflex\Models\Assignment');
     }
 }

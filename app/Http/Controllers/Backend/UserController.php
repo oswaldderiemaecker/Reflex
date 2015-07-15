@@ -187,6 +187,7 @@ class UserController extends Controller {
         $edit->add('password','Contraseña', 'password');
         $edit->add('photo','Foto', 'image')->move('uploads/user/')->fit(240, 160)->preview(120,80);
 
+        $edit->add('imei', 'Imei', 'text')->rule('max:50');
         // $edit->add('active','Vigente', 'select')->options(array(1 => 'SI',0 => 'NO'));
 
         $edit->saved(function () use ($edit,$password) {

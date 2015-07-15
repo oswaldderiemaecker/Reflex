@@ -19,15 +19,11 @@ class Target extends Model {
         return $this->belongsTo('Reflex\Models\Campaign');
     }
 
-    public function zone()
+    public function assignment()
     {
-        return $this->belongsTo('Reflex\Models\Zone');
+        return $this->belongsTo('Reflex\Models\Assignment');
     }
 
-    public function user()
-    {
-        return $this->belongsTo('Reflex\User');
-    }
 
     public function client()
     {

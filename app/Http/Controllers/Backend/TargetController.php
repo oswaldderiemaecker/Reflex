@@ -1,19 +1,19 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\ResponseFactory;
-use Reflex\Models\Campaign;
-use Reflex\Http\Requests;
-use Reflex\Models\Target;
-use Auth;
-use Log;
-use Reflex\User;
-use Reflex\Models\Zone;
 use Input;
+use Log;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
+use Reflex\Models\Campaign;
+use Reflex\Models\Target;
+use Reflex\Models\Zone;
+use Reflex\User;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
 use Zofe\Rapyd\Facades\DataEdit;
-use Reflex\Http\Controllers\Controller;
 
 class TargetController extends Controller {
 
@@ -37,14 +37,19 @@ class TargetController extends Controller {
         $campaign_id = $request->get('campaign_id',null,true);
         $query_in = $request->get('query',null,true);
 
-        $targets =  $this->target->newQuery()->with('client','client.location','client.category','client.place');
+        $targets = $this->target->newQuery()->with('assignment', 'client', 'client.location', 'client.category', 'client.place');
 
         if(!(is_null($zone_id) || $zone_id == '')){
-            $targets->where('zone_id','=', $zone_id);
+
+            $targets->whereHas('assignment', function ($q) use ($zone_id) {
+                $q->where('zone_id', '=', $zone_id);
+            });
         }
 
         if(!(is_null($user_id) || $user_id == '')){
-            $targets->where('user_id','=', $user_id);
+            $targets->whereHas('assignment', function ($q) use ($user_id) {
+                $q->where('user_id', '=', $user_id);
+            });
         }
 
         if(!(is_null($campaign_id) || $campaign_id == '')){
@@ -128,14 +133,14 @@ class TargetController extends Controller {
     public function getIndex()
     {
 
-        $filter = DataFilter::source($this->target->newQuery()->with('company','campaign','zone','user','client')->take(1000));
+        $filter = DataFilter::source($this->target->newQuery()->with('assignment', 'company', 'campaign', 'assignment.zone', 'assignment.user', 'client')->take(1000));
 
        //s $filter->add('company.name','Empresa', 'text');
         $filter->add('campaign.name','Ciclo', 'select')->options(Campaign::lists('name', 'id'));
-        $filter->add('zone.name','Zona', 'autocomplete')->options(Zone::lists('name', 'id'));
-        $filter->add('user.name','Usuario', 'autocomplete')->options(User::lists('closeup_name', 'id'));
-        $filter->add('user.firstname','Nombre','text');
-        $filter->add('user.lastname','Apellido','text');
+        $filter->add('assignment.zone.name', 'Zona', 'autocomplete')->options(Zone::lists('name', 'id'));
+        $filter->add('assignment.user.name', 'Usuario', 'autocomplete')->options(User::lists('closeup_name', 'id'));
+        $filter->add('assignment.user.firstname', 'Nombre', 'text');
+        $filter->add('assignment.user.lastname', 'Apellido', 'text');
         //$filter->add('client.category_id','Categoria','select')->options(Category::lists('name', 'id'));
         //$filter->add('client.place_id','Tarea','select')->options(Place::lists('name', 'id'));
         $filter->submit('Buscar');
@@ -147,9 +152,9 @@ class TargetController extends Controller {
 
         //$grid->add('company.name','Empresa',false);
         $grid->add('campaign.name','Ciclo',false);
-        $grid->add('zone.name','Zona',false);
-        $grid->add('{{ $user->firstname." ".$user->lastname }}','Usuario',false);
-        $grid->add('{{ $client->firstname." ".$client->lastname." - ".$client->client_type->code }}','Cliente',false);
+        $grid->add('assignment.zone.name', 'Zona', false);
+        $grid->add('{{ $assignment->user->firstname." ".$assignment->user->lastname }}', 'Usuario', false);
+        $grid->add('{{ $client->firstname." ".$client->lastname }}', 'Cliente', false);
         $grid->add('client.category.code','Cat',false);
         $grid->add('client.place.code','Tar',false);
         $grid->add('qty_visits','# Vis',true);

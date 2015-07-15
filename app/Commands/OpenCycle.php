@@ -1,17 +1,16 @@
 <?php namespace Reflex\Commands;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-
-
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 use Log;
 use Reflex\Models\Target;
 use Reflex\Models\Visit;
 use Uuid;
+
 
 class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
 
@@ -46,15 +45,12 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
 
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
-        DB::table('user_zone')->truncate();
         DB::table('region_zone')->truncate();
         DB::table('location_zone')->truncate();
         DB::table('visits')->delete();
         DB::table('routes')->delete();
         DB::table('notes')->delete();
         DB::table('targets')->delete();
-
-        DB::statement("insert into user_zone(zone_id, user_id) select id as zone_id, (id+2) as user_id from zones;");
 
         DB::statement("insert into region_zone(zone_id, region_id) ".
             "select c.zone_id as zone_id, r.id as region_id from clients as c ".
@@ -64,8 +60,9 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
         DB::statement("insert into location_zone(zone_id, location_id) ".
             "select zone_id, location_id from clients group by zone_id,location_id;");
 
-        DB::statement("insert into targets(company_id,campaign_id, zone_id, user_id,client_id,qty_visits,created_at, updated_at, deleted_at) ".
-            "select 1 as company_id, 1 as campaign_id, uz.zone_id,uz.user_id,c.id as client_id,1 as qty_visits, now() as created_at, now() as updated_at, null as deleted_at from user_zone as uz ".
+        DB::statement(" insert into targets(company_id,campaign_id, assignment_id, client_id,qty_visits,created_at, updated_at, deleted_at) " .
+            " select 1 , 5, uz.id, c.id ,c.qty_visits, now() , now(), null from assignments as uz " .
+            " inner join zones as z on z.id = uz.zone_id " .
             " inner join clients as c on uz.zone_id = c.zone_id;");
 
         Log::info(Uuid::generate());
@@ -84,8 +81,9 @@ class OpenCycle extends Command implements SelfHandling, ShouldBeQueued {
                 $visit->uuid = Uuid::generate();
                 $visit->visit_type_id = 1;
                 $visit->visit_status_id = 1;
-                $visit->zone_id = $target->zone_id;
-                $visit->user_id = $target->user_id;
+                $visit->assignment_id = $target->assignment_id;
+                $visit->zone_id = $target->assignment->zone_id;
+                $visit->user_id = $target->assignment->user_id;
                 $visit->campaign_id = $target->campaign_id;
                 $visit->target_id = $target->id;
                 $visit->client_id = $target->client_id;

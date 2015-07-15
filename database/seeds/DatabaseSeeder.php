@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
 
@@ -92,6 +92,10 @@ class DatabaseSeeder extends Seeder {
         $this->call('ZonesTableSeeder');
 
         $this->command->info('Zones Table Seeded!');
+
+            $this->call('AssignmentsTableSeeder');
+
+            $this->command->info('Assignments Table Seeded!');
 
         $this->call('ClientsTableSeeder');
 

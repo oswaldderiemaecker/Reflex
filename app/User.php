@@ -1,20 +1,25 @@
 <?php namespace Reflex;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Cashier\Billable;
+use Laravel\Cashier\Contracts\Billable as BillableContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract, BillableContract
+{
 
-	use Authenticatable, CanResetPassword;
+    use Authenticatable, CanResetPassword, Billable;
 
 
 	protected $table = 'users';
 
+    protected $dates = ['trial_ends_at', 'subscription_ends_at'];
+
 	protected $fillable = ['role_id', 'company_id', 'business_unit_id', 'sub_business_unit_id', 'supervisor_id',
-        'code', 'firstname', 'lastname', 'closeup_name', 'email', 'username','password', 'photo', 'facebook_token',
+        'code', 'firstname', 'lastname', 'closeup_name', 'email', 'username', 'password', 'photo', 'imei', 'facebook_token',
         'google_token'];
 
 
@@ -50,8 +55,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('Reflex\User', 'parent_id');
     }
 
-    public function zones()
+    public function assignments()
     {
-        return $this->belongsToMany('Reflex\Models\Zone');
+        return $this->hasMany('Reflex\Models\Assignment', 'user_id', 'id');
     }
 }

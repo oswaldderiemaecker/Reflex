@@ -215,7 +215,8 @@
                     <ul class="users-list clearfix">
                         @foreach ($last_visits as $visit)
                         <li>
-                            <img src='/pictures/{{ $visit->client->code }}.jpg'  class='img-circle' style='width: 80px; height: 90px;' />
+                            <img src="/frontend/image/client/{{ $visit->client->code }}" class="img-circle"
+                                 style='width: 80px; height: 90px;'/>
                             <a class="users-list-name" href="{{ url('frontend/target/'.$visit->target_id) }}">{{ $visit->client->closeup_name }}</a>
                             <span class="users-list-date">{{ Carbon::createFromFormat('Y-m-d H:i:s',$visit->start)->diffForHumans() }}</span>
                         </li>

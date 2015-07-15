@@ -28,7 +28,7 @@ class ZonesTableSeeder extends \Illuminate\Database\Seeder {
                 'company_id' => 1,
                 'business_unit_id' => $sub,
                 'sub_business_unit_id' => $sub_business_unit_id,
-                'code' => 'ZO-'.$index,
+                'code' => str_pad($index, 10, "0", STR_PAD_LEFT),
                 'name' => $faker->firstName.' '.$faker->lastName
             ]);
         }

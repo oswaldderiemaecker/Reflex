@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateZonesTable extends Migration {
 
@@ -142,14 +142,21 @@ class CreateZonesTable extends Migration {
         });
 
 
-        Schema::create('user_zone', function(Blueprint $table)
+        Schema::create('assignments', function (Blueprint $table)
         {
-           // $table->engine = 'InnoDB';
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->integer('zone_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->integer('campaign_id')->unsigned();
+            $table->text('description')->nullable();
+            $table->boolean('active')->default(true);
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
         });
     }
 

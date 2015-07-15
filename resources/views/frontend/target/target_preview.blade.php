@@ -45,9 +45,18 @@
         var map;
         var markers = [];
         var myLatLong;
-        var client_id = {{{ $target->client_id }}};
-        var zone_id = {{{ $target->zone_id }}};
-        var user_id = {{{ $target->user_id }}};
+        var client_id =;
+        {{{ $target->client_id }}
+
+        }
+        var zone_id =;
+        {{{ $target->assignment->zone_id }}
+
+        }
+        var user_id =;
+        {{{ $target->assignment->user_id }}
+
+        }
         var doctor_name = '{{{ $target->client->closeup_name }}}';
 
         function initialize() {
@@ -447,8 +456,9 @@
                     {{{ $target->client->closeup_name }}}
                 </div>
                 <form action="#" method="post" id="form_note">
-                    <input name="zone_id" type="hidden" value='{{{ $target->zone_id }}}' />
-                    <input name="user_id" type="hidden" value='{{{ $target->user_id }}}' />
+                    <input name="zone_id" type="hidden" value='{{{ $target->assignment->zone_id }}}'/>
+                    <input name="user_id" type="hidden" value='{{{ $target->assignment->user_id }}}'/>
+                    <input name="assignment_id" type="hidden" value='{{{ $target->assignment->id }}}'/>
                     <input name="campaign_id" type="hidden" value='{{{ $target->campaign_id }}}' />
                     <input name="client_id" type="hidden" value='{{{ $target->client_id }}}' />
                     <input name="target_id" type="hidden" value='{{{ $target->id }}}' />
@@ -598,7 +608,7 @@
                 </div>
                 <form action="#" method="post">
 
-                    <input id="zone_id" type="hidden" value='{{{ $target->zone_id }}}'/>
+                    <input id="zone_id" type="hidden" value='{{{ $target->assignment->zone_id }}}'/>
                     <input id="client_id" type="hidden" value='{{{ $target->client_id }}}'/>
                     <div class="modal-body clearfix">
 

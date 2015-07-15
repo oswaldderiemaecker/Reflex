@@ -1,10 +1,9 @@
 <?php namespace Reflex\Http\Controllers\Frontend;
 
-use Reflex\Http\Requests;
-use Reflex\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 
 
 class ReportController extends Controller {
@@ -86,7 +85,8 @@ class ReportController extends Controller {
     public function main()
     {
         $user = Auth::user();
-        $zone = Auth::user()->zones->first();
+		$assignment = Auth::user()->assignments->first();
+		$zone = DB::table('zones')->where('id', '=', $assignment->zone_id)->first();
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
         return view('frontend.report',compact('zone','user','campaign'));

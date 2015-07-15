@@ -1,15 +1,15 @@
 <?php namespace Reflex\Http\Controllers\Frontend;
 
-use Carbon\Carbon;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Support\Facades\DB;
-use Reflex\Http\Requests;
-use Reflex\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Reflex\Models\Route;
-use Excel;
-use Log;
 use Auth;
+use Carbon\Carbon;
+use Excel;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Log;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
+use Reflex\Models\Route;
 use Reflex\Models\Target;
 use Uuid;
 
@@ -104,14 +104,15 @@ class RouteController extends Controller {
         $point_of_contact = $request->get('point_of_contact',null,true);
         $is_from_mobile = $request->get('is_from_mobile',null,true);
 
-        $target = Target::with('client')->find($target_id);
+        $target = Target::with('client', 'assignment')->find($target_id);
 
         $uuid = Uuid::generate();
 
         $route = Route::create(array(
             'uuid' => $uuid,
+            'assignment_id' => $target->assignment_id,
             'zone_id' => $zone_id,
-            'user_id' => $target->user_id,
+            'user_id' => $target->assignment->user_id,
             'campaign_id' => $target->campaign_id,
             'target_id' => $target_id,
             'client_id' => $target->client_id,
@@ -182,7 +183,8 @@ class RouteController extends Controller {
     public function main()
     {
         $user = Auth::user();
-        $zone = Auth::user()->zones->first();
+        $assignment = Auth::user()->assignments->first();
+        $zone = DB::table('zones')->where('id', '=', $assignment->zone_id)->first();
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
         return view('frontend.route.route',compact('zone','user','campaign'));
