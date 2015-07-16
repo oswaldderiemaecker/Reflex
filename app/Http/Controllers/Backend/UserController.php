@@ -38,7 +38,7 @@ class UserController extends Controller {
 
         $imei = $request->get('imei', null, true);
 
-        $users = $this->user->newQuery()->with('role','company','business_unit','sub_business_unit','assignments','parent');
+        $users = $this->user->newQuery()->with('role','company','business_unit','sub_business_unit');
 
         if (!(is_null($imei) || $imei == '')) {
             $users->where('imei', '=', $imei);

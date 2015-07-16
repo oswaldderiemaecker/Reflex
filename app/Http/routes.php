@@ -74,7 +74,7 @@ Route::group(array('prefix' => 'backend', 'middleware' => 'auth.basic'), functio
     Route::controller('asignaciones', 'Backend\AssignmentController');
 });
 
-Route::group(array('prefix' => 'frontend'), function () {  //, 'middleware' => 'auth.basic'
+Route::group(array('prefix' => 'frontend', 'middleware' => 'auth.basic'), function () {  //
 
     Route::get('home', 'Frontend\HomeController@index');
 
