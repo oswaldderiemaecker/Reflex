@@ -38,11 +38,16 @@ class UserController extends Controller {
 
         $imei = $request->get('imei', null, true);
 
-        $users = $this->user->newQuery()->with('role','company','business_unit','sub_business_unit');
+        $users = $this->user->newQuery()->with('role','company','business_unit','sub_business_unit','assignments','parent');
 
         if (!(is_null($imei) || $imei == '')) {
-            $users->where('username', '=', $imei);
-            return $users->get()->first()->toJson();
+            $users->where('imei', '=', $imei);
+            if($users->get()->count() > 0){
+                return $users->get()->first()->toJson();
+            }else{
+                return $this->responseFactory->make(array());
+            }
+
         }
         return $users->get()->toJson();
 	}

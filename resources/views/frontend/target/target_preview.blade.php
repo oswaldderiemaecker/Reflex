@@ -45,18 +45,9 @@
         var map;
         var markers = [];
         var myLatLong;
-        var client_id =;
-        {{{ $target->client_id }}
-
-        }
-        var zone_id =;
-        {{{ $target->assignment->zone_id }}
-
-        }
-        var user_id =;
-        {{{ $target->assignment->user_id }}
-
-        }
+        var client_id = {{{ $target->client_id }}};
+        var zone_id = {{{ $target->assignment->zone_id }}};
+        var user_id = {{{ $target->assignment->user_id }}};
         var doctor_name = '{{{ $target->client->closeup_name }}}';
 
         function initialize() {

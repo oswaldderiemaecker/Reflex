@@ -47,12 +47,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function parent()
     {
-        return $this->belongsTo('Reflex\User', 'parent_id');
+        return $this->belongsTo('Reflex\User', 'supervisor_id');
     }
 
     public function childrens()
     {
-        return $this->hasMany('Reflex\User', 'parent_id');
+        return $this->hasMany('Reflex\User', 'supervisor_id');
     }
 
     public function assignments()

@@ -1,5 +1,8 @@
 <?php namespace Reflex\Http\Controllers;
 
+use File;
+use Illuminate\Contracts\Routing\ResponseFactory;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -12,15 +15,18 @@ class WelcomeController extends Controller {
 	| controllers, you are free to modify or remove it as you desire.
 	|
 	*/
+	private $responseFactory;
 
 	/**
 	 * Create a new controller instance.
 	 *
-	 * @return void
+	 * @param ResponseFactory $responseFactory
+	 *
 	 */
-	public function __construct()
+	public function __construct(ResponseFactory $responseFactory)
 	{
 		$this->middleware('guest');
+		$this->responseFactory = $responseFactory;
 	}
 
 	/**

@@ -42,6 +42,7 @@ Route::group(array('prefix' => 'api', 'middleware' => 'auth.basic'), function(){
     Route::resource('visits', 'Frontend\VisitController');
     Route::resource('categories', 'Backend\CategoryController');
     Route::resource('places', 'Backend\PlaceController');
+    Route::resource('campaigns', 'Backend\CampaignController');
     Route::get('image/client/{cmp}', 'WelcomeController@image_client');
 });
 

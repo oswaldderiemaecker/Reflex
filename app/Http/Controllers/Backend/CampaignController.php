@@ -1,15 +1,16 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
+use Auth;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Request;
+use Log;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 use Reflex\Models\Campaign;
 use Reflex\Models\Company;
-use Reflex\Http\Requests;
 use Zofe\Rapyd\DataEdit\DataEdit;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
-use Reflex\Http\Controllers\Controller;
-use Auth;
-use Log;
 
 class CampaignController extends Controller {
 
@@ -24,12 +25,22 @@ class CampaignController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
+     * @param Request $request
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
+        $company_id = $request->get('company_id',null,true);
+
+        $campaigns = $this->campaign->newQuery()->with('company');
+
+        if(!(is_null($company_id) || $company_id == '')){
+            $campaigns->where('company_id','=', $company_id);
+            $campaigns->where('active','=', '1');
+        }
+
+        return $campaigns->get()->first()->toJson();
 	}
 
 	/**
