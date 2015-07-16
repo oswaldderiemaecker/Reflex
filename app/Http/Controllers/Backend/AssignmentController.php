@@ -60,7 +60,7 @@ class AssignmentController extends Controller
             });
         }
 
-        return $assignments->get()->toJson();
+        return $assignments->get()->first()->toJson();
     }
 
     /**

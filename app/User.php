@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $dates = ['trial_ends_at', 'subscription_ends_at'];
 
 	protected $fillable = ['role_id', 'company_id', 'business_unit_id', 'sub_business_unit_id', 'supervisor_id',
-        'code', 'firstname', 'lastname', 'closeup_name', 'email', 'username', 'password', 'photo', 'imei', 'facebook_token',
+        'code', 'firstname', 'lastname', 'closeup_name', 'email', 'username',  'photo', 'imei', 'facebook_token',
         'google_token'];
 
 

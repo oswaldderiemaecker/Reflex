@@ -25,7 +25,7 @@ Route::get('/inicio_de_ciclo', function(){
     return Redirect::to('/backend/home');
 });
 
-Route::group(array('prefix' => 'api', 'middleware' => 'auth.basic'), function(){
+Route::group(array('prefix' => 'api'), function(){
     Route::resource('countries', 'Backend\CountryController');
     Route::resource('companies', 'Backend\CompanyController');
     Route::resource('business_units', 'Backend\BusinessUnitController');
@@ -43,6 +43,7 @@ Route::group(array('prefix' => 'api', 'middleware' => 'auth.basic'), function(){
     Route::resource('categories', 'Backend\CategoryController');
     Route::resource('places', 'Backend\PlaceController');
     Route::resource('campaigns', 'Backend\CampaignController');
+    Route::resource('assignments', 'Backend\AssignmentController');
     Route::get('image/client/{cmp}', 'WelcomeController@image_client');
 });
 

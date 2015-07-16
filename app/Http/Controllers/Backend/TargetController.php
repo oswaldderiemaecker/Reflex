@@ -33,6 +33,7 @@ class TargetController extends Controller {
 	public function index(Request $request)
 	{
         $zone_id     = $request->get('zone_id',null,true);
+        $assignment_id     = $request->get('assignment_id',null,true);
         $user_id     = $request->get('user_id',null,true);
         $campaign_id = $request->get('campaign_id',null,true);
         $query_in = $request->get('query',null,true);
@@ -54,6 +55,10 @@ class TargetController extends Controller {
 
         if(!(is_null($campaign_id) || $campaign_id == '')){
             $targets->where('campaign_id','=', $campaign_id);
+        }
+
+        if(!(is_null($assignment_id) || $assignment_id == '')){
+            $targets->where('assignment_id','=', $assignment_id);
         }
 
         if(!(is_null($query_in) || $query_in == '')){

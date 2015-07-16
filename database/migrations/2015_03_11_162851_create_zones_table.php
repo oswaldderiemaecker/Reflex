@@ -154,6 +154,8 @@ class CreateZonesTable extends Migration {
             $table->timestamps();
             $table->softDeletes();
 
+            $table->unique('user_id');
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
             $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
