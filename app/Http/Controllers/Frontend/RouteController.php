@@ -196,7 +196,7 @@ class RouteController extends Controller {
         $zone = DB::table('zones')->where('id', '=', $assignment->zone_id)->first();
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
-        return view('frontend.route.route',compact('zone','user','campaign'));
+        return view('frontend.route.route',compact('zone','user','campaign','client'));
     }
 
     public function calendar(Request $request)
@@ -209,6 +209,7 @@ class RouteController extends Controller {
         $start         = $request->get('start',null,true);
         $end           = $request->get('end',null,true);
         $point_of_contact = $request->get('point_of_contact',null,true);
+        $query_in      = $request->get('query',null,true);
 
         $result = null;
         $data = Route::with('client','client.location');
@@ -247,6 +248,12 @@ class RouteController extends Controller {
             $data->where('point_of_contact','=',$point_of_contact);
         }
 
+        if(!(is_null($query_in) || $query_in == '')){
+            $data->whereHas('client', function($q) use($query_in){
+                $q->where('closeup_name','LIKE','%'.strtoupper($query_in).'%');
+            });
+        }
+
         $data->whereNull('deleted_at');
         $routes = $data->get();
 
@@ -268,6 +275,65 @@ class RouteController extends Controller {
         }
 
         return $this->responseFactory->json($result);
+    }
+
+    public function data(Request $request)
+    {
+        $target_id     = $request->get('target_id',null,true);
+        $assignment_id = $request->get('assignment_id',null,true);
+        $zone_id       = $request->get('zone_id',null,true);
+        $user_id       = $request->get('user_id',null,true);
+        $campaign_id   = $request->get('campaign_id',null,true);
+        $start         = $request->get('start',null,true);
+        $end           = $request->get('end',null,true);
+        $point_of_contact = $request->get('point_of_contact',null,true);
+        $query_in      = $request->get('query',null,true);
+
+        $result = null;
+        //$data = Route::with('client','client.location');
+        $data = $this->route->newQuery()->with('client');
+
+        if(!(is_null($assignment_id) || $assignment_id == '')){
+            $data->where('assignment_id','=',$assignment_id);
+        }
+
+        if(!(is_null($campaign_id) || $campaign_id == '')){
+            $data->where('campaign_id','=',$campaign_id);
+        }
+
+        if(!(is_null($zone_id) || $zone_id == '')){
+            $data->where('zone_id','=',$zone_id);
+        }
+
+        if(!(is_null($user_id) || $user_id == '')){
+            $data->where('user_id','=',$user_id);
+        }
+
+        if(!(is_null($target_id) || $target_id == '')){
+            $data->where('target_id','=',$target_id);
+        }
+
+        if(!(is_null($start) || $start == '')){
+            $data->where('start','>=',$start);
+        }
+
+        if(!(is_null($end) || $end == '')){
+            $data->where('end','<=',$end);
+        }
+
+        if(!(is_null($point_of_contact) || $point_of_contact == '')){
+            $data->where('point_of_contact','=',$point_of_contact);
+        }
+
+        if(!(is_null($query_in) || $query_in == '')){
+            $data->whereHas('client', function($q) use($query_in){
+                $q->where('closeup_name','LIKE','%'.strtoupper($query_in).'%');
+            });
+        }
+
+        $data->whereNull('deleted_at');
+
+        return $this->responseFactory->json($data->get());
     }
 
     /**
