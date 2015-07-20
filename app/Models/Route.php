@@ -8,9 +8,7 @@ class Route extends Model {
     use SoftDeletes;
 
     protected $table = 'routes';
-
     protected $primaryKey = 'uuid';
-
     protected $fillable = ['uuid', 'assignment_id', 'user_id', 'zone_id', 'campaign_id', 'target_id', 'client_id',
                            'start', 'end', 'description', 'point_of_contact', 'is_from_mobile', 'active', 'synchro'];
 

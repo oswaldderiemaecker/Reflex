@@ -45,6 +45,8 @@ Route::group(array('prefix' => 'api'), function(){
     Route::resource('campaigns', 'Backend\CampaignController');
     Route::resource('assignments', 'Backend\AssignmentController');
     Route::get('image/client/{cmp}', 'WelcomeController@image_client');
+    Route::get('routes/calendar', array('uses' => 'Frontend\RouteController@calendar'));
+
 });
 
 

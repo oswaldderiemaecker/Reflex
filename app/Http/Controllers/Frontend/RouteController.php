@@ -33,15 +33,25 @@ class RouteController extends Controller {
 	public function index(Request $request)
 	{
         $page = 20;
-        $zone_id     = $request->get('zone_id',null,true);
-        $user_id     = $request->get('user_id',null,true);
-        $start       = $request->get('start',null,true);
-        $end         = $request->get('end',null,true);
-        $campaign_id = $request->get('campaign_id',null,true);
-        $query_in = $request->get('query',null,true);
+
+        $assignment_id = $request->get('assignment_id',null,true);
+        $zone_id       = $request->get('zone_id',null,true);
+        $user_id       = $request->get('user_id',null,true);
+        $start         = $request->get('start',null,true);
+        $end           = $request->get('end',null,true);
+        $campaign_id   = $request->get('campaign_id',null,true);
+        $query_in      = $request->get('query',null,true);
 
         $targets =  $this->route->newQuery()->with('target','client','client.location','client.category','client.place');
-        $targets->where('zone_id','=', $zone_id);
+        //$targets->where('zone_id','=', $zone_id);
+
+        if(!(is_null($zone_id) || $zone_id == '')){
+            $targets->where('zone_id','=', $zone_id);
+        }
+
+        if(!(is_null($assignment_id) || $assignment_id == '')){
+            $targets->where('assignment_id','=', $assignment_id);
+        }
 
         if(!(is_null($zone_id) || $zone_id == '')){
             $targets->where('zone_id','=', $zone_id);
@@ -66,7 +76,6 @@ class RouteController extends Controller {
         }
 
         if(!(is_null($query_in) || $query_in == '')){
-
             $targets->whereHas('client', function($q) use($query_in){
                 $q->where('closeup_name','LIKE','%'.strtoupper($query_in).'%');
             });
@@ -96,13 +105,13 @@ class RouteController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-        $zone_id     = $request->get('zone_id',null,true);
-        $target_id     = $request->get('target_id',null,true);
-        $start         = $request->get('start',null,true);
-        $end         = $request->get('end',null,true);
-        $description  = $request->get('description',null,true);
+        $zone_id          = $request->get('zone_id',null,true);
+        $target_id        = $request->get('target_id',null,true);
+        $start            = $request->get('start',null,true);
+        $end              = $request->get('end',null,true);
+        $description      = $request->get('description',null,true);
         $point_of_contact = $request->get('point_of_contact',null,true);
-        $is_from_mobile = $request->get('is_from_mobile',null,true);
+        $is_from_mobile   = $request->get('is_from_mobile',null,true);
 
         $target = Target::with('client', 'assignment')->find($target_id);
 
@@ -192,18 +201,31 @@ class RouteController extends Controller {
 
     public function calendar(Request $request)
     {
-        $target_id   = $request->get('target_id',null,true);
-        $zone_id     = $request->get('zone_id',null,true);
-        $user_id     = $request->get('user_id',null,true);
-        $campaign_id = $request->get('campaign_id',null,true);
-        $start       = $request->get('start',null,true);
-        $end         = $request->get('end',null,true);
+        $target_id     = $request->get('target_id',null,true);
+        $assignment_id = $request->get('assignment_id',null,true);
+        $zone_id       = $request->get('zone_id',null,true);
+        $user_id       = $request->get('user_id',null,true);
+        $campaign_id   = $request->get('campaign_id',null,true);
+        $start         = $request->get('start',null,true);
+        $end           = $request->get('end',null,true);
         $point_of_contact = $request->get('point_of_contact',null,true);
 
         $result = null;
         $data = Route::with('client','client.location');
-        $data->where('zone_id','=',$zone_id);
-        $data->where('campaign_id','=',$campaign_id);
+
+        //$data->where('campaign_id','=',$campaign_id);
+
+        if(!(is_null($assignment_id) || $assignment_id == '')){
+            $data->where('assignment_id','=',$assignment_id);
+        }
+
+        if(!(is_null($campaign_id) || $campaign_id == '')){
+            $data->where('campaign_id','=',$campaign_id);
+        }
+
+        if(!(is_null($zone_id) || $zone_id == '')){
+            $data->where('zone_id','=',$zone_id);
+        }
 
         if(!(is_null($user_id) || $user_id == '')){
             $data->where('user_id','=',$user_id);
