@@ -288,6 +288,8 @@ class RouteController extends Controller {
         $end           = $request->get('end',null,true);
         $point_of_contact = $request->get('point_of_contact',null,true);
         $query_in      = $request->get('query',null,true);
+        $month         = $request->get('month',null,true);
+        $year          = $request->get('year',null,true);
 
         $result = null;
         //$data = Route::with('client','client.location');
@@ -319,6 +321,14 @@ class RouteController extends Controller {
 
         if(!(is_null($end) || $end == '')){
             $data->where('end','<=',$end);
+        }
+
+        if(!(is_null($month) || $month == '')){
+            $data->where(DB::raw('MONTH(created_at)'),'=',$month);
+        }
+
+        if(!(is_null($year) || $year == '')){
+            $data->where(DB::raw('YEAR(created_at)'),'=',$year);
         }
 
         if(!(is_null($point_of_contact) || $point_of_contact == '')){
