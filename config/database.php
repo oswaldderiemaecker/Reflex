@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'pgsql',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
 			'strict'    => false,
 		],
 
-      /*  'pgsql' => [
+        'pgsql' => [
             'driver'   => 'pgsql',
             'host'     => parse_url(env("DATABASE_URL"))["host"],
             'database' => substr(parse_url(env("DATABASE_URL"))["path"], 1),
@@ -73,8 +73,8 @@ return [
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
-        ],*/
-        'pgsql' => [
+        ],
+       /* 'pgsql' => [
             'driver'   => 'pgsql',
             'host'     => env('DB_HOST', 'localhost'),
             'database' => env('DB_DATABASE', 'reflex'),
@@ -83,7 +83,7 @@ return [
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
-        ],
+        ],*/
 		'sqlsrv' => [
 			'driver'   => 'sqlsrv',
 			'host'     => env('DB_HOST', 'localhost'),

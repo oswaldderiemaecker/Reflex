@@ -84,7 +84,7 @@ class RouteController extends Controller {
         $targets->whereNull('deleted_at');
         $targets->orderBy('start','asc');
 
-        return $this->responseFactory->json($targets->paginate($page));
+        return $targets->get()->toJson();
 	}
 
 	/**
@@ -291,9 +291,9 @@ class RouteController extends Controller {
         $month         = $request->get('month',null,true);
         $year          = $request->get('year',null,true);
 
-        $result = null;
+      //  $result = null;
         //$data = Route::with('client','client.location');
-        $data = $this->route->newQuery()->with('client');
+        $data =  $this->route->newQuery()->with('target','client','client.location','client.category','client.place','client.specialty_base');
 
         if(!(is_null($assignment_id) || $assignment_id == '')){
             $data->where('assignment_id','=',$assignment_id);
@@ -343,7 +343,7 @@ class RouteController extends Controller {
 
         $data->whereNull('deleted_at');
 
-        return $this->responseFactory->json($data->get());
+        return $data->get()->toJson();
     }
 
     /**

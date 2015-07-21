@@ -32,17 +32,19 @@ class VisitController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-        $zone_id     = $request->get('zone_id',null,true);
-        $campaign_id = $request->get('campaign_id',null,true);
-        $client_id   = $request->get('client_id',null,true);
-        $user_id     = $request->get('user_id',null,true);
-
+        $assignment_id = $request->get('assignment_id', null, true);
+        $zone_id       = $request->get('zone_id',null,true);
+        $campaign_id   = $request->get('campaign_id',null,true);
+        $client_id     = $request->get('client_id',null,true);
+        $user_id       = $request->get('user_id',null,true);
         $visit_status_id = $request->get('visit_status_id',null,true);
         $query_in = $request->get('query',null,true);
 
         $targets =  $this->visit->newQuery()->with('target','client','client.location','client.category','client.place');
-        $targets->where('zone_id','=', $zone_id);
-        //$targets->where('visit_status_id','=', '2');
+
+        if(!(is_null($assignment_id) || $assignment_id == '')){
+            $targets->where('assignment_id','=', $assignment_id);
+        }
 
         if(!(is_null($zone_id) || $zone_id == '')){
             $targets->where('zone_id','=', $zone_id);
