@@ -323,12 +323,14 @@ class RouteController extends Controller {
             $data->where('end','<=',$end);
         }
 
+        //FIXME: Change Extract(month from created_at) to MONTH(created_at) if you use Mysql
         if(!(is_null($month) || $month == '')){
-            $data->where(DB::raw('MONTH(created_at)'),'=',$month);
+            $data->where(DB::raw('Extract(month from created_at)'),'=',$month);
         }
 
+        //FIXME: Change Extract(year from created_at) to YEAR(created_at) if you use Mysql
         if(!(is_null($year) || $year == '')){
-            $data->where(DB::raw('YEAR(created_at)'),'=',$year);
+            $data->where(DB::raw('Extract(YEAR from created_at)'),'=',$year);
         }
 
         if(!(is_null($point_of_contact) || $point_of_contact == '')){
