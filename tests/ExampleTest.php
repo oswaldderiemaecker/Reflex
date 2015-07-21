@@ -17,9 +17,6 @@ class ExampleTest extends TestCase {
 
 		$this->assertResponseOk();
 
-		$response = $this->call('GET', '/frontend/home');
-
-		$this->assertEquals(401, $response->getStatusCode());
 
 	}
 

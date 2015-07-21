@@ -66,10 +66,10 @@ return [
 
         'pgsql' => [
             'driver'   => 'pgsql',
-            'host'     => parse_url(env("DATABASE_URL"))["host"],
-            'database' => substr(parse_url(env("DATABASE_URL"))["path"], 1),
-            'username' => parse_url(env("DATABASE_URL"))["user"],
-            'password' => parse_url(env("DATABASE_URL"))["pass"],
+            'host'     => parse_url(env("DATABASE_URL","postgres://David:david2014.@localhost:5432/reflex"))["host"],
+            'database' => substr(parse_url(env("DATABASE_URL","postgres://David:david2014.@localhost:5432/reflex"))["path"], 1),
+            'username' => parse_url(env("DATABASE_URL","postgres://David:david2014.@localhost:5432/reflex"))["user"],
+            'password' => parse_url(env("DATABASE_URL","postgres://David:david2014.@localhost:5432/reflex"))["pass"],
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
