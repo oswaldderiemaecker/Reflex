@@ -29,7 +29,7 @@ class CountryController extends Controller {
 	{
         $countries = $this->country->all();
         return $this->responseFactory->json($countries);
-	}
+    }
 
 	/**
 	 * Show the form for creating a new resource.

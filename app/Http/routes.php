@@ -44,9 +44,15 @@ Route::group(array('prefix' => 'api'), function(){
     Route::resource('places', 'Backend\PlaceController');
     Route::resource('campaigns', 'Backend\CampaignController');
     Route::resource('assignments', 'Backend\AssignmentController');
+    Route::resource('reasons', 'Backend\ReasonController');
+    Route::resource('visit_statuses', 'Backend\VisitStatusController');
+    Route::resource('visit_types', 'Backend\VisitTypeController');
+
     Route::get('image/client/{cmp}', 'WelcomeController@image_client');
     Route::get('rutas/calendar', array('uses' => 'Frontend\RouteController@calendar'));
     Route::get('rutas/data', array('uses' => 'Frontend\RouteController@data'));
+
+
 
 });
 
