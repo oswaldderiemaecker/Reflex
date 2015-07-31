@@ -34,11 +34,11 @@
                     "&campaign_id="+campaign_id+
                     "&start="+start+
                     "&end="+end, function(json1) {
-                        if(json1.total > 0)
-                        {
+                       // if(json1.total > 0)
+                      //  {
                             var path = new Array();
 
-                            $.each(json1.data, function(key, data) {
+                            $.each(json1, function(key, data) {
                                 var latLng = new google.maps.LatLng(data.client.latitude, data.client.longitude);
 
                                 path[key] = latLng;
@@ -82,7 +82,7 @@
                                 path: path,
                                 map: map
                             });
-                        }else{
+                       /* }else{
                             var itemHtml = [
                                 "<tr>",
                                 "<td>Nada programado para este día.</td><td></td><td></td><td></td><td></td><td></td><td></td>",
@@ -90,7 +90,7 @@
                             ].join("\n");
 
                             $("#table_routes").append(itemHtml);
-                        }
+                        }*/
                     }
             );
         }

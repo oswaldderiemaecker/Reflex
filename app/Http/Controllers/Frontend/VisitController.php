@@ -58,7 +58,7 @@ class VisitController extends Controller {
             $targets->where('campaign_id','=', $campaign_id);
         }
 
-        if(!(is_null($visit_status_id) || $visit_status_id == '')){
+        if(!(is_null($visit_status_id) || $visit_status_id == '' || $visit_status_id == 0)){
             $targets->where('visit_status_id','=', $visit_status_id);
         }
 
