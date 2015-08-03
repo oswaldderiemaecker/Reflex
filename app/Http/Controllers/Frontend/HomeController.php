@@ -212,6 +212,8 @@ class HomeController extends Controller {
     public function client_specialty()
     {
         $user = Auth::user();
+        $this->assignment = Auth::user()->assignments()->first();
+        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
 
         $data = DB::table('targets')->select(DB::raw('specialties.name as label, count(1) as value'))
             ->join('clients', 'targets.client_id', '=', 'clients.id')
@@ -227,6 +229,8 @@ class HomeController extends Controller {
 
     public function category_report()
     {
+        $this->assignment = Auth::user()->assignments()->first();
+        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
         $cat[] = array('label' => 'Vip','value' => DB::table('clients')->where('category_id','=',1)->where('zone_id','=',$this->zone->id)->count());
         $cat[] = array('label' => 'A','value' => DB::table('clients')->where('category_id','=',2)->where('zone_id','=',$this->zone->id)->count());
         $cat[] = array('label' => 'B','value' => DB::table('clients')->where('category_id','=',3)->where('zone_id','=',$this->zone->id)->count());
@@ -236,6 +240,8 @@ class HomeController extends Controller {
 
     public function place_report()
     {
+        $this->assignment = Auth::user()->assignments()->first();
+        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
         $cat[] = array('label' => 'AM','value' => DB::table('clients')->where('place_id','=',1)->where('zone_id','=',$this->zone->id)->count());
         $cat[] = array('label' => 'PM','value' => DB::table('clients')->where('place_id','=',2)->where('zone_id','=',$this->zone->id)->count());
 
@@ -244,6 +250,8 @@ class HomeController extends Controller {
 
     public function client_type_report()
     {
+        $this->assignment = Auth::user()->assignments()->first();
+        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
         $cat[] = array('label' => 'Doctores','value' => DB::table('clients')->where('client_type_id','=',1)->where('zone_id','=',$this->zone->id)->count());
         $cat[] = array('label' => 'Farmacia','value' => DB::table('clients')->where('client_type_id','=',2)->where('zone_id','=',$this->zone->id)->count());
         $cat[] = array('label' => 'Clínica','value' => DB::table('clients')->where('client_type_id','=',3)->where('zone_id','=',$this->zone->id)->count());
