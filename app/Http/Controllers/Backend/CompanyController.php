@@ -1,15 +1,14 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\ResponseFactory;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 use Reflex\Models\Company;
 use Reflex\Models\Country;
-use Reflex\Http\Requests;
-use Reflex\Http\Controllers\Controller;
-
-use Illuminate\Routing\ResponseFactory;
-use Zofe\Rapyd\DataEdit\DataEdit;
-use Zofe\Rapyd\DataFilter\DataFilter;
-use Zofe\Rapyd\DataGrid\DataGrid;
+use Zofe\Rapyd\Facades\DataEdit;
+use Zofe\Rapyd\Facades\DataFilter;
+use Zofe\Rapyd\Facades\DataGrid;
 
 class CompanyController extends Controller {
 
@@ -111,8 +110,11 @@ class CompanyController extends Controller {
 
     public function getIndex()
     {
+        $temp = Country::lists('name', 'id');
+        print_r($temp);
+
         $filter = DataFilter::source($this->company->newQuery()->with('country'));
-        $filter->add('country.name','Paises', 'select')->options(Country::lists('name', 'id'));
+        $filter->add('country.name','Paises', 'autocomplete');
         $filter->add('code','Codigo', 'text');
         $filter->add('name','Nombre','text');
         $filter->submit('Buscar');
@@ -156,7 +158,8 @@ class CompanyController extends Controller {
 
         //$edit->label('Editar Empresa');
         $edit->link("/backend/empresas","Lista Empresas", "TR")->back();
-        $edit->add('country.name','Empresa', 'select')->options(Country::lists('name', 'id'));
+      //  $edit->add('country.name','Pais', 'select')->options(Country::lists('name', 'id'));
+        $edit->add('country.name','País','autocomplete');
         $edit->add('code','Codigo', 'text')->rule('required|max:5');
         $edit->add('name','Nombre', 'text')->rule('required|max:25');
 

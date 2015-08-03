@@ -8,7 +8,6 @@ use Log;
 use Reflex\Http\Controllers\Controller;
 use Reflex\Http\Requests;
 use Reflex\Models\Assignment;
-use Reflex\Models\Campaign;
 use Reflex\Models\Zone;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
@@ -133,7 +132,7 @@ class AssignmentController extends Controller
 
         $filter = DataFilter::source($this->assignment->newQuery()->with('campaign', 'zone', 'user')->take(1000));
 
-        $filter->add('campaign.name', 'Ciclo', 'select')->options(Campaign::lists('name', 'id'));
+        $filter->add('campaign.name', 'Campaña', 'autocomplete');//->options(Campaign::lists('name', 'id'));
         $filter->add('zone.name', 'Zona', 'autocomplete')->options(Zone::lists('name', 'id'));
         //$filter->add('user.name','Usuario', 'autocomplete')->options(User::lists('closeup_name', 'id'));
         //$filter->add('user.firstname','Nombre','text');

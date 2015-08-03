@@ -68,13 +68,89 @@
         <li>Fuerza de Venta</li>
     </ul>
 
+    <h2>Pricing</h2>
+
+    <div class="row db-padding-btm db-attached">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <div class="db-wrapper">
+                <div class="db-pricing-eleven db-bk-color-one">
+                    <div class="price">
+                        <sup>$</sup>5
+                        <small>per user/month</small>
+                    </div>
+                    <div class="type">
+                        PLAN <br>BASIC
+                    </div>
+                    <ul>
+
+                        <li><i class="glyphicon glyphicon-user"></i>Record of Visits </li>
+                        <li><i class="glyphicon glyphicon-time"></i>Schedules Contacts </li>
+                        <li><i class="glyphicon glyphicon-trash"></i>Client Managment</li>
+                    </ul>
+                    <div class="pricing-footer">
+
+                        <a href="#" class="btn db-button-color-square btn-lg">SOLICITAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <div class="db-wrapper">
+                <div class="db-pricing-eleven db-bk-color-two popular">
+                    <div class="price">
+                        <sup>$</sup>10
+                        <small>per user/month</small>
+                    </div>
+                    <div class="type">
+                        PLAN ADVANCED
+                    </div>
+                    <ul>
+
+                        <li><i class="glyphicon glyphicon-print"></i>Automated Segmentation</li>
+                        <li><i class="glyphicon glyphicon-time"></i>Automated Route Builder</li>
+                        <li><i class="glyphicon glyphicon-trash"></i>CloseUp integration</li>
+                    </ul>
+                    <div class="pricing-footer">
+
+                        <a href="#" class="btn db-button-color-square btn-lg">SOLICITAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <div class="db-wrapper">
+                <div class="db-pricing-eleven db-bk-color-three">
+                    <div class="price">
+                        <sup>$</sup>15
+                        <small>per user/month</small>
+                    </div>
+                    <div class="type">
+                        PLAN PREMIUM
+                    </div>
+                    <ul>
+
+                        <li><i class="glyphicon glyphicon-print"></i>App for Pharmacies. </li>
+                        <li><i class="glyphicon glyphicon-time"></i>Business Intelligence </li>
+                        <li><i class="glyphicon glyphicon-trash"></i>IMS ans SAP integration</li>
+                    </ul>
+                    <div class="pricing-footer">
+
+                        <a href="#" class="btn db-button-color-square btn-lg">SOLICITAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <p>Para mayor información o como colaborar en el proyecto, enviar un correo a David Tataje: <a href="mailto:davidtataje@gmail.com">davidtataje@gmail.com</a>.</p>
 
+
+    <!--
     <h2>Licencia</h2>
 
     <p>Reflex cuenta con licencia MIT</p>
 
-    <!--
         <p>Postgres.app, PostgreSQL, and its extensions are released under the <a href="http://www.postgresql.org/about/licence/">PostgreSQL License</a>.</p>
 
         <p>PostGIS is released under the <a href="http://opensource.org/licenses/gpl-2.0">GNU General Public License (GPLv2)</a>.</p>
@@ -85,7 +161,7 @@
 
     <p>Reflex 360º fue construido por <a href="https://github.com/davidjoan">David Tataje</a>.</p>
 
-    <p>Reflex 360º fue ideado por  <a href="https://github.com/craigkerstiens">Daniel Saavedra</a>.</p>
+    <p>Reflex 360º fue ideado por  <a href="https://github.com/davidjoan">Daniel Saavedra</a>.</p>
 
     <div class='share'>
 

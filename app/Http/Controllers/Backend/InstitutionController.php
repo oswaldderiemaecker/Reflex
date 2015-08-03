@@ -1,19 +1,20 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
+use Auth;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Log;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 use Reflex\Models\Category;
 use Reflex\Models\Client;
 use Reflex\Models\Company;
-use Reflex\Http\Requests;
 use Reflex\Models\Location;
 use Reflex\Models\Place;
 use Reflex\Models\Zone;
 use Zofe\Rapyd\DataEdit\DataEdit;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
-use Reflex\Http\Controllers\Controller;
-use Auth;
-use Log;
+
 class InstitutionController extends Controller {
 
     protected $client;
@@ -104,7 +105,7 @@ class InstitutionController extends Controller {
         ini_set('memory_limit','1024M');
 
         $filter = DataFilter::source($this->client->newQuery()->with('client_type','zone','category','place','specialty_base','specialty_target','location')->whereIn('client_type_id', array(3,4))->take(1000));
-        $filter->add('zone.name','Zona', 'autocomplete')->options(Zone::lists('name', 'id'));
+        $filter->add('zone.name','Zona', 'autocomplete')->options(Zone::lists('name', 'id')->toArray());
         $filter->add('code','Codigo','text');
         $filter->add('name','Nombre','text');
         $filter->add('address','Dirección','text');

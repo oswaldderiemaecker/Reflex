@@ -1,19 +1,19 @@
-<?php namespace Reflex\Exceptions;
-
+<?php
+namespace Reflex\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class Handler extends ExceptionHandler {
-
+class Handler extends ExceptionHandler
+{
 	/**
 	 * A list of the exception types that should not be reported.
 	 *
 	 * @var array
 	 */
 	protected $dontReport = [
-		'Symfony\Component\HttpKernel\Exception\HttpException'
+		HttpException::class,
 	];
-
 	/**
 	 * Report or log an exception.
 	 *
@@ -26,7 +26,6 @@ class Handler extends ExceptionHandler {
 	{
 		return parent::report($e);
 	}
-
 	/**
 	 * Render an exception into an HTTP response.
 	 *
@@ -36,14 +35,6 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
-        if ($this->isHttpException($e))
-        {
-            return $this->renderHttpException($e);
-        }
-        else
-        {
-            return parent::render($request, $e);
-        }
+		return parent::render($request, $e);
 	}
-
 }

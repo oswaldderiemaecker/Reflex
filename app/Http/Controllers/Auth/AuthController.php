@@ -1,9 +1,10 @@
 <?php namespace Reflex\Http\Controllers\Auth;
 
-use Reflex\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Reflex\Http\Controllers\Controller;
 
 class AuthController extends Controller {
 
@@ -20,7 +21,7 @@ class AuthController extends Controller {
 	|
 	*/
 
-	use AuthenticatesAndRegistersUsers;
+	use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
 	/**
 	 * Create a new authentication controller instance.

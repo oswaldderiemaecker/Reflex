@@ -133,9 +133,9 @@ class ZoneController extends Controller {
         $grid->add('code','Cod.',true)->style("width:100px");
         $grid->add('name','Nombre',true)->style("width:150px");
         $grid->add('sub_business_unit.name','Sub U. de Negocio',false)->style("width:150px");
-        $grid->add('{{ implode(", ", $locations->lists("name")) }}','Localidades');
+        $grid->add('{{ $locations->count() }}','Localidades');
         //$grid->add('{{ implode(", ", $regions->lists("name")) }}','Regiones');
-        $grid->add('{{ $assignments->count() }}', 'Usuarios');
+        $grid->add('{{ $assignments->count() }}', 'Asignaciones');
         $grid->add('{{ $specialties->count() }}','Esp. Target');
 
         $grid->edit('/backend/zonas/edit', 'Editar','modify|delete');

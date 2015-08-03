@@ -1,13 +1,16 @@
 <?php namespace Reflex\Http\Controllers\Backend;
 
+use Auth;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Log;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 use Reflex\Models\Category;
 use Reflex\Models\Client;
 use Reflex\Models\ClientType;
 use Reflex\Models\Company;
 use Reflex\Models\Hobby;
-use Reflex\Http\Requests;
 use Reflex\Models\Location;
 use Reflex\Models\Place;
 use Reflex\Models\Specialty;
@@ -17,9 +20,6 @@ use Zofe\Rapyd\DataEdit\DataEdit;
 use Zofe\Rapyd\DataFilter\DataFilter;
 use Zofe\Rapyd\DataGrid\DataGrid;
 
-use Reflex\Http\Controllers\Controller;
-use Auth;
-use Log;
 class ClientController extends Controller {
 
 
@@ -173,8 +173,8 @@ class ClientController extends Controller {
         ini_set('memory_limit','10024M');
 
         $filter = DataFilter::source($this->client->newQuery()->with('client_type','zone','category','place','specialty_base','specialty_target','location')->where('client_type_id', '=',1)->take(1000));
-        $filter->add('client_type.name','Tipo', 'select')->options(ClientType::lists('name', 'id'));
-        $filter->add('zone.name','Zona', 'autocomplete')->options(Zone::lists('name', 'id'));
+        $filter->add('client_type.name','Tipo', 'select')->options(ClientType::lists('name', 'id')->toArray());
+        $filter->add('zone.name','Zona', 'autocomplete')->options(Zone::lists('name', 'id')->toArray());
         $filter->add('firstname','Nombres','text');
         $filter->add('lastname','Apellidos','text');
        // $filter->add('institution','Institución','text');
@@ -243,16 +243,16 @@ class ClientController extends Controller {
             $company_combo[$companie->id] = $companie->name;
         }
 
-        $edit->add('client_type_id','Tipo','select')->options(ClientType::lists('name', 'id'));
+        $edit->add('client_type_id','Tipo','select')->options(ClientType::lists('name', 'id')->toArray());
         $edit->add('company_id','Empresa','select')->options($company_combo)->rule('required');
-        $edit->add('zone_id','Zona','select')->options($zones_combo)->rule('required');
-        $edit->add('category_id','Categoria','select')->options(Category::lists('name', 'id'));
-        $edit->add('place_id','Tarea','select')->options(Place::lists('name', 'id'));
-        $edit->add('hobby_id','Hobby','select')->options(Hobby::lists('name', 'id'));
-        $edit->add('specialty_base_id','Esp. Base','select')->options(Specialty::lists('name', 'id'));
-        $edit->add('specialty_target_id','Esp. Target','select')->options(Specialty::lists('name', 'id'));
-        $edit->add('university_id','Universidad','select')->options(University::lists('name', 'id'));
-        $edit->add('location_id','Localidad','autocomplete')->options(Location::lists('name', 'id'))->rule('required');
+        $edit->add('zone.name','Zona','autocomplete')->options($zones_combo)->rule('required');
+        $edit->add('category_id','Categoria','select')->options(Category::lists('name', 'id')->toArray());
+        $edit->add('place_id','Tarea','select')->options(Place::lists('name', 'id')->toArray());
+        $edit->add('hobby_id','Hobby','select')->options(Hobby::lists('name', 'id')->toArray());
+        $edit->add('specialty_base_id','Esp. Base','select')->options(Specialty::lists('name', 'id')->toArray());
+        $edit->add('specialty_target_id','Esp. Target','select')->options(Specialty::lists('name', 'id')->toArray());
+        $edit->add('university_id','Universidad','select')->options(University::lists('name', 'id')->toArray());
+        $edit->add('location_id','Localidad','autocomplete')->options(Location::lists('name', 'id')->toArray())->rule('required');
         $edit->add('code','Codigo', 'text')->rule('required|max:15');
         //$edit->add('name','Nombres Completo', 'text')->rule('required|max:5');
         $edit->add('firstname','Nombres', 'text')->rule('required|max:50');

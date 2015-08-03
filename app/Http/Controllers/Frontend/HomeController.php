@@ -31,9 +31,6 @@ class HomeController extends Controller {
         $this->middleware('auth');
         $this->responseFactory = $responseFactory;
 
-        $this->assignment = Auth::user()->assignments()->first();
-
-        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
         $this->campaign = DB::table('campaigns')->where('active','=',1)->first();
 
     }
@@ -47,6 +44,8 @@ class HomeController extends Controller {
 	{
         $id = Auth::user()->id;
         $user = User::find($id);
+        $this->assignment = Auth::user()->assignments()->first();
+        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
 
         //print_r($this->zone->toArray());
 
@@ -75,8 +74,9 @@ class HomeController extends Controller {
     public function map()
     {
         $user = Auth::user();
-        $assignment = Auth::user()->assignments->first();
-        $zone = DB::table('zones')->where('id', '=', $assignment->zone_id)->first();
+        $this->assignment = Auth::user()->assignments()->first();
+        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
+        $zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
         $campaign = DB::table('campaigns')->where('active','=',1)->first();
 
         return view('frontend.route.map', compact('user','zone','campaign'));
@@ -152,6 +152,8 @@ class HomeController extends Controller {
     public function coverage_export()
     {
         $id = Auth::user()->id;
+        $this->assignment = Auth::user()->assignments()->first();
+        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
         $date = Carbon::now()->toDateTimeString();
 
         $targets   = DB::table('clients')->where('zone_id','=',$this->zone->id)->count();
@@ -193,6 +195,8 @@ class HomeController extends Controller {
     public function visit_status()
     {
         $user = Auth::user();
+        $this->assignment = Auth::user()->assignments()->first();
+        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
 
         $data = DB::table('visits')->select(DB::raw('visit_status.name as label, count(1) as value'))
             ->join('visit_status', 'visits.visit_status_id', '=', 'visit_status.id')

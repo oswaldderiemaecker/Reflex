@@ -4,11 +4,12 @@
   "keywords": ["php", "laravel","postgres","redis"],
   "license": "MIT",
   "type": "project",
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "require": {
-    "laravel/framework": "5.0.*",
+    "php": ">=5.5.9",
+    "laravel/framework": "5.1.*",
     "maatwebsite/excel": "~2.0.0",
-    "zofe/rapyd": "master",
+    "zofe/rapyd": "*",
     "fzaninotto/faker": "*",
     "webpatser/laravel-uuid": "1.*",
     "illuminate/html": "5.0.*@dev",
@@ -19,6 +20,8 @@
     "stripe/stripe-php": "2.3.0"
   },
   "require-dev": {
+    "fzaninotto/faker": "~1.4",
+    "mockery/mockery": "0.9.*",
     "phpunit/phpunit": "4.7.7",
     "phpspec/phpspec": "2.2.1"
   },
