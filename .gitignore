@@ -4,3 +4,5 @@
 /.idea
 .idea
 dump.rdb
+.idea/blade.xml
+.idea/workspace.xml
