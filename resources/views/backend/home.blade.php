@@ -144,7 +144,7 @@
         <h1>Procesos</h1>
     </div>
     <p>
-        <a href="{{ url('/inicio_de_ciclo') }}" class="btn btn-lg btn-success" onclick="return confirm('Estar Seguro?')">
+        <a href="{{ url('/process/inicio_de_ciclo/'.$company->id) }}" class="btn btn-lg btn-success" onclick="return confirm('Estar Seguro?')">
             Inicio de Ciclo</a>
 
         <button type="button" class="btn btn-lg btn-danger" onclick="alert('Proximamente!')")>Cierre de Ciclo</button>

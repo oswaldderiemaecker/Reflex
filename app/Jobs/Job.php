@@ -1,5 +1,5 @@
 <?php
-namespace App\Jobs;
+namespace Reflex\Jobs;
 use Illuminate\Bus\Queueable;
 
 abstract class Job

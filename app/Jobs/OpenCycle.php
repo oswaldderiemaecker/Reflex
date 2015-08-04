@@ -2,24 +2,29 @@
 
 namespace Reflex\Jobs;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Reflex\Jobs\Job;
+use Illuminate\Support\Facades\DB;
+use Log;
+use Reflex\Models\Target;
+use Reflex\Models\Visit;
+use Uuid;
 
 class OpenCycle extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
+    protected $company_id;
+
     /**
-     * Create a new job instance.
-     *
-     * @return void
+     * @param $company_id
      */
-    public function __construct()
+    public function __construct($company_id)
     {
-        //
+        $this->company_id = $company_id;
     }
 
     /**
@@ -33,6 +38,7 @@ class OpenCycle extends Job implements SelfHandling, ShouldQueue
         DB::disableQueryLog();
 
         echo("starting Proccess Kardex Job\n\n");
+        echo("$this->company_id\n");
 
         $time_start = Carbon::now();
 
@@ -87,6 +93,8 @@ class OpenCycle extends Job implements SelfHandling, ShouldQueue
                 $visit->save();
             }
         }
+
+        echo("\nfinishin Proccess Kardex Job\n");
 
         $this->delete();
     }

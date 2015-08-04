@@ -13,18 +13,13 @@
 
 Route::get('/', 'WelcomeController@index');
 
-
+//Auth Controller
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('/inicio_de_ciclo', function(){
-
-    Queue::push(new \Reflex\Commands\OpenCycle('open'));
-    return Redirect::to('/backend/home');
-});
-
+//Api Controller
 Route::group(array('prefix' => 'api'), function(){
     Route::resource('countries', 'Backend\CountryController');
     Route::resource('companies', 'Backend\CompanyController');
@@ -56,7 +51,7 @@ Route::group(array('prefix' => 'api'), function(){
 
 });
 
-
+//Backend Controller
 Route::group(array('prefix' => 'backend', 'middleware' => 'auth.basic'), function() {
 
     Route::get('home', 'Backend\HomeController@index');
@@ -83,6 +78,7 @@ Route::group(array('prefix' => 'backend', 'middleware' => 'auth.basic'), functio
     Route::controller('asignaciones', 'Backend\AssignmentController');
 });
 
+//Frontend Controller
 Route::group(array('prefix' => 'frontend', 'middleware' => 'auth.basic'), function () {  //
 
     Route::get('home', 'Frontend\HomeController@index');
@@ -115,4 +111,9 @@ Route::group(array('prefix' => 'frontend', 'middleware' => 'auth.basic'), functi
 
     Route::controller('usuarios', 'Frontend\UserController');
 
+});
+
+//Process Controller
+Route::group(array('prefix' => 'process', 'middleware' => 'auth.basic'), function () {
+    Route::get('inicio_de_ciclo/{company_id}', array('uses' => 'ProcessController@open_cycle'));
 });

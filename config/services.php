@@ -40,7 +40,8 @@ return [
         //'redirect' => 'https://fathomless-atoll-9455.herokuapp.com/oauth2callback',
     ],
 	'stripe' => [
-		'model' => 'User',
+		'model' => Reflex\User::class,
+		'key'    => env('STRIPE_API_KEY'),
 		'secret' => env('STRIPE_API_SECRET'),
 	],
 
