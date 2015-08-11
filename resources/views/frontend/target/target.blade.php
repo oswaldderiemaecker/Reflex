@@ -51,7 +51,6 @@
                     { 'data': 'client.place.code', "class": "text-center " }
                    /* { 'data': 'id', "class": "text-center ",
                         'mRender' : function(data,type,full){
-                            //TODO: fix the color
                             //console.log(full);
                             var color = '';
 

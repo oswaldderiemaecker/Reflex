@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-
 class ExampleTest extends TestCase {
 
 	/**
@@ -19,16 +15,12 @@ class ExampleTest extends TestCase {
 
 		$this->call('GET', '/auth/login');
 
-		$this->assertResponseOk();
+        $this->assertEquals(200, $response->getStatusCode());
 
         $this->visit('/')
             ->see('Qué es Réflex 360°?');
 
         $this->visit('/auth/login')
             ->see('Iniciar Sesión');
-
-
-
 	}
-
 }

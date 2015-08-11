@@ -32,13 +32,13 @@ class TargetController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-        $zone_id     = $request->get('zone_id',null,true);
-        $assignment_id     = $request->get('assignment_id',null,true);
-        $user_id     = $request->get('user_id',null,true);
-        $campaign_id = $request->get('campaign_id',null,true);
-        $query_in = $request->get('query',null,true);
+        $zone_id       = $request->get('zone_id',null,true);
+        $assignment_id = $request->get('assignment_id',null,true);
+        $user_id       = $request->get('user_id',null,true);
+        $campaign_id   = $request->get('campaign_id',null,true);
+        $query_in      = $request->get('query',null,true);
 
-        $targets = $this->target->newQuery()->with('assignment', 'client', 'client.location', 'client.category', 'client.place');
+        $targets       = $this->target->newQuery()->with('assignment', 'client', 'client.location', 'client.category', 'client.place');
 
         if(!(is_null($zone_id) || $zone_id == '')){
 
@@ -99,7 +99,13 @@ class TargetController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+        $target = $this->target->newQuery()->with('company','campaign','assignment','client',
+            'client.location',
+            'client.client_type', 'client.category', 'client.place',
+            'client.hobby',
+            'client.specialty_base', 'client.specialty_target', 'client.university'
+            )->find($id);
+        return $this->responseFactory->json($target);
 	}
 
 	/**

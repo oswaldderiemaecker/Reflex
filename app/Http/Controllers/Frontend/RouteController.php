@@ -106,6 +106,7 @@ class RouteController extends Controller {
 	public function store(Request $request)
 	{
         $zone_id          = $request->get('zone_id',null,true);
+        $user_id          = $request->get('user_id',null,true);
         $target_id        = $request->get('target_id',null,true);
         $start            = $request->get('start',null,true);
         $end              = $request->get('end',null,true);
@@ -121,7 +122,7 @@ class RouteController extends Controller {
             'uuid' => $uuid,
             'assignment_id' => $target->assignment_id,
             'zone_id' => $zone_id,
-            'user_id' => $target->assignment->user_id,
+            'user_id' => $user_id,
             'campaign_id' => $target->campaign_id,
             'target_id' => $target_id,
             'client_id' => $target->client_id,

@@ -16,14 +16,22 @@ class RegionController extends Controller {
         $this->region = $region;
         $this->responseFactory = $responseFactory;
     }
+
 	/**
 	 * Display a listing of the resource.
 	 *
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
+		$country_id = $request->get('country_id',null,true);
+
         $regions = $this->region->newQuery()->with('country');
+
+		if(!(is_null($country_id) || $country_id == '')){
+			$regions->where('country_id','=', $country_id);
+		}
         return $regions->get()->toJson();
 	}
 

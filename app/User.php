@@ -22,8 +22,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'code', 'firstname', 'lastname', 'closeup_name', 'email', 'username',  'photo', 'imei', 'facebook_token',
         'google_token'];
 
-
-	//protected $hidden = ['password', 'remember_token'];
+	protected $hidden = ['password', 'remember_token'];
 
     public function role()
     {

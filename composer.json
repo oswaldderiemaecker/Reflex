@@ -47,7 +47,7 @@
       "php artisan optimize"
     ],
     "post-create-project-cmd": [
-      "php -r \"copy('.env.example', '.env');\"",
+      "php -r \"copy('.env.local', '.env');\"",
       "php artisan key:generate"
     ]
   },

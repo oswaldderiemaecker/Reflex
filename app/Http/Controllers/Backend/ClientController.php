@@ -32,14 +32,30 @@ class ClientController extends Controller {
         $this->responseFactory = $responseFactory;
     }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
+	public function index(Request $request)
 	{
-		//
+        $zone_id       = $request->get('zone_id',null,true);
+        $query_in      = $request->get('query',null,true);
+
+        $clients       = $this->client->newQuery()->with('category','place','hobby','university','location',
+            'client_type','specialty_base','specialty_target');
+
+        if(!(is_null($zone_id) || $zone_id == '')){
+            $clients->where('zone_id', '=', $zone_id);
+        }
+
+        if(!(is_null($query_in) || $query_in == '')){
+            $clients->where('closeup_name','LIKE','%'.strtoupper($query_in).'%');
+
+        }
+
+        return $clients->get()->toJson();
 	}
 
 	/**
@@ -172,7 +188,8 @@ class ClientController extends Controller {
     {
         ini_set('memory_limit','10024M');
 
-        $filter = DataFilter::source($this->client->newQuery()->with('client_type','zone','category','place','specialty_base','specialty_target','location')->where('client_type_id', '=',1)->take(1000));
+        $filter = DataFilter::source($this->client->newQuery()->with('client_type','zone','category','place',
+            'specialty_base','specialty_target','location')->where('client_type_id', '=',1)->take(1000));
         $filter->add('client_type.name','Tipo', 'select')->options(ClientType::lists('name', 'id')->toArray());
         $filter->add('zone.name','Zona', 'autocomplete')->options(Zone::lists('name', 'id')->toArray());
         $filter->add('firstname','Nombres','text');
@@ -252,7 +269,8 @@ class ClientController extends Controller {
         $edit->add('specialty_base_id','Esp. Base','select')->options(Specialty::lists('name', 'id')->toArray());
         $edit->add('specialty_target_id','Esp. Target','select')->options(Specialty::lists('name', 'id')->toArray());
         $edit->add('university_id','Universidad','select')->options(University::lists('name', 'id')->toArray());
-        $edit->add('location_id','Localidad','autocomplete')->options(Location::lists('name', 'id')->toArray())->rule('required');
+        $edit->add('location_id','Localidad','autocomplete')->options(Location::lists('name', 'id')->toArray())
+                                                            ->rule('required');
         $edit->add('code','Codigo', 'text')->rule('required|max:15');
         //$edit->add('name','Nombres Completo', 'text')->rule('required|max:5');
         $edit->add('firstname','Nombres', 'text')->rule('required|max:50');
@@ -276,7 +294,8 @@ class ClientController extends Controller {
         $edit->add('price_inquiry','Precio Consulta', 'select')
             ->rule('digits_between:1,10')
             ->options(array('10' => '10 - 20','20' => '20-30','30' => '30-40','40' => '40-50','50' => '50-mas'));
-        $edit->add('social_level_patients','Nivel Socio-Economico Pacientes', 'select')->options(array('C' => 'C','B' => 'B','A' => 'A'));
+        $edit->add('social_level_patients','Nivel Socio-Economico Pacientes', 'select')->options(array('C' => 'C',
+            'B' => 'B','A' => 'A'));
 
         $edit->add('attends_child','Atiende Niños', 'select')->options(array(1 => 'SI',0 => 'NO'));
         $edit->add('attends_teen','Atiende Jovenes', 'select')->options(array(1 => 'SI',0 => 'NO'));
