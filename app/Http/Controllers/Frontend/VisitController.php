@@ -40,7 +40,7 @@ class VisitController extends Controller {
         $visit_status_id = $request->get('visit_status_id',null,true);
         $query_in = $request->get('query',null,true);
 
-        $targets =  $this->visit->newQuery()->with('target','client','client.location','client.category','client.place');
+        $targets =  $this->visit->newQuery()->with('client','client.location','client.category','client.place');
 
         if(!(is_null($assignment_id) || $assignment_id == '')){
             $targets->where('assignment_id','=', $assignment_id);

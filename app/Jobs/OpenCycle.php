@@ -44,14 +44,14 @@ class OpenCycle extends Job implements SelfHandling, ShouldQueue
 
         Log::info("start at: ".$time_start->toDateTimeString()."\n");
 
-        $campaign = DB::table('campaigns')->where('active','=',1)->first();
+        $campaign = DB::table('campaigns')->where('active','=',1)->where('company_id', '=',$this->company_id)->first();
 
         DB::table('region_zone')->truncate();
         DB::table('location_zone')->truncate();
-        DB::table('visits')->delete();
-        DB::table('routes')->delete();
-        DB::table('notes')->delete();
-        DB::table('targets')->delete();
+       // DB::table('visits')->delete();
+       // DB::table('routes')->delete();
+       // DB::table('notes')->delete();
+        // DB::table('targets')->delete();
 
         DB::statement("insert into region_zone(zone_id, region_id) ".
             "select c.zone_id as zone_id, r.id as region_id from clients as c ".
@@ -62,7 +62,7 @@ class OpenCycle extends Job implements SelfHandling, ShouldQueue
             "select zone_id, location_id from clients group by zone_id,location_id;");
 
         DB::statement(" insert into targets(company_id,campaign_id, assignment_id, client_id,qty_visits,created_at, updated_at, deleted_at) " .
-            " select 1 , 5, uz.id, c.id ,c.qty_visits, now() , now(), null from assignments as uz " .
+            " select $this->company_id , $campaign->id, uz.id, c.id ,c.qty_visits, now() , now(), null from assignments as uz " .
             " inner join zones as z on z.id = uz.zone_id " .
             " inner join clients as c on uz.zone_id = c.zone_id;");
 

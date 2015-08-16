@@ -169,6 +169,7 @@
                             <div class="form-group">
                                 <label>Estado</label>
                                 <select class="form-control filter_grid" id="filter_status">
+                                    <option value="">todos</option>
                                     <option value="2">Visitas</option>
                                     <option value="1">Pendientes</option>
                                     <option value="3">Ausentes</option>

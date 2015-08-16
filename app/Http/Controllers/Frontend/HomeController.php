@@ -8,9 +8,12 @@ use File;
 use Illuminate\Routing\ResponseFactory;
 use Reflex\Http\Controllers\Controller;
 use Reflex\Http\Requests;
+use Reflex\Models\Assignment;
 use Reflex\Models\BusinessUnit;
+use Reflex\Models\Campaign;
 use Reflex\Models\Company;
 use Reflex\Models\Visit;
+use Reflex\Models\Zone;
 use Reflex\User;
 use Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +34,7 @@ class HomeController extends Controller {
         $this->middleware('auth');
         $this->responseFactory = $responseFactory;
 
-        $this->campaign = DB::table('campaigns')->where('active','=',1)->first();
+        $this->campaign = Campaign::where('active','=',1)->first();
 
     }
 
@@ -44,15 +47,25 @@ class HomeController extends Controller {
 	{
         $id = Auth::user()->id;
         $user = User::find($id);
-        $this->assignment = Auth::user()->assignments()->first();
-        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
+
+
+
+        $this->assignment = Assignment::with('zone')->where('campaign_id','=',$this->campaign->id)
+            ->where('user_id','=',$user->id)->first();
+
+        $this->zone = Zone::find($this->assignment->zone_id);
 
         //print_r($this->zone->toArray());
 
         $targets   = DB::table('clients')->where('zone_id','=',$this->zone->id)->count();
         $targets   = ($targets == 0)?1:$targets;
-        $visits    = DB::table('visits')->where('zone_id','=',$this->zone->id)->where('user_id','=',$id)->where('visits.visit_status_id','=','2')->count();
-        $absences  = DB::table('visits')->where('zone_id','=',$this->zone->id)->where('user_id','=',$id)->where('visits.visit_status_id','=','3')->count();
+        $visits    = DB::table('visits')->where('zone_id','=',$this->zone->id)->
+        where('user_id','=',$id)->
+        where('visits.visit_status_id','=','2')->
+            where('visits.assignment_id','=',$this->assignment->id)->count();
+        $absences  = DB::table('visits')->where('zone_id','=',$this->zone->id)->where('user_id','=',$id)
+            ->where('visits.visit_status_id','=','3')
+            ->where('visits.assignment_id','=',$this->assignment->id)->count();
         $coverage  = round( $visits*100/$targets, 2, PHP_ROUND_HALF_ODD);
 
         $counters = array('targets' => $targets, 'visits' => $visits,'absences' => $absences,'coverage' => $coverage);

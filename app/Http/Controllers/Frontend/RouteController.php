@@ -280,21 +280,22 @@ class RouteController extends Controller {
 
     public function data(Request $request)
     {
-        $target_id     = $request->get('target_id',null,true);
-        $assignment_id = $request->get('assignment_id',null,true);
-        $zone_id       = $request->get('zone_id',null,true);
-        $user_id       = $request->get('user_id',null,true);
-        $campaign_id   = $request->get('campaign_id',null,true);
-        $start         = $request->get('start',null,true);
-        $end           = $request->get('end',null,true);
+        $target_id        = $request->get('target_id',null,true);
+        $assignment_id    = $request->get('assignment_id',null,true);
+        $zone_id          = $request->get('zone_id',null,true);
+        $user_id          = $request->get('user_id',null,true);
+        $campaign_id      = $request->get('campaign_id',null,true);
+        $start            = $request->get('start',null,true);
+        $end              = $request->get('end',null,true);
         $point_of_contact = $request->get('point_of_contact',null,true);
-        $query_in      = $request->get('query',null,true);
-        $month         = $request->get('month',null,true);
-        $year          = $request->get('year',null,true);
+        $query_in         = $request->get('query',null,true);
+        $month            = $request->get('month',null,true);
+        $year             = $request->get('year',null,true);
 
-      //  $result = null;
-        //$data = Route::with('client','client.location');
-        $data =  $this->route->newQuery()->with('target','client','client.location','client.category','client.place','client.specialty_base');
+        //  $result = null;
+        //  $data = Route::with('client','client.location');
+        $data =  $this->route->newQuery()->with('target','client','client.location',
+                                                'client.category','client.place','client.specialty_base');
 
         if(!(is_null($assignment_id) || $assignment_id == '')){
             $data->where('assignment_id','=',$assignment_id);

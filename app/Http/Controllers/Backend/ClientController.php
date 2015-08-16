@@ -41,6 +41,7 @@ class ClientController extends Controller {
 	public function index(Request $request)
 	{
         $zone_id       = $request->get('zone_id',null,true);
+        $active        = $request->get('active',null,true);
         $query_in      = $request->get('query',null,true);
 
         $clients       = $this->client->newQuery()->with('category','place','hobby','university','location',
@@ -53,6 +54,10 @@ class ClientController extends Controller {
         if(!(is_null($query_in) || $query_in == '')){
             $clients->where('closeup_name','LIKE','%'.strtoupper($query_in).'%');
 
+        }
+
+        if(!(is_null($active) || $active == '')){
+            $clients->where('active','=', ($active=='1')?true:false);
         }
 
         return $clients->get()->toJson();
