@@ -2,11 +2,9 @@
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Reflex\Http\Requests;
-use Reflex\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
-use Reflex\Models\Route;
+use Reflex\Http\Controllers\Controller;
+use Reflex\Http\Requests;
 use Reflex\Models\Schedule;
 use Uuid;
 
@@ -25,9 +23,21 @@ class ScheduleController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-        $schedules = $this->schedule->newQuery()->with('client','zone');
+        $client_id   = $request->get('client_id',null,true);
+        $zone_id   = $request->get('zone_id',null,true);
+
+        $schedules = $this->schedule->newQuery();
+
+        if(!(is_null($client_id) || $client_id == '')){
+            $schedules->where('client_id','=', $client_id);
+        }
+
+        if(!(is_null($zone_id) || $zone_id == '')){
+            $schedules->where('zone_id','=', $zone_id);
+        }
+
         return $schedules->get()->toJson();
 	}
 
