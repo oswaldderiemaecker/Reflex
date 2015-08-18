@@ -193,7 +193,7 @@ class VisitController extends Controller {
         $longitude       = $request->get('longitude',null,true);
         $latitude        = $request->get('latitude',null,true);
 
-        $visit = Visit::find($id);
+        $visit = Visit::with('client','client.location','client.category','client.place')->find($id);
 
         $target = Target::with('client')->find($visit->target_id);
 
@@ -234,7 +234,7 @@ class VisitController extends Controller {
 	 */
 	public function destroy(Request $request, $id)
 	{
-        $visit = Visit::find($id);
+        $visit = Visit::with('client','client.location','client.category','client.place')->find($id);
         $target = Target::with('client', 'assignment')->find($visit->target_id);
 
         if($visit->visit_type_id == 2)

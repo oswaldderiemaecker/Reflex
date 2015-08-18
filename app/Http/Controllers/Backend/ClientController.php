@@ -126,7 +126,8 @@ class ClientController extends Controller {
         $attends_old = $request->get('attends_old', null, true);
 
 
-        $client = Client::find($id);
+        $client = Client::with('category','place','hobby','university','location',
+            'client_type','specialty_base','specialty_target')->find($id);
 
         if(!(is_null($latitude) || $latitude == '')){
             $client->latitude = $latitude;

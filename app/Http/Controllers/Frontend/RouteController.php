@@ -133,7 +133,7 @@ class RouteController extends Controller {
             'is_from_mobile' => $is_from_mobile
         ));
 
-        return $this->responseFactory->json($this->route->find($uuid));
+        return $this->responseFactory->json(Route::with('target','client','client.location','client.category','client.place')->find($uuid));
 	}
 
 	/**
