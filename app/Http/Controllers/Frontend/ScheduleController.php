@@ -25,16 +25,16 @@ class ScheduleController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-        $client_id   = $request->get('client_id',null,true);
+        $client_id = $request->get('client_id',null,true);
         $zone_id   = $request->get('zone_id',null,true);
 
         $schedules = $this->schedule->newQuery();
 
-        if(!(is_null($client_id) || $client_id == '')){
+        if(!(is_null($client_id) || $client_id == 0)){
             $schedules->where('client_id','=', $client_id);
         }
 
-        if(!(is_null($zone_id) || $zone_id == '')){
+        if(!(is_null($zone_id) || $zone_id == 0)){
             $schedules->where('zone_id','=', $zone_id);
         }
 

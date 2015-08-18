@@ -23,7 +23,7 @@ class SpecialtiesTableSeeder extends \Illuminate\Database\Seeder {
                 \Reflex\Models\Specialty::create(array(
                     'code' => $result->code,
                     'name' => $result->name,
-                    'realname' => $result->name
+                    'realname' => $result->realname
                     ));
             }
         });
