@@ -46,7 +46,7 @@ class Route extends Model {
      */
     public function toArray()
     {
-        $this->load('zone', 'client','target','client.location');
+        $this->load('zone', 'client','target','client.location', 'client.category','client.place');
         return parent::toArray();
     }
 }

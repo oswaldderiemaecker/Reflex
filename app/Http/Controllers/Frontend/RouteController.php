@@ -129,11 +129,13 @@ class RouteController extends Controller {
             'start' => $start,
             'end' => $end,
             'description' => $description,
-            'point_of_contact' => (($point_of_contact == '1')?true:false),
+            'point_of_contact' =>    (($point_of_contact == '1')?true:false),
             'is_from_mobile' => $is_from_mobile
         ));
 
-        return $this->responseFactory->json(Route::with('target','client','client.location','client.category','client.place')->find($uuid));
+        $routeResponse = Route::with('client','client.location','client.category','client.place')->find($uuid);
+
+        return $this->responseFactory->json($routeResponse);
 	}
 
 	/**
