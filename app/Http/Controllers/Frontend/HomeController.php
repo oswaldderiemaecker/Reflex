@@ -48,22 +48,22 @@ class HomeController extends Controller {
         $id = Auth::user()->id;
         $user = User::find($id);
 
+        $campaign = Campaign::where('active','=',1)->where('company_id','=',$user->company_id)->first();
 
-
-        $this->assignment = Assignment::with('zone')->where('campaign_id','=',$this->campaign->id)
+        $this->assignment = Assignment::with('zone')->where('campaign_id','=',$campaign->id)
             ->where('user_id','=',$user->id)->first();
 
         $this->zone = Zone::find($this->assignment->zone_id);
 
         //print_r($this->zone->toArray());
 
+        //print_r($this->assignment->toArray());
+        //die;
         $targets   = DB::table('clients')->where('zone_id','=',$this->zone->id)->count();
         $targets   = ($targets == 0)?1:$targets;
-        $visits    = DB::table('visits')->where('zone_id','=',$this->zone->id)->
-        where('user_id','=',$id)->
-        where('visits.visit_status_id','=','2')->
-            where('visits.assignment_id','=',$this->assignment->id)->count();
-        $absences  = DB::table('visits')->where('zone_id','=',$this->zone->id)->where('user_id','=',$id)
+        $visits    = DB::table('visits')->where('visit_status_id','=','2')->where('assignment_id','=',$this->assignment->id)->count();
+
+        $absences  = DB::table('visits')->where('zone_id','=',$this->zone->id)->where('user_id','=',$user->id)
             ->where('visits.visit_status_id','=','3')
             ->where('visits.assignment_id','=',$this->assignment->id)->count();
         $coverage  = round( $visits*100/$targets, 2, PHP_ROUND_HALF_ODD);
@@ -76,12 +76,12 @@ class HomeController extends Controller {
         $last_visits = Visit::with('client')
             ->where('zone_id','=',$this->zone->id)
             ->where('user_id','=',Auth::user()->id)
-            ->where('campaign_id','=',$this->campaign->id)
+            ->where('campaign_id','=',$campaign->id)
             ->where('visit_status_id','=','2')
             ->orderBy('start','desc')
             ->take(8)->get();
 
-        return view('frontend.home', compact('user','company','businessUnits','counters','last_visits'));
+        return view('frontend.home', compact('user','company','businessUnits','counters','last_visits','campaign'));
 	}
 
     public function map()
@@ -207,15 +207,18 @@ class HomeController extends Controller {
 
     public function visit_status()
     {
-        $user = Auth::user();
-        $this->assignment = Auth::user()->assignments()->first();
-        $this->zone = DB::table('zones')->where('id', '=', $this->assignment->zone_id)->first();
+        $id = Auth::user()->id;
+        $user = User::find($id);
+
+        $campaign = Campaign::where('active','=',1)->where('company_id','=',$user->company_id)->first();
+
+        $assignment = Assignment::with('zone')->where('campaign_id','=',$campaign->id)
+            ->where('user_id','=',$user->id)->first();
 
         $data = DB::table('visits')->select(DB::raw('visit_status.name as label, count(1) as value'))
             ->join('visit_status', 'visits.visit_status_id', '=', 'visit_status.id')
-            ->where('visits.user_id','=',$user->id)
-            ->where('visits.zone_id','=',$this->zone->id)
-            ->where('visits.campaign_id','=',$this->campaign->id)
+            ->where('visits.assignment_id','=',$assignment->id)
+            ->where('visits.campaign_id','=',$campaign->id)
           //  ->where('visits.visit_status_id','=','2')
             ->groupBy('visit_status.name')->get();
 

@@ -44,6 +44,8 @@ Route::group(array('prefix' => 'api'), function(){
     Route::resource('visit_types', 'Backend\VisitTypeController');
     Route::resource('specialties', 'Backend\SpecialtyController');
 
+    Route::get('social/{company_id}', 'Frontend\VisitController@social');
+
     Route::get('image/client/{cmp}', 'WelcomeController@image_client');
     Route::get('rutas/calendar', array('uses' => 'Frontend\RouteController@calendar'));
     Route::get('rutas/data', array('uses' => 'Frontend\RouteController@data'));

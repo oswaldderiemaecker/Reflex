@@ -48,10 +48,6 @@ class OpenCycle extends Job implements SelfHandling, ShouldQueue
 
         DB::table('region_zone')->truncate();
         DB::table('location_zone')->truncate();
-       // DB::table('visits')->delete();
-       // DB::table('routes')->delete();
-       // DB::table('notes')->delete();
-        // DB::table('targets')->delete();
 
         DB::statement("insert into region_zone(zone_id, region_id) ".
             "select c.zone_id as zone_id, r.id as region_id from clients as c ".
@@ -62,17 +58,24 @@ class OpenCycle extends Job implements SelfHandling, ShouldQueue
             "select zone_id, location_id from clients group by zone_id,location_id;");
 
         DB::statement(" insert into targets(company_id,campaign_id, assignment_id, client_id,qty_visits,created_at, updated_at, deleted_at) " .
-            " select $this->company_id , $campaign->id, uz.id, c.id ,c.qty_visits, now() , now(), null from assignments as uz " .
+            " select u.company_id , uz.campaign_id, uz.id, c.id ,c.qty_visits, now() , now(), null from assignments as uz " .
             " inner join zones as z on z.id = uz.zone_id " .
-            " inner join clients as c on uz.zone_id = c.zone_id;");
+            " inner join users as u on u.id = uz.user_id " .
+            " inner join clients as c on uz.zone_id = c.zone_id ".
+            " where uz.campaign_id = ".$campaign->id.
+            " and u.company_id = ".$this->company_id.";");
 
-        Log::info(Uuid::generate());
+        echo("\n\n");
+
+        //Log::info(Uuid::generate());
 
         $time_start = Carbon::now();
 
         Log::info("finish at: ".$time_start->toDateTimeString()."\n");
 
-        $targets = Target::where('campaign_id' ,'=', $campaign->id)->get();
+        $targets = Target::where('campaign_id' ,'=', $campaign->id)->where('company_id' ,'=', $this->company_id)->get();
+
+        echo("Targets: ".count($targets).", Campaign: ".$campaign->code."\n");
 
         foreach($targets as $target)
         {
@@ -94,7 +97,7 @@ class OpenCycle extends Job implements SelfHandling, ShouldQueue
             }
         }
 
-        echo("\nfinishin Proccess Kardex Job\n");
+        echo("\nfinishing Proccess Kardex Job\n");
 
         $this->delete();
     }

@@ -24,6 +24,31 @@ class VisitController extends Controller {
         $this->visit = $visit;
         $this->responseFactory = $responseFactory;
     }
+
+    /**
+     * @param $companyId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function social($companyId){
+
+        $records = DB::table('visits')->select(DB::raw('visits.uuid,users.closeup_name as user, users.photo,
+                clients.code as cmp,clients.closeup_name as client,
+                visits.start,visits.end,visits.is_supervised,locations.name as location,
+                specialties.code as specialty,visits.latitude, visits.longitude'))
+            ->join('targets', 'visits.target_id', '=', 'targets.id')
+            ->join('users', 'visits.user_id', '=', 'users.id')
+            ->join('clients', 'targets.client_id', '=', 'clients.id')
+            ->join('locations', 'clients.location_id', '=', 'locations.id')
+            ->join('specialties', 'clients.specialty_base_id', '=', 'specialties.id')
+            ->where('targets.company_id','=',$companyId)
+            ->where('visits.visit_status_id','=',2)
+            ->whereRaw('Extract(DAY from visits.start) = Extract(DAY from now()) ')
+            ->whereRaw('Extract(YEAR from visits.start) = Extract(YEAR from now()) ')
+            ->whereRaw('Extract(MONTH from visits.start) = Extract(MONTH from now()) ')
+            ->orderBy('visits.start')->get();
+
+        return $this->responseFactory->json($records);
+    }
 	/**
 	 * Display a listing of the resource.
 	 *
