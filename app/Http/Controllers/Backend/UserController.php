@@ -80,7 +80,7 @@ class UserController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+
 	}
 
 	/**
@@ -94,16 +94,51 @@ class UserController extends Controller {
 		//
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param  int $id
+     * @return Response
+     */
+	public function update(Request $request, $id)
 	{
-		//
+        $user = User::with('role','company','business_unit','sub_business_unit')->find($id);
+
+        if($request->hasFile('photo')){
+
+            $user->photo = $user->id.'_'.$request->file('photo')->getFilename();
+            $request->file('photo')->move(public_path().'/uploads/user', $user->photo);
+            $user->save();
+        }
+
+        return $user->toJson();
 	}
+
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function upload(Request $request, $id)
+    {
+        $user = User::with('role','company','business_unit','sub_business_unit')->find($id);
+
+              if($request->hasFile('photo_jpg')) {
+                  $photo = $request->file('photo_jpg');
+                  $user->photo = $user->id . '_' .$photo->getClientOriginalName();
+                  $photo->move(public_path() . '/uploads/user', $user->photo);
+                  $user->save();
+              }else{
+                  return $this->responseFactory->json('empty');
+              }
+
+        return $user->toJson();
+    }
+
+
+
 
 	/**
 	 * Remove the specified resource from storage.

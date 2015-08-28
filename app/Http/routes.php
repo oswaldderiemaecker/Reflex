@@ -49,6 +49,8 @@ Route::group(array('prefix' => 'api'), function(){
     Route::get('image/client/{cmp}', 'WelcomeController@image_client');
     Route::get('rutas/calendar', array('uses' => 'Frontend\RouteController@calendar'));
     Route::get('rutas/data', array('uses' => 'Frontend\RouteController@data'));
+
+    Route::post('users/upload/{id}', array('uses' => 'Backend\UserController@upload'));
 });
 
 //Backend Controller
