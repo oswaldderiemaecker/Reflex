@@ -125,8 +125,8 @@ class UserController extends Controller {
     {
         $user = User::with('role','company','business_unit','sub_business_unit')->find($id);
 
-              if($request->hasFile('photo_jpg')) {
-                  $photo = $request->file('photo_jpg');
+              if($request->hasFile('photo')) {
+                  $photo = $request->file('photo');
                   $user->photo = $user->id . '_' .$photo->getClientOriginalName();
                   $photo->move(public_path() . '/uploads/user', $user->photo);
                   $user->save();
