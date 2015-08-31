@@ -158,7 +158,7 @@ $(document).ready(function() {
 function loadNotes(page) {
     $.ajax({
         type: "GET",
-        url: "/api/notes?zone_id=" + zone_id +"&client_id="+client_id+"&user_id="+user_id+ "&page=" + page,
+        url: "/api/notes?zone_id=" + zone_id +"&client_id="+client_id+"&user_id="+user_id+ "&pagination=true&page=" + page,
         contentType: "application/json; charset=utf-8",
         data: "{}",
         dataType: "json",

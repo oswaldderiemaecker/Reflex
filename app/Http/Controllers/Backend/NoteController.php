@@ -32,6 +32,7 @@ class NoteController extends Controller {
         $user_id      = $request->get('user_id',null,true);
         $campaign_id  = $request->get('campaign_id',null,true);
         $note_type_id = $request->get('note_type_id',null,true);
+        $pagination   = $request->get('pagination',null,true);
 
         $page = 5;
         $data =  Note::with('note_type','target','client');
@@ -59,7 +60,14 @@ class NoteController extends Controller {
         $data->whereNull('deleted_at');
 
         $data->orderBy('date','desc');
-        return $this->responseFactory->json($data->paginate($page));
+
+        if($pagination == 'true'){
+            $data = $data->paginate($page);
+        }else{
+            $data = $data->get();
+        }
+
+        return $this->responseFactory->json($data);
 	}
 
 	/**
