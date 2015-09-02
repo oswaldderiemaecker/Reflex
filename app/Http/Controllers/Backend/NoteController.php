@@ -106,8 +106,10 @@ class NoteController extends Controller {
         /*	echo Carbon::createFromFormat('d/m/Y',Input::get('date'));
             die();*/
 
+        $uuid = Uuid::generate();
+
         $note = Note::create(array(
-            'uuid' => Uuid::generate(),
+            'uuid' => $uuid,
             'note_type_id' => $note_type_id,
             'assignment_id' => $assignment_id,
             'zone_id' => $zone_id,
@@ -123,7 +125,9 @@ class NoteController extends Controller {
             'is_from_mobile' => $is_from_mobile
         ));
 
-        return $this->responseFactory->json($note);
+        $noteResponse = Note::with('note_type','client')->find($uuid);
+
+        return $this->responseFactory->json($noteResponse);
 	}
 
 	/**
