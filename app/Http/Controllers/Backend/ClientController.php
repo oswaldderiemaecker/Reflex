@@ -143,27 +143,27 @@ class ClientController extends Controller {
 
 
             if(!(is_null($attends_child) || $attends_child == '' || $attends_child == '0')){
-                $client->attends_child = '1';
+                $client->attends_child = true;
             }else{
-                $client->attends_child = '0';
+                $client->attends_child = false;
             }
 
             if(!(is_null($attends_teen) || $attends_teen == '' || $attends_teen == '0')){
-                $client->attends_teen = '1';
+                $client->attends_teen = true;
             }else{
-                $client->attends_teen = '0';
+                $client->attends_teen = false;
             }
 
             if(!(is_null($attends_adult) || $attends_adult == '' || $attends_adult == '0')){
-                $client->attends_adult = '1';
+                $client->attends_adult = true;
             }else{
-                $client->attends_adult = '0';
+                $client->attends_adult = false;
             }
 
             if(!(is_null($attends_old) || $attends_old == '' || $attends_old == '0')){
-                $client->attends_old = '1';
+                $client->attends_old = true;
             }else{
-                $client->attends_old = '0';
+                $client->attends_old = false;
             }
 
 
