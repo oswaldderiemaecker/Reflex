@@ -415,4 +415,19 @@ class VisitController extends Controller {
         })->export('xls');
     }
 
+    /**
+     * @param $clientId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function historical($clientId){
+
+        $records = DB::table('visits')->select(DB::raw('campaigns.code as campaign, visits.is_supervised,visits.start,
+        visits.visit_status_id'))
+            ->join('campaigns', 'visits.campaign_id', '=', 'campaigns.id')
+            ->where('visits.client_id','=',$clientId)
+            ->orderBy('visits.start')->get();
+
+        return $this->responseFactory->json($records);
+    }
+
 }
