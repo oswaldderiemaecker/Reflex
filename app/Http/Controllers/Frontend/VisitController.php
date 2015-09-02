@@ -425,7 +425,7 @@ class VisitController extends Controller {
         visits.visit_status_id'))
             ->join('campaigns', 'visits.campaign_id', '=', 'campaigns.id')
             ->where('visits.client_id','=',$clientId)
-            ->orderBy('visits.start')->get();
+            ->orderBy('campaigns.code')->get();
 
         return $this->responseFactory->json($records);
     }

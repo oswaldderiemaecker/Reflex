@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="31c19776-ac80-4cd0-8b2f-78d2e8788aeb" name="Default" comment="fix servicio web notas resultado de la nota con tipo">
+    <list default="true" id="31c19776-ac80-4cd0-8b2f-78d2e8788aeb" name="Default" comment="fix servicio web historical">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Frontend/VisitController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Frontend/VisitController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="reflex.iws" />
@@ -26,53 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NoteController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/NoteController.php">
+      <file leaf-file-name="ClientController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.791667">
-              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
-              <folding>
-                <marker date="1441208694000" expanded="false" signature="50:275" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VisitController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/VisitController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7451456">
-              <caret line="432" column="1" selection-start-line="432" selection-start-column="1" selection-end-line="432" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="26.25">
-              <caret line="47" column="16" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TargetController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/TargetController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5">
-              <caret line="132" column="30" selection-start-line="132" selection-start-column="30" selection-end-line="132" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RouteController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/RouteController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="47.208332">
-              <caret line="135" column="8" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="111" />
+            <state vertical-scroll-proportion="0.50970876">
+              <caret line="153" column="44" selection-start-line="153" selection-start-column="44" selection-end-line="153" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -140,7 +98,6 @@
         <option value="$PROJECT_DIR$/database/migrations/2015_03_11_162851_create_zones_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2015_08_14_114047_fix_assignment.php" />
         <option value="$PROJECT_DIR$/resources/views/frontend/visit/visit.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Frontend/ScheduleController.php" />
         <option value="$PROJECT_DIR$/database/seeds/data/specialties.csv" />
         <option value="$PROJECT_DIR$/database/seeds/SpecialtiesTableSeeder.php" />
@@ -156,6 +113,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Backend/NoteController.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Frontend/VisitController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php" />
       </list>
     </option>
   </component>
@@ -1790,7 +1748,13 @@
       <option name="project" value="LOCAL" />
       <updated>1441208749243</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="fix servicio web historical">
+      <created>1441214495532</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1441214495532</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -1869,7 +1833,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="webservice routes corrección para android" />
     <MESSAGE value="bugfixing rutas for routes" />
     <MESSAGE value="bugfixing rutas for routes 2" />
     <MESSAGE value="configuracion de los entornos de produccion" />
@@ -1894,7 +1857,8 @@
     <MESSAGE value="fix servicio web notas" />
     <MESSAGE value="fix servicio web notas date formated" />
     <MESSAGE value="fix servicio web notas resultado de la nota con tipo" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix servicio web notas resultado de la nota con tipo" />
+    <MESSAGE value="fix servicio web historical" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix servicio web historical" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
@@ -2238,13 +2202,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.756447">
-          <caret line="128" column="30" selection-start-line="128" selection-start-column="30" selection-end-line="128" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.8333333">
@@ -2296,14 +2253,14 @@
         <state vertical-scroll-proportion="-14.791667">
           <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
           <folding>
-            <marker date="1441208694000" expanded="false" signature="50:275" placeholder="..." />
+            <marker date="1441208694000" expanded="false" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/RouteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="47.208332">
+        <state vertical-scroll-proportion="-2.75">
           <caret line="135" column="8" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="111" />
           <folding />
         </state>
@@ -2311,7 +2268,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/TargetController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5">
+        <state vertical-scroll-proportion="0.4368932">
           <caret line="132" column="30" selection-start-line="132" selection-start-column="30" selection-end-line="132" selection-end-column="30" />
           <folding />
         </state>
@@ -2319,7 +2276,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="26.25">
+        <state vertical-scroll-proportion="-1.5291262">
           <caret line="47" column="16" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
           <folding />
         </state>
@@ -2327,8 +2284,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/VisitController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7451456">
-          <caret line="432" column="1" selection-start-line="432" selection-start-column="1" selection-end-line="432" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.59951454">
+          <caret line="428" column="0" selection-start-line="428" selection-start-column="0" selection-end-line="428" selection-end-column="0" />
+          <folding>
+            <element signature="e#51#60#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.50970876">
+          <caret line="153" column="44" selection-start-line="153" selection-start-column="44" selection-end-line="153" selection-end-column="44" />
           <folding />
         </state>
       </provider>
