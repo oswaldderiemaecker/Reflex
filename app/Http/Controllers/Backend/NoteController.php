@@ -115,7 +115,7 @@ class NoteController extends Controller {
             'campaign_id' => $campaign_id,
             'target_id' => $target_id,
             'client_id' => $client_id,
-            'date' => Carbon::createFromFormat('d/m/Y',$date),
+            'date' => Carbon::createFromFormat('d/m/Y',$date)->toDateTimeString(),
             'time' => $time,
             'title' => $title,
             'description' => $description,
