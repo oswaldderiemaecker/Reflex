@@ -215,9 +215,9 @@ class UserController extends Controller {
             $company_combo[$companie->id] = $companie->name;
         }
 
-        $edit->add('role_id','Rol','select')->options(Role::lists('name', 'id'));
+        $edit->add('role_id','Rol','select')->options(Role::lists('name', 'id')->toArray());
         $edit->add('company_id','Empresa','select')->options($company_combo)->rule('required');
-        $edit->add('sub_business_unit_id','Sub Unidad de Negocio', 'autocomplete')->options(SubBusinessUnit::lists('name', 'id'))->rule('required');
+        $edit->add('sub_business_unit_id','Sub Unidad de Negocio', 'autocomplete')->options(SubBusinessUnit::lists('name', 'id')->toArray())->rule('required');
         $edit->add('code','Código', 'text')->rule('required|max:6');
         $edit->add('firstname','Nombres', 'text')->rule('required|max:50');
         $edit->add('lastname','Apellidos', 'text')->rule('required|max:50');
