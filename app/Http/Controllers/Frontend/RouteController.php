@@ -172,12 +172,24 @@ class RouteController extends Controller {
 	{
         $start = $request->get('start',null,true);
         $end   = $request->get('end',null,true);
+        $point_of_contact = $request->get('point_of_contact',null,true);
 
         $route = Route::find($id);
-        $route->start = $start;
-        $route->end = $end;
+
+        if(!is_null($start)){
+            $route->start = $start;
+        }
+
+        if(!is_null($end)){
+            $route->end = $end;
+        }
+
+        if(!(is_null($point_of_contact))){
+            $route->point_of_contact = $point_of_contact;
+        }
 
         $route->save();
+
         return $this->responseFactory->json($route);
 	}
 

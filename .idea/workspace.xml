@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="31c19776-ac80-4cd0-8b2f-78d2e8788aeb" name="Default" comment="fix servicio web client actualizado para soportar attends desde android">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/UserController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/UserController.php" />
+    <list default="true" id="31c19776-ac80-4cd0-8b2f-78d2e8788aeb" name="Default" comment="fix formulario usuario administrador">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Frontend/RouteController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Frontend/RouteController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="reflex.iws" />
@@ -25,11 +25,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0942029">
-              <caret line="219" column="138" selection-start-line="219" selection-start-column="138" selection-end-line="219" selection-end-column="138" />
+            <state vertical-scroll-proportion="-4.0416665">
+              <caret line="163" column="6" selection-start-line="163" selection-start-column="6" selection-end-line="163" selection-end-column="6" />
+              <folding>
+                <marker date="1441293711000" expanded="false" signature="50:477" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RouteController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/RouteController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.526699">
+              <caret line="189" column="0" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -38,8 +50,8 @@
       <file leaf-file-name="ClientController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="60.875">
-              <caret line="164" column="18" selection-start-line="164" selection-start-column="18" selection-end-line="164" selection-end-column="18" />
+            <state vertical-scroll-proportion="-6.5416665">
+              <caret line="150" column="6" selection-start-line="150" selection-start-column="6" selection-end-line="154" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -112,7 +124,6 @@
         <option value="$PROJECT_DIR$/database/seeds/SpecialtiesTableSeeder.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Backend/SpecialtyController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Backend/TargetController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Frontend/RouteController.php" />
         <option value="$PROJECT_DIR$/app/Models/Route.php" />
         <option value="$PROJECT_DIR$/resources/views/frontend/home.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Frontend/HomeController.php" />
@@ -123,6 +134,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Frontend/VisitController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Backend/UserController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Frontend/RouteController.php" />
       </list>
     </option>
   </component>
@@ -1791,7 +1803,13 @@
       <option name="project" value="LOCAL" />
       <updated>1441227607143</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="fix formulario usuario administrador">
+      <created>1441293798883</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1441293798883</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -1807,15 +1825,16 @@
     <frame x="0" y="23" width="1440" height="852" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970026" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32401812" sideWeight="0.19068736" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3668478" sideWeight="0.47281832" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3678474" sideWeight="0.47281832" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3255814" sideWeight="0.49697885" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24924472" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29041487" sideWeight="0.80931264" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3247734" sideWeight="0.19068736" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3668478" sideWeight="0.5271817" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3678474" sideWeight="0.5271817" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32288828" sideWeight="0.49713877" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869565" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1823,7 +1842,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3980978" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970026" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38615385" sideWeight="0.6163142" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1870,7 +1888,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="configuracion de los entornos de produccion" />
     <MESSAGE value="configuracion de los entornos de produccion parte 2" />
     <MESSAGE value="fixed redis for production connection" />
     <MESSAGE value="fixed redis for production connection environment" />
@@ -1895,7 +1912,8 @@
     <MESSAGE value="fix servicio web historical" />
     <MESSAGE value="fix servicio web update client child value" />
     <MESSAGE value="fix servicio web client actualizado para soportar attends desde android" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix servicio web client actualizado para soportar attends desde android" />
+    <MESSAGE value="fix formulario usuario administrador" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix formulario usuario administrador" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
@@ -2276,25 +2294,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/RouteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.75">
-          <caret line="135" column="8" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="111" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/TargetController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4368932">
           <caret line="132" column="30" selection-start-line="132" selection-start-column="30" selection-end-line="132" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/VisitController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59951454">
-          <caret line="428" column="0" selection-start-line="428" selection-start-column="0" selection-end-line="428" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2313,18 +2316,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="60.875">
-          <caret line="164" column="18" selection-start-line="164" selection-start-column="18" selection-end-line="164" selection-end-column="18" />
+        <state vertical-scroll-proportion="-4.0416665">
+          <caret line="163" column="6" selection-start-line="163" selection-start-column="6" selection-end-line="163" selection-end-column="6" />
+          <folding>
+            <marker date="1441293711000" expanded="false" signature="50:477" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/VisitController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.830097">
+          <caret line="428" column="0" selection-start-line="428" selection-start-column="0" selection-end-line="428" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/UserController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/ClientController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0942029">
-          <caret line="219" column="138" selection-start-line="219" selection-start-column="138" selection-end-line="219" selection-end-column="138" />
+        <state vertical-scroll-proportion="-6.5416665">
+          <caret line="150" column="6" selection-start-line="150" selection-start-column="6" selection-end-line="154" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/RouteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.526699">
+          <caret line="189" column="0" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
           <folding />
         </state>
       </provider>
