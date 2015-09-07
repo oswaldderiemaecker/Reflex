@@ -25,7 +25,7 @@
                             success: function(result) {
                                 toastr.success('Se elimino la visita correctamente!');
                                 setTimeout(function(){
-                                    window.location.replace("/frontend/visitas");
+                                    //window.location.replace("/frontend/visitas");
                                 }, 3000);
 
 

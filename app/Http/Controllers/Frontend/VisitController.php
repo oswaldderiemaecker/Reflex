@@ -278,9 +278,9 @@ class VisitController extends Controller {
             $cmp             = $request->get('cmp',null,true);
             $firstname       = $request->get('firstname',null,true);
             $lastname        = $request->get('lastname',null,true);
-            $is_supervised   = $request->get('is_supervised',0,true);
-            $is_from_mobile  = $request->get('is_from_mobile',0,true);
-            $active          = 0;
+            $is_supervised   = $request->get('is_supervised',false,true);
+            $is_from_mobile  = $request->get('is_from_mobile',false,true);
+            $active          = false;
             $longitude       = $request->get('longitude',null,true);
             $latitude        = $request->get('latitude',null,true);
 
@@ -289,10 +289,6 @@ class VisitController extends Controller {
             $visit->visit_type_id   = $visit_type_id;
             $visit->visit_status_id = $visit_status_id;
             $visit->reason_id       = $reason_id;
-            $visit->zone_id = $target->assignment->zone_id;
-            $visit->user_id = $target->assignment->user_id;
-            $visit->campaign_id     = $target->campaign_id;
-            $visit->target_id       = $target->id;
             $visit->specialty_id    = $target->client->specialty_base_id;
             $visit->client_id       = $target->client_id;
             $visit->start           = $start;
@@ -301,8 +297,8 @@ class VisitController extends Controller {
             $visit->cmp             = $cmp;
             $visit->firstname       = $firstname;
             $visit->lastname        = $lastname;
-            $visit->is_supervised   = $is_supervised;
-            $visit->is_from_mobile  = $is_from_mobile;
+            $visit->is_supervised   = false;
+            $visit->is_from_mobile  = false;
             $visit->active          = $active;
             $visit->longitude       = $longitude;
             $visit->latitude        = $latitude;
