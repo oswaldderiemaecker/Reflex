@@ -25,30 +25,6 @@ class VisitController extends Controller {
         $this->responseFactory = $responseFactory;
     }
 
-    /**
-     * @param $companyId
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function social($companyId){
-
-        $records = DB::table('visits')->select(DB::raw('visits.uuid,users.closeup_name as user, users.photo,
-                clients.code as cmp,clients.closeup_name as client,
-                visits.start,visits.end,visits.is_supervised,locations.name as location,
-                specialties.code as specialty,visits.latitude, visits.longitude'))
-            ->join('targets', 'visits.target_id', '=', 'targets.id')
-            ->join('users', 'visits.user_id', '=', 'users.id')
-            ->join('clients', 'targets.client_id', '=', 'clients.id')
-            ->join('locations', 'clients.location_id', '=', 'locations.id')
-            ->join('specialties', 'clients.specialty_base_id', '=', 'specialties.id')
-            ->where('targets.company_id','=',$companyId)
-            ->where('visits.visit_status_id','=',2)
-            ->whereRaw('Extract(DAY from visits.start) = Extract(DAY from now()) ')
-            ->whereRaw('Extract(YEAR from visits.start) = Extract(YEAR from now()) ')
-            ->whereRaw('Extract(MONTH from visits.start) = Extract(MONTH from now()) ')
-            ->orderBy('visits.start')->get();
-
-        return $this->responseFactory->json($records);
-    }
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -201,27 +177,39 @@ class VisitController extends Controller {
 	 */
 	public function update(Request $request, $id)
 	{
-        $route_uuid      = $request->get('route_uuid',null,true);
-        $visit_type_id   = $request->get('visit_type_id',null,true);
-        $visit_status_id = $request->get('visit_status_id',null,true);
+        //$route_uuid      = $request->get('route_uuid',null,true);
+        //$visit_type_id   = $request->get('visit_type_id',null,true);
+        //$visit_status_id = $request->get('visit_status_id',null,true);
         $reason_id       = $request->get('reason_id',null,true);
-        $start           = $request->get('start',null,true);
-        $end             = $request->get('end',null,true);
-        $supervisor      = $request->get('supervisor',null,true);
+        //$start           = $request->get('start',null,true);
+        //$end             = $request->get('end',null,true);
+        //$supervisor      = $request->get('supervisor',null,true);
         $description     = $request->get('description',null,true);
-        $cmp             = $request->get('cmp',null,true);
-        $firstname       = $request->get('firstname',null,true);
-        $lastname        = $request->get('lastname',null,true);
+        //$cmp             = $request->get('cmp',null,true);
+        //$firstname       = $request->get('firstname',null,true);
+        //$lastname        = $request->get('lastname',null,true);
         $is_supervised   = $request->get('is_supervised',null,true);
-        $is_from_mobile  = $request->get('is_from_mobile',null,true);
-        $active          = $request->get('active',null,true);
-        $longitude       = $request->get('longitude',null,true);
-        $latitude        = $request->get('latitude',null,true);
+        //$is_from_mobile  = $request->get('is_from_mobile',null,true);
+        //$active          = $request->get('active',null,true);
+        //$longitude       = $request->get('longitude',null,true);
+        //$latitude        = $request->get('latitude',null,true);
 
         $visit = Visit::with('client','client.location','client.category','client.place')->find($id);
 
-        $target = Target::with('client')->find($visit->target_id);
+        //$target = Target::with('client')->find($visit->target_id);
 
+        if(!is_null($reason_id)){
+            $visit->reason_id = $reason_id;
+        }
+
+        if(!is_null($is_supervised)){
+            $visit->is_supervised = $is_supervised;
+        }
+
+        if(!is_null($description)){
+            $visit->description = $description;
+        }
+/*
         $visit->route_uuid      = $route_uuid;
         $visit->visit_type_id   = $visit_type_id;
         $visit->visit_status_id = $visit_status_id;
@@ -244,7 +232,7 @@ class VisitController extends Controller {
         $visit->active          = $active;
         $visit->longitude       = $longitude;
         $visit->latitude        = $latitude;
-
+*/
         $visit->save();
 
         return $this->responseFactory->json($visit);
@@ -422,6 +410,31 @@ class VisitController extends Controller {
             ->join('campaigns', 'visits.campaign_id', '=', 'campaigns.id')
             ->where('visits.client_id','=',$clientId)
             ->orderBy('campaigns.code')->get();
+
+        return $this->responseFactory->json($records);
+    }
+
+    /**
+     * @param $companyId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function social($companyId){
+
+        $records = DB::table('visits')->select(DB::raw('visits.uuid,users.closeup_name as user, users.photo,
+                clients.code as cmp,clients.closeup_name as client,
+                visits.start,visits.end,visits.is_supervised,locations.name as location,
+                specialties.code as specialty,visits.latitude, visits.longitude'))
+            ->join('targets', 'visits.target_id', '=', 'targets.id')
+            ->join('users', 'visits.user_id', '=', 'users.id')
+            ->join('clients', 'targets.client_id', '=', 'clients.id')
+            ->join('locations', 'clients.location_id', '=', 'locations.id')
+            ->join('specialties', 'clients.specialty_base_id', '=', 'specialties.id')
+            ->where('targets.company_id','=',$companyId)
+            ->where('visits.visit_status_id','=',2)
+            ->whereRaw('Extract(DAY from visits.start) = Extract(DAY from now()) ')
+            ->whereRaw('Extract(YEAR from visits.start) = Extract(YEAR from now()) ')
+            ->whereRaw('Extract(MONTH from visits.start) = Extract(MONTH from now()) ')
+            ->orderBy('visits.start')->get();
 
         return $this->responseFactory->json($records);
     }
