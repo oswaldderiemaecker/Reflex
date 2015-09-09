@@ -18,11 +18,13 @@ class ScheduleController extends Controller {
         $this->schedule = $schedule;
         $this->responseFactory = $responseFactory;
     }
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
 	public function index(Request $request)
 	{
         $client_id = $request->get('client_id',null,true);

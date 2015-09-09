@@ -177,22 +177,22 @@ class VisitController extends Controller {
 	 */
 	public function update(Request $request, $id)
 	{
-        //$route_uuid      = $request->get('route_uuid',null,true);
-        //$visit_type_id   = $request->get('visit_type_id',null,true);
-        //$visit_status_id = $request->get('visit_status_id',null,true);
+        $route_uuid      = $request->get('route_uuid',null,true);
+        $visit_type_id   = $request->get('visit_type_id',null,true);
+        $visit_status_id = $request->get('visit_status_id',null,true);
         $reason_id       = $request->get('reason_id',null,true);
-        //$start           = $request->get('start',null,true);
-        //$end             = $request->get('end',null,true);
-        //$supervisor      = $request->get('supervisor',null,true);
+        $start           = $request->get('start',null,true);
+        $end             = $request->get('end',null,true);
+        $supervisor      = $request->get('supervisor',null,true);
         $description     = $request->get('description',null,true);
-        //$cmp             = $request->get('cmp',null,true);
-        //$firstname       = $request->get('firstname',null,true);
-        //$lastname        = $request->get('lastname',null,true);
+        $cmp             = $request->get('cmp',null,true);
+        $firstname       = $request->get('firstname',null,true);
+        $lastname        = $request->get('lastname',null,true);
         $is_supervised   = $request->get('is_supervised',null,true);
-        //$is_from_mobile  = $request->get('is_from_mobile',null,true);
-        //$active          = $request->get('active',null,true);
-        //$longitude       = $request->get('longitude',null,true);
-        //$latitude        = $request->get('latitude',null,true);
+        $is_from_mobile  = $request->get('is_from_mobile',null,true);
+        $active          = $request->get('active',null,true);
+        $longitude       = $request->get('longitude',null,true);
+        $latitude        = $request->get('latitude',null,true);
 
         $visit = Visit::with('client','client.location','client.category','client.place')->find($id);
 
@@ -209,30 +209,66 @@ class VisitController extends Controller {
         if(!is_null($description)){
             $visit->description = $description;
         }
-/*
-        $visit->route_uuid      = $route_uuid;
-        $visit->visit_type_id   = $visit_type_id;
-        $visit->visit_status_id = $visit_status_id;
-        $visit->reason_id       = $reason_id;
+
+        if(!is_null($route_uuid)) {
+            $visit->route_uuid = $route_uuid;
+        }
+        if(!is_null($visit_type_id)) {
+            $visit->visit_type_id = $visit_type_id;
+        }
+
+        if(!is_null($visit_status_id)) {
+            $visit->visit_status_id = $visit_status_id;
+        }
+        if(!is_null($reason_id)) {
+            $visit->reason_id = $reason_id;
+        }
+
         $visit->zone_id = $target->assignment->zone_id;
         $visit->user_id = $target->assignment->user_id;
         $visit->campaign_id     = $target->campaign_id;
         $visit->target_id       = $target->id;
         $visit->specialty_id    = $target->client->specialty_base_id;
         $visit->client_id       = $target->client_id;
-        $visit->start           = $start;
-        $visit->end             = $end;
-        $visit->supervisor      = $supervisor;
-        $visit->description     = $description;
-        $visit->cmp             = $cmp;
-        $visit->firstname       = $firstname;
-        $visit->lastname        = $lastname;
-        $visit->is_supervised   = $is_supervised;
-        $visit->is_from_mobile  = $is_from_mobile;
-        $visit->active          = $active;
-        $visit->longitude       = $longitude;
-        $visit->latitude        = $latitude;
-*/
+
+        if(!is_null($start)) {
+            $visit->start = $start;
+        }
+
+        if(!is_null($end)) {
+            $visit->end = $end;
+        }
+        if(!is_null($supervisor)) {
+            $visit->supervisor = $supervisor;
+        }
+        if(!is_null($description)) {
+            $visit->description = $description;
+        }
+        if(!is_null($cmp)) {
+            $visit->cmp = $cmp;
+        }
+        if(!is_null($firstname)) {
+            $visit->firstname = $firstname;
+        }
+        if(!is_null($lastname)) {
+            $visit->lastname = $lastname;
+        }
+        if(!is_null($is_supervised)) {
+            $visit->is_supervised = $is_supervised;
+        }
+        if(!is_null($is_from_mobile)) {
+            $visit->is_from_mobile = $is_from_mobile;
+        }
+        if(!is_null($active)) {
+            $visit->active = $active;
+        }
+        if(!is_null($longitude)) {
+            $visit->longitude = $longitude;
+        }
+        if(!is_null($latitude)) {
+            $visit->latitude = $latitude;
+        }
+
         $visit->save();
 
         return $this->responseFactory->json($visit);
