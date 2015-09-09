@@ -196,18 +196,10 @@ class VisitController extends Controller {
 
         $visit = Visit::with('client','client.location','client.category','client.place')->find($id);
 
-        //$target = Target::with('client')->find($visit->target_id);
+        $target = Target::with('client')->find($visit->target_id);
 
         if(!(is_null($reason_id) || $reason_id == '0')){
             $visit->reason_id = $reason_id;
-        }
-
-        if(!is_null($is_supervised)){
-            $visit->is_supervised = $is_supervised;
-        }
-
-        if(!is_null($description)){
-            $visit->description = $description;
         }
 
         if(!is_null($route_uuid)) {
