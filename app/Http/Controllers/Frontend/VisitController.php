@@ -198,7 +198,7 @@ class VisitController extends Controller {
 
         $target = Target::with('client')->find($visit->target_id);
 
-        if(!(is_null($reason_id) || $reason_id == '0')){
+        if(!(is_null($reason_id) || $reason_id == 0)){
             $visit->reason_id = $reason_id;
         }
 
