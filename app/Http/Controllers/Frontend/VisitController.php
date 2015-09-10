@@ -198,7 +198,7 @@ class VisitController extends Controller {
 
         $target = Target::with('client')->find($visit->target_id);
 
-        if(!(is_null($reason_id) || $reason_id == 0)){
+        if(!(is_null($reason_id) || ($reason_id == 0))){
             $visit->reason_id = $reason_id;
         }
 
@@ -211,9 +211,6 @@ class VisitController extends Controller {
 
         if(!is_null($visit_status_id)) {
             $visit->visit_status_id = $visit_status_id;
-        }
-        if(!is_null($reason_id)) {
-            $visit->reason_id = $reason_id;
         }
 
         $visit->zone_id = $target->assignment->zone_id;
