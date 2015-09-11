@@ -340,14 +340,14 @@ class RouteController extends Controller {
         }
 
         //FIXME: Change Extract(month from created_at) to MONTH(created_at) if you use Mysql
-        if(!(is_null($month) || $month == '')){
-            $data->where(DB::raw('Extract(month from created_at)'),'=',$month);
-        }
+        //if(!(is_null($month) || $month == '')){
+        //    $data->where(DB::raw('Extract(month from created_at)'),'=',$month);
+        //}
 
         //FIXME: Change Extract(year from created_at) to YEAR(created_at) if you use Mysql
-        if(!(is_null($year) || $year == '')){
-            $data->where(DB::raw('Extract(YEAR from created_at)'),'=',$year);
-        }
+        //if(!(is_null($year) || $year == '')){
+        //    $data->where(DB::raw('Extract(YEAR from created_at)'),'=',$year);
+        //}
 
         if(!(is_null($point_of_contact) || $point_of_contact == '')){
             $data->where('point_of_contact','=',$point_of_contact);
@@ -358,8 +358,6 @@ class RouteController extends Controller {
                 $q->where('closeup_name','LIKE','%'.strtoupper($query_in).'%');
             });
         }
-
-        $data->whereNull('deleted_at');
 
         return $data->get()->toJson();
     }
