@@ -1,7 +1,13 @@
 {
   "name": "davidjoan/Reflex",
   "description": "The Ligth CRM for pharmacauticals.",
-  "keywords": ["php", "laravel","postgres","redis"],
+  "keywords": ["php", "laravel","postgres","redis","visits","routes"],
+  "authors": [
+    {
+      "name": "David Joan",
+      "email": "new.skin007@gmail.com"
+    }
+  ],
   "license": "MIT",
   "type": "project",
   "minimum-stability": "stable",
